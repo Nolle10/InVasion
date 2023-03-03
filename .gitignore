@@ -22,6 +22,7 @@
 /*/target/
 /*/*/target/
 /*/.idea
+/.idea/workspace.xml
 *.iml
 .DS_Store
 *.jar
