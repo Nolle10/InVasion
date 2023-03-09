@@ -9,6 +9,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>Core</module>
+        <module>Common</module>
     </modules>
 
     <properties>
