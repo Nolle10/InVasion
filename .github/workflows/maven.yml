@@ -32,4 +32,4 @@ jobs:
     - name: Run tests
       uses: actions/setup-java@v3
       with:
-        command: mvn test
+        command: mvn -B test --file pom.xml
