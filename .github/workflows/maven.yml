@@ -30,7 +30,6 @@ jobs:
     - name: Build with Maven
       run: mvn -B package --file pom.xml
     - name: Run tests
-      uses: actions/setup-java@v3
       with:
         distribution: 'temurin'
         java-version: '16'
