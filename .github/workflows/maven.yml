@@ -32,4 +32,5 @@ jobs:
     - name: Run tests
       uses: actions/setup-java@v3
       with:
-        command: mvn -B test --file pom.xml
+        distribution: 'temurin'
+      command: mvn -B test --file pom.xml
