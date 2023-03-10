@@ -33,5 +33,4 @@ jobs:
       with:
         java-version: '16'
         distribution: 'temurin'
-
       run: mvn -B test --file pom.xml
