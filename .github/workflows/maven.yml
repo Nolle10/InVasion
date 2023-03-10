@@ -33,4 +33,5 @@ jobs:
       uses: actions/setup-java@v3
       with:
         distribution: 'temurin'
+        java-version: '16'
         command: mvn -B test --file pom.xml
