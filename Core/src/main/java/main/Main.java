@@ -10,10 +10,11 @@ public class Main {
         LwjglApplicationConfiguration cfg =
                 new LwjglApplicationConfiguration();
         cfg.title = "InVasion";
-        cfg.width = 500;
-        cfg.height = 400;
+        cfg.width = 1920;
+        cfg.height = 1080;
         cfg.useGL30 = false;
         cfg.resizable = false;
+
 
         new LwjglApplication(new Game(), cfg);
 

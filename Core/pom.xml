@@ -57,6 +57,7 @@
             <version>${libgdx.version}</version>
             <scope>compile</scope>
         </dependency>
+
     </dependencies>
 
 
