@@ -5,7 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ebd17ca3-a514-436c-98f4-e1d0698bfbed" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Player/src/main/java/Player.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AI/src/main/java/AIPacakge/AIPluginService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AI/src/main/resources/text.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AI/src/test/java/AITest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Bullet/src/main/java/bulletpacakge/Bullet.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Bullet/src/main/resources/text.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Bullet/src/test/java/BulletTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Collision/src/main/java/CollisionPlugin.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Collision/src/main/resources/text.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Collision/src/test/java/OxygenTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Oxygen/src/main/java/Oxygen.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Oxygen/src/main/resources/text.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Oxygen/src/test/java/TestOxygen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AI/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/AI/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bullet/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Bullet/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Collision/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Collision/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
