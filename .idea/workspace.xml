@@ -4,7 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ebd17ca3-a514-436c-98f4-e1d0698bfbed" name="Changes" comment="" />
+    <list default="true" id="ebd17ca3-a514-436c-98f4-e1d0698bfbed" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/Bullet/src/main/java/bulletpackage/BulletPlugin.java" beforeDir="false" afterPath="$PROJECT_DIR$/Bullet/src/main/java/bulletpackage/BulletPlugin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Collision/src/main/java/collisionpacakge/CollisionPlugin.java" beforeDir="false" afterPath="$PROJECT_DIR$/Collision/src/main/java/collisionpacakge/CollisionPlugin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Oxygen/src/main/java/oxygenpackage/OxygenPlugin.java" beforeDir="false" afterPath="$PROJECT_DIR$/Oxygen/src/main/java/oxygenpackage/OxygenPlugin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Player/src/main/java/playerpackage/PlayerPlugin.java" beforeDir="false" afterPath="$PROJECT_DIR$/Player/src/main/java/playerpackage/PlayerPlugin.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -100,7 +105,7 @@
       <workItem from="1679049645792" duration="1707000" />
       <workItem from="1679054536787" duration="1221000" />
       <workItem from="1679055783155" duration="389000" />
-      <workItem from="1679056192845" duration="999000" />
+      <workItem from="1679056192845" duration="1246000" />
     </task>
     <servers />
   </component>
