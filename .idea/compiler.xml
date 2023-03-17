@@ -6,11 +6,18 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="Common (1)" />
+        <module name="Core (1)" />
         <module name="Core" />
+        <module name="Common" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="Common" target="16" />
+      <module name="Common (1)" target="16" />
       <module name="Core" target="11" />
+      <module name="Core (1)" target="11" />
+      <module name="invasion" target="11" />
     </bytecodeTargetLevel>
   </component>
 </project>
