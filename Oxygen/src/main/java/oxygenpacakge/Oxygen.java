@@ -1,2 +1,4 @@
-package oxygenpacakge;public class Oxygen {
+package oxygenpacakge;
+
+public class Oxygen {
 }
