@@ -1,10 +1,8 @@
-package mapPackage;
+package mappackage;
 
 import com.badlogic.gdx.graphics.Color;
 import data.Entity;
 import org.junit.jupiter.params.shadow.com.univocity.parsers.common.processor.core.ColumnOrderDependent;
-
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 import java.util.ArrayList;
 
