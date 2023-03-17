@@ -1,10 +1,10 @@
 package services;
 
-import data.Data;
+import data.GameData;
 import data.World;
 
 public interface PluginService {
-    void onEnable(Data data, World world);
+    void onEnable(GameData data, World world);
 
-    void onDisable(Data data, World world);
+    void onDisable(GameData data, World world);
 }

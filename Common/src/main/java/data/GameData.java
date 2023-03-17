@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-public class Data {
+public class GameData {
     private float delta;
     private int displayWidth;
     private int displayHeight;
