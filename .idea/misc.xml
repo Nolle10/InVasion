@@ -4,6 +4,15 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/Core/pom.xml" />
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/Common/pom.xml" />
+        <option value="$PROJECT_DIR$/Player/pom.xml" />
+        <option value="$PROJECT_DIR$/Enemy/pom.xml" />
+        <option value="$PROJECT_DIR$/Map/pom.xml" />
+        <option value="$PROJECT_DIR$/Bullet/pom.xml" />
+        <option value="$PROJECT_DIR$/Collision/pom.xml" />
+        <option value="$PROJECT_DIR$/AI/pom.xml" />
+        <option value="$PROJECT_DIR$/Oxygen/pom.xml" />
       </list>
     </option>
   </component>
