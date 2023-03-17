@@ -13,11 +13,18 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="AI" target="16" />
+      <module name="Bullet" target="16" />
+      <module name="Collision" target="16" />
       <module name="Common" target="16" />
       <module name="Common (1)" target="16" />
       <module name="Core" target="11" />
       <module name="Core (1)" target="11" />
+      <module name="Enemy" target="16" />
       <module name="invasion" target="11" />
+      <module name="Map" target="16" />
+      <module name="Oxygen" target="16" />
+      <module name="Player" target="16" />
     </bytecodeTargetLevel>
   </component>
 </project>
