@@ -16,6 +16,7 @@
         <module>Enemy</module>
         <module>Oxygen</module>
         <module>Player</module>
+        <module>Map</module>
     </modules>
 
     <properties>

@@ -1,4 +1,4 @@
-package mappackage;
+package mapPackage;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
