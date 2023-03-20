@@ -7,6 +7,10 @@ import services.PluginService;
 public class PlayerPlugin implements PluginService {
     private Entity player;
 
+    public PlayerPlugin(){
+
+    }
+
     private Entity createPlayer(GameData gameData){
         float[] floats = {10,10,10,10};
         Entity playerTower = new Player();

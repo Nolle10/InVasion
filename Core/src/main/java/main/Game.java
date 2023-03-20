@@ -41,6 +41,10 @@ public class Game implements ApplicationListener {
 
         gsm = new GameStateManager();
 
+        for(PluginService gamePlugin : getPluginServices()){
+            gamePlugin.onEnable(gameData, world);
+        }
+
     }
 
     public void render() {
