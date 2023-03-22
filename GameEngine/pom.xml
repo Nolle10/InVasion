@@ -9,7 +9,7 @@
         <artifactId>invasion</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    <artifactId>Core</artifactId>
+    <artifactId>GameEngine</artifactId>
 
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
