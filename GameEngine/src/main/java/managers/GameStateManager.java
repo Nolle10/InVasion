@@ -3,12 +3,14 @@ package managers;
 
 import gamestates.GameState;
 import gamestates.PlayState;
+import data.GameData;
 
 public class GameStateManager {
 
     // current game state
     private GameState gameState;
 
+    private GameData gameData;
     public static final int MENU = 0;
     public static final int PLAY = 893746;
 
