@@ -1,9 +1,10 @@
-package managers;
+package dk.sdu.se.f23.InVasion.managers;
 
 
-import gamestates.GameState;
-import gamestates.PlayState;
-import data.GameData;
+import dk.sdu.se.f23.InVasion.common.data.GameData;
+import dk.sdu.se.f23.InVasion.gamestates.GameState;
+import dk.sdu.se.f23.InVasion.gamestates.PlayState;
+
 
 public class GameStateManager {
 

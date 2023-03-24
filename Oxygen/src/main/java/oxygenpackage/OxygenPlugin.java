@@ -1,7 +1,7 @@
 package oxygenpackage;
-import data.GameData;
-import data.World;
-import services.PluginService;
+import dk.sdu.se.f23.InVasion.data.GameData;
+import dk.sdu.se.f23.InVasion.data.World;
+import dk.sdu.se.f23.InVasion.services.PluginService;
 public class OxygenPlugin implements PluginService{
     @Override
     public void onEnable(GameData data, World world) {

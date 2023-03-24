@@ -1,6 +1,6 @@
-package dk.sdu.se.f23.InVasion.data;
+package dk.sdu.se.f23.InVasion.common.data;
 
-import dk.sdu.se.f23.InVasion.events.Event;
+import dk.sdu.se.f23.InVasion.common.events.Event;
 
 import java.util.ArrayList;
 import java.util.List;

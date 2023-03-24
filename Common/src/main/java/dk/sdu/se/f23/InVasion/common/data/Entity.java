@@ -1,6 +1,6 @@
-package dk.sdu.se.f23.InVasion.data;
+package dk.sdu.se.f23.InVasion.common.data;
 
-import dk.sdu.se.f23.InVasion.data.entityparts.EntityPart;
+import dk.sdu.se.f23.InVasion.common.data.entityparts.EntityPart;
 
 import java.util.Map;
 import java.util.UUID;

@@ -1,5 +1,4 @@
-package main;
-
+package dk.sdu.se.f23.InVasion.main;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 

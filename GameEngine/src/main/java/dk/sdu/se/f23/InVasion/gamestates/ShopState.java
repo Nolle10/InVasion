@@ -1,8 +1,8 @@
-package gamestates;
+package dk.sdu.se.f23.InVasion.gamestates;
 
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import managers.GameStateManager;
+import dk.sdu.se.f23.InVasion.managers.GameStateManager;
 
 public class ShopState extends GameState {
     private ShapeRenderer sr;

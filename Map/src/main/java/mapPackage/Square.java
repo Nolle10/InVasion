@@ -1,8 +1,7 @@
 package mappackage;
 
 import com.badlogic.gdx.graphics.Color;
-import data.Entity;
-import org.junit.jupiter.params.shadow.com.univocity.parsers.common.processor.core.ColumnOrderDependent;
+import dk.sdu.se.f23.InVasion.data.Entity;
 
 import java.util.ArrayList;
 

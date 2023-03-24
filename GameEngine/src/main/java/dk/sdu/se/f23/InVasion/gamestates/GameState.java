@@ -1,7 +1,7 @@
-package gamestates;
+package dk.sdu.se.f23.InVasion.gamestates;
 
 import com.badlogic.gdx.InputAdapter;
-import managers.GameStateManager;
+import dk.sdu.se.f23.InVasion.managers.GameStateManager;
 
 public abstract class GameState extends InputAdapter {
 

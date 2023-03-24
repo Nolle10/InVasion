@@ -1,8 +1,8 @@
-package dk.sdu.se.f23.InVasion.data.entityparts;
+package dk.sdu.se.f23.InVasion.common.data.entityparts;
 
-import dk.sdu.se.f23.InVasion.data.GameData;
-import dk.sdu.se.f23.InVasion.data.Point;
-import dk.sdu.se.f23.InVasion.data.World;
+import dk.sdu.se.f23.InVasion.common.data.Entity;
+import dk.sdu.se.f23.InVasion.common.data.GameData;
+import dk.sdu.se.f23.InVasion.common.data.Point;
 
 public class PositionPart implements EntityPart{
     private Point pos;
@@ -12,7 +12,7 @@ public class PositionPart implements EntityPart{
     }
 
     @Override
-    public void process(GameData data, World world) {
+    public void process(GameData data, Entity entity) {
 
     }
 }
