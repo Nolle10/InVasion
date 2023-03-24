@@ -1,5 +1,6 @@
 package data.entityparts;
 
+import data.Entity;
 import data.GameData;
 import data.Point;
 import data.World;
@@ -14,7 +15,7 @@ public class MovingPart implements EntityPart{
     }
 
     @Override
-    public void process(GameData data, World world) {
+    public void process(GameData data, Entity entity) {
 
     }
 
