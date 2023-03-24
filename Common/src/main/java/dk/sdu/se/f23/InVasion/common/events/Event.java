@@ -1,6 +1,6 @@
-package events;
+package dk.sdu.se.f23.InVasion.events;
 
-import data.Entity;
+import dk.sdu.se.f23.InVasion.data.Entity;
 
 import java.io.Serializable;
 

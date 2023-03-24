@@ -1,4 +1,4 @@
-package data;
+package dk.sdu.se.f23.InVasion.data;
 
 public class Point {
     private int x;

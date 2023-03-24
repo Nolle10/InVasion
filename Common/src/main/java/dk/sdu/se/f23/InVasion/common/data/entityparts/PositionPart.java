@@ -1,8 +1,8 @@
-package data.entityparts;
+package dk.sdu.se.f23.InVasion.data.entityparts;
 
-import data.GameData;
-import data.Point;
-import data.World;
+import dk.sdu.se.f23.InVasion.data.GameData;
+import dk.sdu.se.f23.InVasion.data.Point;
+import dk.sdu.se.f23.InVasion.data.World;
 
 public class PositionPart implements EntityPart{
     private Point pos;

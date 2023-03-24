@@ -1,8 +1,8 @@
-package services;
+package dk.sdu.se.f23.InVasion.services;
 
-import data.GameData;
-import data.ProcessAt;
-import data.World;
+import dk.sdu.se.f23.InVasion.data.GameData;
+import dk.sdu.se.f23.InVasion.data.ProcessAt;
+import dk.sdu.se.f23.InVasion.data.World;
 
 public interface EntityProcessingService {
     @Deprecated

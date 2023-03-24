@@ -1,4 +1,4 @@
-package data;
+package dk.sdu.se.f23.InVasion.data;
 
 import java.util.ArrayList;
 import java.util.Collection;
