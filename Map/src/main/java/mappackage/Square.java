@@ -1,7 +1,7 @@
 package mappackage;
 
 import com.badlogic.gdx.graphics.Color;
-import dk.sdu.se.f23.InVasion.data.Entity;
+import dk.sdu.se.f23.InVasion.common.data.Entity;
 
 import java.util.ArrayList;
 

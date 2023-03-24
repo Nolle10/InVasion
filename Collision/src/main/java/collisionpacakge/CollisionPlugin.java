@@ -1,8 +1,8 @@
 package collisionpacakge;
 
-import dk.sdu.se.f23.InVasion.data.GameData;
-import dk.sdu.se.f23.InVasion.data.World;
-import dk.sdu.se.f23.InVasion.services.PluginService;
+import dk.sdu.se.f23.InVasion.common.data.GameData;
+import dk.sdu.se.f23.InVasion.common.data.World;
+import dk.sdu.se.f23.InVasion.common.services.PluginService;
 
 public class CollisionPlugin implements PluginService {
     @Override
