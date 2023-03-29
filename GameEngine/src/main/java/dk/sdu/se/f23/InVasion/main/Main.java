@@ -1,21 +1,16 @@
 package dk.sdu.se.f23.InVasion.main;
-import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
-import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 
 public class Main {
 
     public static void main(String[] args) {
 
-        LwjglApplicationConfiguration cfg =
-                new LwjglApplicationConfiguration();
-        cfg.title = "InVasion";
-        cfg.width = 1920;
-        cfg.height = 1080;
-        cfg.useGL30 = false;
-        cfg.resizable = false;
+        Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
+        config.setTitle("Asteroids");
+        config.setWindowSizeLimits(1000,600,1000,600);
 
-
-        new LwjglApplication(new Game(), cfg);
+        new Lwjgl3Application(new Game(), config);
 
     }
 }

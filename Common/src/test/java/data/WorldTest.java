@@ -1,7 +1,8 @@
 package data;
 
-import dk.sdu.se.f23.InVasion.data.Entity;
-import dk.sdu.se.f23.InVasion.data.World;
+
+import dk.sdu.se.f23.InVasion.common.data.Entity;
+import dk.sdu.se.f23.InVasion.common.data.World;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

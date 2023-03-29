@@ -29,7 +29,7 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>dk.sdu.se.f23.InVasion</groupId>
+                <groupId>dk.sdu.mmmi.cbse</groupId>
                 <artifactId>shadedlibgdx</artifactId>
                 <version>1.0.1-SNAPSHOT</version>
             </dependency>
@@ -79,6 +79,7 @@
                         strange... -->
                         <!--<argument>&#45;&#45;add-modules=monitor.observer.zero</argument>-->
                         <argument>--module=GameEngine/dk.sdu.se.f23.InVasion.main.Main</argument>
+
                     </arguments>
                 </configuration>
             </plugin>
@@ -125,7 +126,7 @@
                 <plugins>
                     <plugin>
                         <artifactId>maven-dependency-plugin</artifactId>
-                        <version>3.0.2</version>
+                        <version>3.3.0</version>
                         <executions>
                             <execution>
                                 <id>copy-installed</id>
