@@ -17,7 +17,7 @@
         <module>Oxygen</module>
         <module>Player</module>
         <module>Weapon</module>
-        <module>Map</module>
+        <!--<module>Map</module> -->
     </modules>
 
     <properties>
