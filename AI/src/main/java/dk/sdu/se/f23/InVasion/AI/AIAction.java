@@ -12,7 +12,7 @@ public class AIAction implements ActionService {
 
     }
 
-    private void Move(Enemy enemy) {
+    private void move(Enemy enemy) {
 
     }
 }
