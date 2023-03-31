@@ -70,7 +70,7 @@ public class MapPlugin {
         ArrayList<ArrayList<Integer>> mask = new ArrayList<>();
         BufferedImage maskImage = null;
         try {
-             maskImage = ImageIO.read(new File("src/main/java/mapPackage/mask.png"));
+             maskImage = ImageIO.read(new File("src/main/java/dk/sdu/se/f23/InVasion/map/mask.png"));
         } catch (IOException e) {
             System.out.println("Picture not found");
             throw new NoSuchElementException(e);

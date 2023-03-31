@@ -3,7 +3,7 @@ package main;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.*;
-import managers.GameStateManager;
+import dk.sdu.se.f23.InVasion.managers.GameStateManager;
 
 public class Game implements ApplicationListener {
     public static int WIDTH;
