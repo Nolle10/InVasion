@@ -12,6 +12,11 @@ import data.entityparts.PositionPart;
 import data.entityparts.TimerPart;
 import services.EntityProcessingService;
 
+import java.util.Collection;
+import java.util.ServiceLoader;
+
+import static java.util.stream.Collectors.toList;
+
 public class BulletController implements EntityProcessingService {
     SpriteBatch spriteBatch = new SpriteBatch();
     Texture texture = new Texture(Gdx.files.internal("../InVasion/Bullet/src/main/resources/images/bullet.png"));
@@ -45,5 +50,9 @@ public class BulletController implements EntityProcessingService {
         spriteBatch.begin();
         spriteBatch.draw(texture, 1000, 200);
         spriteBatch.end();
+    }
+
+    private Collection<? extends BulletSPI> getBulletSPIs() {
+        return ServiceLoader.load(BulletSPI.class).stream().map(ServiceLoader.Provider::get).collect(toList());
     }
 }

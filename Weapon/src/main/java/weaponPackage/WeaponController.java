@@ -22,8 +22,16 @@ public class WeaponController implements EntityProcessingService {
 
     @Override
     public void process(GameData data, World world, ProcessAt processTime) {
-        updateShape();
-
+        for (Entity player : world.getEntities(Bullet.class)) {
+            //temporary solution
+            //TODO: Change this
+            /*if (data.getKeys().isDown(GameKeys.SPACE)) {
+                for (BulletSPI bullet : getBulletSPIs()) {
+                    world.addEntity(bullet.createBullet(player, gameData));
+                }
+            }*/
+            updateShape();
+        }
     }
 
     private void  updateShape(){
