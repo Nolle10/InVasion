@@ -1,13 +1,10 @@
 package mapPackage;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import data.GameData;
+import data.Point;
 import data.World;
-
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -15,9 +12,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
-import java.util.function.Supplier;
-
-
 
 public class MapPlugin {
 
@@ -34,6 +28,8 @@ public class MapPlugin {
 
     public void onEnable(GameData gameData, World world){
         world.loadWorldMask(generateMask());
+        world.setInitState(new Point(0,0));
+        world.setGoalState(new Point(width,height));
         for (int i = 0; i < height; i++) {
             ArrayList<Square> lines = new ArrayList<>();
 
@@ -63,7 +59,6 @@ public class MapPlugin {
                     default:
                         lines.add(new Square(Color.GRAY));
                         break;
-
                 }
             }
             mapFields.add(lines);
@@ -106,7 +101,6 @@ public class MapPlugin {
         mapFields.clear();
     }
 
-
 public int getHeight(){
         return height;
 }
@@ -130,14 +124,8 @@ public void setWidth(int w){
                 shape.box(j, i, 0, 1, 1, 0);
             }
         }
-
-
         shape.end();
     }
-
     private Color getSquareColor(int x, int y) {
         return mapFields.get(x).get(y).getColor();
     }
-
-
-}
