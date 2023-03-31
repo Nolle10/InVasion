@@ -1,6 +1,5 @@
 package dk.sdu.se.f23.InVasion.common.data;
 
-import java.awt.image.AreaAveragingScaleFilter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
