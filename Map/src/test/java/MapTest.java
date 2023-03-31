@@ -17,9 +17,6 @@ public class MapTest {
         ArrayList<ArrayList<Integer>> mask = mapPlugin.generateMask();
         assertEquals(mapPlugin.getWidth(), mask.size());
         assertEquals(mapPlugin.getHeight(), mask.get(0).size());
-
-
-
     }
 
 }
