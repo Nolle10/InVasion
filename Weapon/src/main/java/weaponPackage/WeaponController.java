@@ -13,7 +13,7 @@ import com.badlogic.gdx.Gdx;
 
 public class WeaponController implements EntityProcessingService {
     SpriteBatch spriteBatch = new SpriteBatch();
-    Texture texture = new Texture(Gdx.files.internal("../InVasion/Player/src/main/resources/images/hund2.png"));
+    Texture texture = new Texture(Gdx.files.internal("../InVasion/Weapon/src/main/resources/images/hund2.png"));
 
     @Override
     public void process(GameData data, World world) {
