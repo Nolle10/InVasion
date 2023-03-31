@@ -1,5 +1,6 @@
 package data.entityparts;
 
+import data.Entity;
 import data.GameData;
 import data.World;
 
@@ -7,7 +8,7 @@ public class LifePart implements EntityPart{
     private int life;
     private boolean isHit;
     @Override
-    public void process(GameData data, World world) {
+    public void process(GameData data, Entity entity) {
 
     }
 
