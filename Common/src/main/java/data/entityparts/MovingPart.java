@@ -8,6 +8,7 @@ import data.World;
 public class MovingPart implements EntityPart{
     private double speed;
     private Point pos;
+    private boolean up;
 
     public MovingPart(double speed, Point pos) {
         this.speed = speed;
@@ -25,6 +26,10 @@ public class MovingPart implements EntityPart{
 
     public Point getPos() {
         return pos;
+    }
+
+    public void setUp(boolean up) {
+        this.up = up;
     }
 
 }
