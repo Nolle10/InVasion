@@ -1,5 +1,6 @@
 package data;
 
+import java.awt.image.AreaAveragingScaleFilter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -8,12 +9,21 @@ import java.util.Map;
 
 public class World {
     private final Map<String, Entity> entityMap = new ConcurrentHashMap<>();
-
+    private ArrayList<ArrayList<Integer>> worldMask;
     public String addEntity(Entity entity) {
         entityMap.put(entity.getID(), entity);
         return entity.getID();
     }
 
+    public void loadWorldMask(ArrayList<ArrayList<Integer>> mask){
+        worldMask = mask;
+    }
+    public ArrayList<ArrayList<Integer>> getWorldMask(){
+        return worldMask;
+    }
+    public boolean isAvailable(int x, int y){
+        return worldMask.get(x).get(y)==0;
+    }
     public void removeEntity(String entityID) {
         entityMap.remove(entityID);
     }
