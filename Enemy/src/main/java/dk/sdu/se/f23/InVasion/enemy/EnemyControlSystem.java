@@ -1,14 +1,16 @@
 package dk.sdu.se.f23.InVasion.enemy;
 
-import data.Entity;
-import data.GameData;
-import data.ProcessAt;
-import data.World;
-import data.entityparts.LifePart;
-import data.entityparts.MovingPart;
-import data.entityparts.PositionPart;
+
+import dk.sdu.se.f23.InVasion.common.data.Entity;
+import dk.sdu.se.f23.InVasion.common.data.GameData;
+import dk.sdu.se.f23.InVasion.common.data.ProcessAt;
+import dk.sdu.se.f23.InVasion.common.data.World;
+import dk.sdu.se.f23.InVasion.common.data.entityparts.LifePart;
+import dk.sdu.se.f23.InVasion.common.data.entityparts.MovingPart;
+import dk.sdu.se.f23.InVasion.common.data.entityparts.PositionPart;
+import dk.sdu.se.f23.InVasion.common.services.EntityProcessingService;
 import dk.sdu.se.f23.InVasion.enemy.services.ActionService;
-import services.EntityProcessingService;
+
 
 import java.util.Collection;
 import java.util.ServiceLoader;
