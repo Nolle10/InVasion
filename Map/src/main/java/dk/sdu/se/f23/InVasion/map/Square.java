@@ -1,4 +1,4 @@
-package mappackage;
+package dk.sdu.se.f23.InVasion.map;
 
 import com.badlogic.gdx.graphics.Color;
 import dk.sdu.se.f23.InVasion.common.data.Entity;
