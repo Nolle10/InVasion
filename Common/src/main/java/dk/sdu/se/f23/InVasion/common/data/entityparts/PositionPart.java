@@ -3,6 +3,7 @@ package dk.sdu.se.f23.InVasion.common.data.entityparts;
 import dk.sdu.se.f23.InVasion.common.data.Entity;
 import dk.sdu.se.f23.InVasion.common.data.GameData;
 import dk.sdu.se.f23.InVasion.common.data.Point;
+
 public class PositionPart implements EntityPart{
     private Point pos;
 

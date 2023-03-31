@@ -6,6 +6,7 @@ import dk.sdu.se.f23.InVasion.common.services.PluginService;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+
 public class PlayerPlugin implements PluginService {
     SpriteBatch spriteBatch = new SpriteBatch();
     Texture texture = new Texture(Gdx.files.internal("../InVasion/Player/src/main/resources/images/tower.png"));
