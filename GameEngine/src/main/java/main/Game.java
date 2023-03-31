@@ -1,11 +1,11 @@
 package main;
 
 import com.badlogic.gdx.ApplicationListener;
-    import com.badlogic.gdx.Gdx;
-    import com.badlogic.gdx.graphics.*;
-    import managers.GameStateManager;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.*;
+import managers.GameStateManager;
 
-    public class Game implements ApplicationListener {
+public class Game implements ApplicationListener {
     public static int WIDTH;
     public static int HEIGHT;
 
