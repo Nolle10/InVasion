@@ -3,7 +3,6 @@ package dk.sdu.se.f23.InVasion.main;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.*;
-<<<<<<< HEAD:GameEngine/src/main/java/dk/sdu/se/f23/InVasion/main/Game.java
 import dk.sdu.se.f23.InVasion.common.data.GameData;
 import dk.sdu.se.f23.InVasion.common.data.ProcessAt;
 import dk.sdu.se.f23.InVasion.common.data.World;
@@ -16,10 +15,7 @@ import java.util.ServiceLoader;
 
 import static java.util.stream.Collectors.toList;
 
-=======
-import managers.GameStateManager;
 
->>>>>>> main:GameEngine/src/main/java/main/Game.java
 public class Game implements ApplicationListener {
     public static int WIDTH;
     public static int HEIGHT;

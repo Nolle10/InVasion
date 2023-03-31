@@ -1,8 +1,10 @@
-package oxygenpackage;
+package dk.sdu.se.f23.InVasion.collision;
+
 import dk.sdu.se.f23.InVasion.common.data.GameData;
 import dk.sdu.se.f23.InVasion.common.data.World;
 import dk.sdu.se.f23.InVasion.common.services.PluginService;
-public class OxygenPlugin implements PluginService{
+
+public class CollisionPlugin implements PluginService {
     @Override
     public void onEnable(GameData data, World world) {
 
