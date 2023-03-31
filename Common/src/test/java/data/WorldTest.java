@@ -6,11 +6,6 @@ import org.junit.jupiter.api.Test;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-
-/**
- * For any problems || questions please contact:
- * @author Oliver
- */
 class WorldTest {
 
     @Test

@@ -4,24 +4,27 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import data.Entity;
 import data.GameData;
 import data.World;
 import services.PluginService;
 
 public class PlayerPlugin implements PluginService {
-    SpriteBatch spriteBatch = new SpriteBatch();
-    Texture texture = new Texture(Gdx.files.internal("../InVasion/Player/src/main/resources/images/tower.png"));
-
+    Entity player;
 
     @Override
     public void onEnable(GameData data, World world) {
-        spriteBatch.begin();
-        spriteBatch.draw(texture, 1000, 200);
-        spriteBatch.end();
+        player = createPlayerInfo(data);
+        world.addEntity(player);
+    }
+
+    private Entity createPlayerInfo(GameData data){
+        Entity player = new Player();
+        return player;
     }
 
     @Override
     public void onDisable(GameData data, World world) {
-        //TODO: Insert a function that deletes the sprite
+        world.removeEntity(player);
     }
 }
