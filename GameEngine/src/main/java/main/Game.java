@@ -22,7 +22,6 @@ public class Game implements ApplicationListener {
         cam.translate(WIDTH / 2, HEIGHT / 2);
         cam.update();
 
-
         gsm = new GameStateManager();
 
     }
