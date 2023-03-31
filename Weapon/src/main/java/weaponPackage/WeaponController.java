@@ -1,6 +1,7 @@
 package weaponPackage;
 
 
+import bulletpackage.Bullet;
 import data.Entity;
 import data.GameData;
 import data.ProcessAt;
@@ -22,7 +23,7 @@ public class WeaponController implements EntityProcessingService {
 
     @Override
     public void process(GameData data, World world, ProcessAt processTime) {
-        for (Entity player : world.getEntities(Bullet.class)) {
+        for (Entity weapon : world.getEntities(Bullet.class)) {
             //temporary solution
             //TODO: Change this
             /*if (data.getKeys().isDown(GameKeys.SPACE)) {
