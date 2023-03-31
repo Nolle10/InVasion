@@ -1,11 +1,8 @@
-package main;
-
 import junit.framework.Assert;
-import org.junit.jupiter.api.Test;
-
+import org.junit.Test;
 public class TestTest {
     @Test
-    void AlwaysPasses(){
+    public void AlwaysPasses(){
         Assert.assertEquals(1,1);
     }
 
