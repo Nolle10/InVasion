@@ -10,11 +10,12 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
     <artifactId>Common</artifactId>
+    <packaging>jar</packaging>
 
-    <properties>
+<!--    <properties>
         <maven.compiler.source>16</maven.compiler.source>
         <maven.compiler.target>16</maven.compiler.target>
-    </properties>
+    </properties> -->
 
     <dependencies>
         <dependency>
@@ -23,5 +24,14 @@
             <version>5.4.2</version>
         </dependency>
     </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.10.1</version>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
