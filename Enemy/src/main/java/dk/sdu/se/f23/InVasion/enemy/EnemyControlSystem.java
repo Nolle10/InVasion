@@ -1,25 +1,29 @@
 package dk.sdu.se.f23.InVasion.enemy;
 
-import data.Entity;
-import data.GameData;
-import data.ProcessAt;
-import data.World;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import data.*;
 import data.entityparts.LifePart;
 import data.entityparts.MovingPart;
 import data.entityparts.PositionPart;
 import dk.sdu.se.f23.InVasion.enemy.services.ActionService;
 import services.EntityProcessingService;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Random;
 import java.util.ServiceLoader;
 
+import static com.badlogic.gdx.scenes.scene2d.InputEvent.Type.exit;
+import static java.lang.System.exit;
 import static java.util.stream.Collectors.toList;
 
 public class EnemyControlSystem implements EntityProcessingService {
 
     private Entity enemy = new Enemy();
-    private final GameData gameData = new GameData();
-    private World world = new World();
+    private int step = 0;
+    float offsetX, offsetY;
 
 
     public EnemyControlSystem() {
@@ -28,33 +32,93 @@ public class EnemyControlSystem implements EntityProcessingService {
     @Override
     public void process(GameData data, World world, ProcessAt processTime) {
         for (Entity enemy : world.getEntities(Enemy.class)) {
-            LifePart lifePart = enemy.getPart(LifePart.class);
             PositionPart positionPart = enemy.getPart(PositionPart.class);
             MovingPart movingPart = enemy.getPart(MovingPart.class);
+            LifePart lifePart = enemy.getPart(LifePart.class);
 
-            //set up movement (left, right, up etc.)
-            //TODO: Do movement stuff
+            //TEMPORARY RANDOM MOVEMENT
+            Random rand = new Random();
 
-            lifePart.process(data, enemy);
-            positionPart.process(data, enemy);
+            float rng = rand.nextFloat();
+
+            if (rng > 0.1f && rng < 0.9f) {
+                movingPart.setUp(true);
+            }
+
+            if (rng < 0.2f) {
+                movingPart.setLeft(true);
+            }
+
+            if (rng > 0.8f) {
+                movingPart.setRight(true);
+            }
+
             movingPart.process(data, enemy);
+            positionPart.process(data, enemy);
+            lifePart.process(data, enemy);
+
+            updateShape(enemy);
+
+            movingPart.setRight(false);
+            movingPart.setLeft(false);
+            movingPart.setUp(false);
         }
+
     }
 
-    //TODO: Correct this to not just calculate it - save it somewhere?
-    private void Update(){
+    private void updateShape(Entity entity) {
+        PositionPart positionPart = entity.getPart(PositionPart.class);
+        float x = positionPart.getX();
+        float y = positionPart.getY();
+        entity.setTexture(new Texture(Gdx.files.internal("textures/enemytest.png")));
+        SpriteBatch spriteBatch = new SpriteBatch();
+        spriteBatch.begin();
+        spriteBatch.draw(entity.getTexture(), x, y);
+        spriteBatch.end();
+    }
+
+    //Find route from AI
+    private void findRoute(Enemy enemy, GameData gameData, World world) {
+        boolean found = false;
         for (ActionService actionService : getActionServices()) {
-            actionService.calculate(gameData, world, (Enemy) enemy);
+            if (actionService.getAiType() == enemy.getAIType()) {
+                enemy.setRoute(actionService.calculate(gameData, world, enemy));
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            //DO SOMETHING else if no AI is found
+            //TODO: Find default route
         }
     }
 
+    //Go to next step in route
+    private void nextStep(Enemy entity) {
+        PositionPart positionPart = entity.getPart(PositionPart.class);
+        MovingPart movingPart = entity.getPart(MovingPart.class);
+        LifePart lifePart = entity.getPart(LifePart.class);
+
+        if (step < entity.getRoute().size()) {
+            Point nextStep = entity.getRoute().get(step);
+            offsetX = nextStep.getX() - positionPart.getX();
+            offsetY = nextStep.getY() - positionPart.getY();
+            step++;
+        } else {
+            //Do something when route is finished
+        }
+    }
+
+
+    //Load all ActionServices (AIs)
     private Collection<? extends ActionService> getActionServices() {
         return ServiceLoader.load(ActionService.class).stream().map(ServiceLoader.Provider::get).collect(toList());
     }
 
 
-//TODO: Delete this
+    //TODO: Delete this
     @Deprecated
     @Override
-    public void process(GameData data, World world) {}
+    public void process(GameData data, World world) {
+    }
 }
