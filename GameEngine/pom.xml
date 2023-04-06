@@ -10,12 +10,8 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
     <artifactId>GameEngine</artifactId>
-    <repositories>
-        <repository>
-            <id>local-maven-repo</id>
-            <url>file:\\\${project.basedir}\src\main\resources\dk\sdu\se\f23\InVasion\shadedlibgdx-1.0.1.jar</url>
-        </repository>
-    </repositories>
+
+
     <!--
         <repositories>
             <repository>
@@ -38,6 +34,15 @@
             <version>${project.version}</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>dk.sdu.mmmi.cbse</groupId>
+            <artifactId>shadedlibgdx</artifactId>
+            <version>1.0.1-SNAPSHOT</version>
+            <scope>system</scope>
+            <systemPath>
+                ${project.basedir}\libs\shadedlibgdx-1.0.1-20230329.095949-7.jar
+            </systemPath>
+        </dependency>
         <!--
 
                 <dependency>
@@ -46,12 +51,7 @@
                     <version>1.0.1-SNAPSHOT</version>
                 </dependency>
     -->
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>shadedlibgdx</artifactId>
-            <version>1.0.1-SNAPSHOT</version>
-            <systemPath>${project.basedir}/src/main/resources/dk/sdu/se/f23/InVasion/shadedlibgdx-1.0.1.jar</systemPath>
-        </dependency>
+
         <dependency>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-compiler-plugin</artifactId>
