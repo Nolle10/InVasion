@@ -10,14 +10,21 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
     <artifactId>GameEngine</artifactId>
-
     <repositories>
         <repository>
-            <id>github</id>
-            <name>GitHub sweat-tek Apache Maven Packages</name>
-            <url>https://maven.pkg.github.com/sweat-tek/ShadedLibGDX</url>
+            <id>local-maven-repo</id>
+            <url>file:\\\${project.basedir}\src\main\resources\dk\sdu\se\f23\InVasion\shadedlibgdx-1.0.1.jar</url>
         </repository>
     </repositories>
+    <!--
+        <repositories>
+            <repository>
+                <id>github</id>
+                <name>GitHub sweat-tek Apache Maven Packages</name>
+                <url>https://maven.pkg.github.com/sweat-tek/ShadedLibGDX</url>
+            </repository>
+        </repositories>
+        -->
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
@@ -31,10 +38,19 @@
             <version>${project.version}</version>
             <scope>compile</scope>
         </dependency>
+        <!--
+
+                <dependency>
+                    <groupId>dk.sdu.mmmi.cbse</groupId>
+                    <artifactId>shadedlibgdx</artifactId>
+                    <version>1.0.1-SNAPSHOT</version>
+                </dependency>
+    -->
         <dependency>
-            <groupId>dk.sdu.mmmi.cbse</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>shadedlibgdx</artifactId>
             <version>1.0.1-SNAPSHOT</version>
+            <systemPath>${project.basedir}/src/main/resources/dk/sdu/se/f23/InVasion/shadedlibgdx-1.0.1.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>org.apache.maven.plugins</groupId>
