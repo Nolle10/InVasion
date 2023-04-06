@@ -40,7 +40,7 @@
             <version>1.0.1-SNAPSHOT</version>
             <scope>system</scope>
             <systemPath>
-                ${project.basedir}/libs/shadedlibgdx-1.0.1-20230329.095949-7.jar
+                ${project.basedir}/../Internal Libraries/shadedlibgdx-1.0.1-20230329.095949-7.jar
             </systemPath>
         </dependency>
         <!--
