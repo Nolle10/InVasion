@@ -27,8 +27,10 @@
 /target/
 *.iml
 .DS_Store
-*.jar
 /*/runner/
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+
+# Unignore this file
+!shadedlibgdx-1.0.1-20230329.095949-7.jar
