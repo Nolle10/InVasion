@@ -33,4 +33,4 @@
 hs_err_pid*
 
 # Unignore this file
-!shadedlibgdx-1.0.1-20230329.095949-7.jar
+!Internal Libraries/shadedlibgdx-1.0.1-20230329.095949-7.jar
