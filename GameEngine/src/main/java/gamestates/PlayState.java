@@ -8,7 +8,19 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import data.GameData;
+import data.World;
+import dk.sdu.se.f23.InVasion.enemy.EnemyControlSystem;
+import dk.sdu.se.f23.InVasion.enemy.EnemyPlugin;
 import managers.GameStateManager;
+import playerpackage.PlayerControlSystem;
+import playerpackage.PlayerPlugin;
+import services.EntityProcessingService;
+import services.PluginService;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class PlayState extends GameState {
 
@@ -18,6 +30,9 @@ public class PlayState extends GameState {
     private TextButton button1;
     private TextButton.TextButtonStyle textButtonStyle;
 
+    private GameData gameData = new GameData();
+    private World world = new World();
+
     public PlayState(GameStateManager gsm) {
         super(gsm);
     }
@@ -25,7 +40,6 @@ public class PlayState extends GameState {
     public void init() {
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
-
         textButtonStyle = new TextButton.TextButtonStyle();
         textButtonStyle.font = new BitmapFont();
         textButtonStyle.fontColor = Color.YELLOW;
@@ -49,9 +63,10 @@ public class PlayState extends GameState {
                 return true;
             }
         });
-
         stage.addActor(button);
         stage.addActor(button1);
+
+
 
         sr = new ShapeRenderer();
     }
@@ -63,6 +78,7 @@ public class PlayState extends GameState {
     }
 
     public void draw() {
+
         stage.draw();
     }
 

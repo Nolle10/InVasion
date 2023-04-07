@@ -1,6 +1,7 @@
 package playerpackage;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import data.GameData;
@@ -16,11 +17,11 @@ public class PlayerControlSystem implements EntityProcessingService {
 
     private void createPlayer(){
         SpriteBatch spriteBatch = new SpriteBatch();
-        Texture texture = new Texture(Gdx.files.internal("../InVasion/Player/src/main/resources/images/tower.png"));
+        Texture texture = new Texture(Gdx.files.internal("images/tower.png"));
 
 
         spriteBatch.begin();
-        spriteBatch.draw(texture, 1000, 200);
+        spriteBatch.draw(texture, 1500, 200);
         spriteBatch.end();
     }
 

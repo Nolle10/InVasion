@@ -15,6 +15,7 @@ public class GameStateManager {
     public static final int PLAY = 2;
     public static final int PAUSE = 3;
 
+    private int currentState = 0;
 
     public GameStateManager() {
         setState(MENU);
@@ -34,6 +35,7 @@ public class GameStateManager {
         if(state == PAUSE) {
             gameState = new PauseState(this);
         }
+        currentState = state;
     }
 
     public void update(float dt) {
@@ -44,4 +46,10 @@ public class GameStateManager {
         gameState.draw();
     }
 
+    public GameState getGameState() {
+        return gameState; // i just put this here
+    }
+    public int getCurrentState(){
+        return currentState;
+    }
 }

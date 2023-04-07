@@ -9,6 +9,8 @@ import data.World;
 import dk.sdu.se.f23.InVasion.enemy.EnemyControlSystem;
 import dk.sdu.se.f23.InVasion.enemy.EnemyPlugin;
 import managers.GameStateManager;
+import playerpackage.PlayerControlSystem;
+import playerpackage.PlayerPlugin;
 import services.EntityProcessingService;
 import services.PluginService;
 
@@ -41,14 +43,18 @@ public class Game implements ApplicationListener {
         cam.update();
 
         gsm = new GameStateManager();
-
-        //ENEMY TEST
         PluginService enemyPlugin = new EnemyPlugin();
+        PluginService playerPlugin = new PlayerPlugin();
+        //ENEMY TEST
+        entityPlugins.add(playerPlugin);
+        entityPlugins.add(enemyPlugin);
 
 
         EntityProcessingService enemyProcess = new EnemyControlSystem();
+        EntityProcessingService playerProcess = new PlayerControlSystem();
 
-        entityPlugins.add(enemyPlugin);
+        entityProcessors.add(playerProcess);
+
         entityProcessors.add(enemyProcess);
         // Lookup all Game Plugins using ServiceLoader
         for (PluginService iGamePlugin : entityPlugins) {
@@ -60,6 +66,7 @@ public class Game implements ApplicationListener {
     public void render() {
 
         // clear screen to black
+
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         gsm.update(Gdx.graphics.getDeltaTime());
