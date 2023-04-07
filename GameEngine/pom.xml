@@ -12,13 +12,13 @@
     <artifactId>GameEngine</artifactId>
 
 
-        <repositories>
-            <repository>
-                <id>github</id>
-                <name>GitHub sweat-tek Apache Maven Packages</name>
-                <url>https://maven.pkg.github.com/sweat-tek/ShadedLibGDX</url>
-            </repository>
-        </repositories>
+    <repositories>
+        <repository>
+            <id>github</id>
+            <name>GitHub sweat-tek Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/sweat-tek/ShadedLibGDX</url>
+        </repository>
+    </repositories>
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
@@ -35,21 +35,7 @@
         <dependency>
             <groupId>dk.sdu.mmmi.cbse</groupId>
             <artifactId>shadedlibgdx</artifactId>
-            <version>1.0.1-SNAPSHOT</version>
-            <scope>system</scope>
-            <systemPath>
-                ${project.basedir}/../Internal Libraries/shadedlibgdx-1.0.1-20230329.095949-7.jar
-            </systemPath>
         </dependency>
-        <!--
-
-                <dependency>
-                    <groupId>dk.sdu.mmmi.cbse</groupId>
-                    <artifactId>shadedlibgdx</artifactId>
-                    <version>1.0.1-SNAPSHOT</version>
-                </dependency>
-    -->
-
         <dependency>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-compiler-plugin</artifactId>
