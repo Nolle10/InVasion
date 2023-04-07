@@ -1,8 +1,8 @@
 package dk.sdu.se.f23.InVasion.enemy;
 
-import data.GameData;
-import data.World;
-import services.PluginService;
+import dk.sdu.se.f23.InVasion.common.data.GameData;
+import dk.sdu.se.f23.InVasion.common.data.World;
+import dk.sdu.se.f23.InVasion.common.services.PluginService;
 
 public class EnemyPlugin implements PluginService {
     @Override

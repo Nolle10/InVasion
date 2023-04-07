@@ -1,12 +1,11 @@
 package playerpackage;
 
+import dk.sdu.se.f23.InVasion.common.data.GameData;
+import dk.sdu.se.f23.InVasion.common.data.World;
+import dk.sdu.se.f23.InVasion.common.services.PluginService;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import data.GameData;
-import data.World;
-import services.PluginService;
 
 public class PlayerPlugin implements PluginService {
     SpriteBatch spriteBatch = new SpriteBatch();
