@@ -1,13 +1,10 @@
 package mapPackage;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import data.GameData;
+import data.Point;
 import data.World;
-
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -15,9 +12,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
-import java.util.function.Supplier;
-
-
 
 public class MapPlugin {
 
@@ -32,8 +26,10 @@ public class MapPlugin {
     }
 
 
-    public void onEnable(GameData gameData, World world){
+    public void onEnable(GameData gameData, World world) {
         world.loadWorldMask(generateMask());
+        world.setInitState(new Point(0, 0));
+        world.setGoalState(new Point(width, height));
         for (int i = 0; i < height; i++) {
             ArrayList<Square> lines = new ArrayList<>();
 
@@ -63,27 +59,26 @@ public class MapPlugin {
                     default:
                         lines.add(new Square(Color.GRAY));
                         break;
-
                 }
             }
             mapFields.add(lines);
         }
     }
 
-    public ArrayList<ArrayList<Integer>> generateMask(){
+    public ArrayList<ArrayList<Integer>> generateMask() {
         ArrayList<ArrayList<Integer>> mask = new ArrayList<>();
         BufferedImage maskImage = null;
         try {
-             maskImage = ImageIO.read(new File("src/main/java/mapPackage/mask.png"));
+            maskImage = ImageIO.read(new File("src/main/java/mapPackage/mask.png"));
         } catch (IOException e) {
             System.out.println("Picture not found");
             throw new NoSuchElementException(e);
         }
         for (int i = 0; i < width; i++) {
             ArrayList<Integer> line = new ArrayList<>();
-            for(int j = 0; j<height;j++){
-                int rgb = maskImage.getRGB(i,j);
-                switch (rgb){
+            for (int j = 0; j < height; j++) {
+                int rgb = maskImage.getRGB(i, j);
+                switch (rgb) {
                     case -1: //White
                         line.add(0);
                         break;
@@ -100,26 +95,29 @@ public class MapPlugin {
             }
             mask.add(line);
         }
-        return  mask;
+        return mask;
     }
-    public void onDisable(GameData gameData, World world){
+
+    public void onDisable(GameData gameData, World world) {
         mapFields.clear();
     }
 
-
-public int getHeight(){
+    public int getHeight() {
         return height;
-}
-public void  setHeight(int h){
-        height = h;
-}
+    }
 
-public int getWidth(){
+    public void setHeight(int h) {
+        height = h;
+    }
+
+    public int getWidth() {
         return width;
-}
-public void setWidth(int w){
+    }
+
+    public void setWidth(int w) {
         width = w;
-}
+    }
+
     public void draw() {
         ShapeRenderer shape = new ShapeRenderer();
         shape.begin(ShapeRenderer.ShapeType.Filled);
@@ -130,14 +128,10 @@ public void setWidth(int w){
                 shape.box(j, i, 0, 1, 1, 0);
             }
         }
-
-
         shape.end();
     }
 
     private Color getSquareColor(int x, int y) {
         return mapFields.get(x).get(y).getColor();
     }
-
-
 }

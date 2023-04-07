@@ -9,12 +9,39 @@ import java.util.Map;
 
 public class World {
     private final Map<String, Entity> entityMap = new ConcurrentHashMap<>();
+    private int baseHealth;
+    private Point initState;
+    private Point goalState;
     private ArrayList<ArrayList<Integer>> worldMask;
     public String addEntity(Entity entity) {
         entityMap.put(entity.getID(), entity);
         return entity.getID();
     }
 
+    public int getBaseHealth() {
+        return baseHealth;
+    }
+
+    public void setBaseHealth(int baseHealth) {
+        this.baseHealth = baseHealth;
+    }
+
+    public void setGoalState(Point p){
+        goalState = p;
+    }
+    public Point getGoalState(){
+        return goalState;
+    }
+    public void setInitState(Point p){
+        initState = p;
+    }
+
+    public Point getInitState() {
+        return initState;
+    }
+    public void decrementHealth(int damage){
+        baseHealth = baseHealth-damage;
+    }
     public void loadWorldMask(ArrayList<ArrayList<Integer>> mask){
         worldMask = mask;
     }
