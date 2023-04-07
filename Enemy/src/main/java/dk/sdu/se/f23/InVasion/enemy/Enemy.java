@@ -1,7 +1,9 @@
 package dk.sdu.se.f23.InVasion.enemy;
 
-import data.Entity;
-import data.Point;
+
+
+import dk.sdu.se.f23.InVasion.common.data.Entity;
+import dk.sdu.se.f23.InVasion.common.data.Point;
 
 import java.util.ArrayList;
 import java.util.List;

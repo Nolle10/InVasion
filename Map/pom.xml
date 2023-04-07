@@ -38,10 +38,8 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.testng</groupId>
-            <artifactId>testng</artifactId>
-            <version>7.7.1</version>
-            <scope>test</scope>
+            <groupId>dk.sdu.mmmi.cbse</groupId>
+            <artifactId>shadedlibgdx</artifactId>
         </dependency>
     </dependencies>
 

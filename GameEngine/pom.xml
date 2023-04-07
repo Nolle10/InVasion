@@ -11,6 +11,15 @@
     </parent>
     <artifactId>GameEngine</artifactId>
 
+
+    <repositories>
+        <repository>
+            <id>github</id>
+            <name>GitHub sweat-tek Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/sweat-tek/ShadedLibGDX</url>
+        </repository>
+
+    </repositories>
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
@@ -19,38 +28,25 @@
 
     <dependencies>
         <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>Common</artifactId>
+            <version>${project.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>dk.sdu.mmmi.cbse</groupId>
+            <artifactId>shadedlibgdx</artifactId>
+            <version>1.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-compiler-plugin</artifactId>
             <version>3.1</version>
         </dependency>
         <dependency>
-            <groupId>com.badlogicgames.gdx</groupId>
-            <artifactId>gdx</artifactId>
-            <version>${libgdx.version}</version>
-            <type>jar</type>
-        </dependency>
-        <dependency>
-            <groupId>com.badlogicgames.gdx</groupId>
-            <artifactId>gdx-platform</artifactId>
-            <version>${libgdx.version}</version>
-            <classifier>natives-desktop</classifier>
-        </dependency>
-        <dependency>
-            <groupId>com.badlogicgames.gdx</groupId>
-            <artifactId>gdx-backend-lwjgl</artifactId>
-            <version>${libgdx.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.badlogicgames.gdx</groupId>
-            <artifactId>gdx-box2d</artifactId>
-            <version>${libgdx.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.badlogicgames.gdx</groupId>
-            <artifactId>gdx-box2d-platform</artifactId>
-            <classifier>natives-desktop</classifier>
-            <version>${libgdx.version}</version>
-            <scope>compile</scope>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>5.4.2</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
@@ -64,19 +60,45 @@
             <version>1.0-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
-        <dependency>
-            <groupId>dk.sdu.se.f23.InVasion</groupId>
-            <artifactId>Enemy</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>dk.sdu.se.f23.InVasion</groupId>
-            <artifactId>Player</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <scope>compile</scope>
-        </dependency>
     </dependencies>
 
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>3.3.0</version>
+                <executions>
+                    <execution>
+                        <id>copy-dependencies</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <includeArtifactIds>shadedlibgdx</includeArtifactIds>
+                            <outputDirectory>../mods-mvn</outputDirectory>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>copy</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>dk.sdu.mmmi.cbse</groupId>
+                                    <artifactId>shadedlibgdx</artifactId>
+                                    <overWrite>true</overWrite>
+                                    <outputDirectory>../libs</outputDirectory>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

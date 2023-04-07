@@ -3,12 +3,14 @@ package dk.sdu.se.f23.InVasion.enemy;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import data.*;
-import data.entityparts.LifePart;
-import data.entityparts.MovingPart;
-import data.entityparts.PositionPart;
+
+import dk.sdu.se.f23.InVasion.common.data.*;
+import dk.sdu.se.f23.InVasion.common.data.entityparts.LifePart;
+import dk.sdu.se.f23.InVasion.common.data.entityparts.MovingPart;
+import dk.sdu.se.f23.InVasion.common.data.entityparts.PositionPart;
+import dk.sdu.se.f23.InVasion.common.services.EntityProcessingService;
 import dk.sdu.se.f23.InVasion.enemy.services.ActionService;
-import services.EntityProcessingService;
+
 
 import java.util.ArrayList;
 import java.util.Collection;
