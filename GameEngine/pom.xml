@@ -12,7 +12,6 @@
     <artifactId>GameEngine</artifactId>
 
 
-    <!--
         <repositories>
             <repository>
                 <id>github</id>
@@ -20,7 +19,6 @@
                 <url>https://maven.pkg.github.com/sweat-tek/ShadedLibGDX</url>
             </repository>
         </repositories>
-        -->
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
