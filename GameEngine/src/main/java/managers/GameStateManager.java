@@ -1,8 +1,7 @@
 package managers;
 
 
-import gamestates.GameState;
-import gamestates.PlayState;
+import gamestates.*;
 import data.GameData;
 
 public class GameStateManager {
@@ -12,19 +11,28 @@ public class GameStateManager {
 
     private GameData gameData;
     public static final int MENU = 0;
-    public static final int PLAY = 893746;
+    public static final int SHOP = 1;
+    public static final int PLAY = 2;
+    public static final int PAUSE = 3;
+
 
     public GameStateManager() {
-        setState(PLAY);
+        setState(MENU);
     }
 
     public void setState(int state) {
         if(gameState != null) gameState.dispose();
         if(state == MENU) {
-            // gameState = new MenuState(this);
+            gameState = new MainScreenState(this);
         }
         if(state == PLAY) {
             gameState = new PlayState(this);
+        }
+        if(state == SHOP) {
+            gameState = new ShopState(this);
+        }
+        if(state == PAUSE) {
+            gameState = new PauseState(this);
         }
     }
 
