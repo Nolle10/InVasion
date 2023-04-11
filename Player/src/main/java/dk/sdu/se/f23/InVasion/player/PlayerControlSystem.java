@@ -20,7 +20,7 @@ public class PlayerControlSystem implements EntityProcessingService {
 
 
         spriteBatch.begin();
-        spriteBatch.draw(texture, 1500, 200);
+        spriteBatch.draw(texture, 200, 200);
         spriteBatch.end();
     }
 
