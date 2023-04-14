@@ -17,8 +17,8 @@
                 </repository>
                 <repository>
                     <id>github</id>
-                    <name>GitHub sweat-tek Apache Maven Packages</name>
-                    <url>https://maven.pkg.github.com/sweat-tek/ShadedLibGDX</url>
+                    <name>GitHub Crazi12345 Apache Maven Packages</name>
+                    <url>https://maven.pkg.github.com/Crazi12345/ShadedLibGDX</url>
                     <snapshots>
                         <enabled>true</enabled>
                     </snapshots>

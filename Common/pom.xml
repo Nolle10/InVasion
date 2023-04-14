@@ -33,7 +33,9 @@
         <dependency>
             <groupId>dk.sdu.se.f23</groupId>
             <artifactId>shadedlibgdx</artifactId>
+            <version>1.0.2-SNAPSHOT</version>
         </dependency>
+
     </dependencies>
     <build>
         <plugins>
