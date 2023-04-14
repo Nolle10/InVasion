@@ -21,9 +21,9 @@
 
     </repositories>
     <properties>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
-        <libgdx.version>1.11.0</libgdx.version>
+        <maven.compiler.source>16</maven.compiler.source>
+        <maven.compiler.target>16</maven.compiler.target>
+        <shadedlibgdx.version>1.0.2</shadedlibgdx.version>
     </properties>
 
     <dependencies>

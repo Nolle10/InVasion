@@ -1,4 +1,5 @@
 module Player {
+    exports dk.sdu.se.f23.InVasion.player;
     requires Common;
     requires shadedlibgdx;
 

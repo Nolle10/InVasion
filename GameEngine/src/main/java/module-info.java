@@ -5,6 +5,8 @@ module GameEngine {
     requires Common;
     requires java.desktop;
     requires shadedlibgdx;
+    requires Enemy;
+    requires Player;
     uses PluginService;
     uses EntityProcessingService;
 }
