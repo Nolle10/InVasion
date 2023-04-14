@@ -17,10 +17,7 @@ import java.util.ServiceLoader;
 
 import static java.util.stream.Collectors.toList;
 
-public class BulletController implements EntityProcessingService {
-    SpriteBatch spriteBatch = new SpriteBatch();
-    Texture texture = new Texture(Gdx.files.internal("../InVasion/Bullet/src/main/resources/images/bullet.png"));
-
+public class BulletController implements EntityProcessingService, BulletSPI {
 
     @Override
     public void process(GameData data, World world) {
@@ -30,29 +27,34 @@ public class BulletController implements EntityProcessingService {
     @Override
     public void process(GameData data, World world, ProcessAt processTime) {
         for (Entity bullet : world.getEntities(Bullet.class)) {
-
             PositionPart positionPart = bullet.getPart(PositionPart.class);
             MovingPart movingPart = bullet.getPart(MovingPart.class);
             TimerPart timerPart = bullet.getPart(TimerPart.class);
-            movingPart.setUp(true);
+
             if (timerPart.getExpiration() < 0) {
                 world.removeEntity(bullet);
             }
+
             timerPart.process(data, bullet);
             movingPart.process(data, bullet);
             positionPart.process(data, bullet);
 
-            setShape();
+            updateShape(bullet);
         }
     }
 
-    private void setShape() {
+    private void updateShape(Entity entity) {
+        entity.setTexture(new Texture(Gdx.files.internal("resources/Small-dark-green-circle.svg.png")));
+        SpriteBatch spriteBatch = new SpriteBatch();
         spriteBatch.begin();
-        spriteBatch.draw(texture, 1000, 200);
+        spriteBatch.draw(entity.getTexture(), 1000, 200);
         spriteBatch.end();
     }
 
-    private Collection<? extends BulletSPI> getBulletSPIs() {
-        return ServiceLoader.load(BulletSPI.class).stream().map(ServiceLoader.Provider::get).collect(toList());
+
+    @Override
+    public Entity createBullet(Entity e, GameData gameData) {
+        Entity bullet = new Bullet();
+        return bullet;
     }
 }

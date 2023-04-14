@@ -1,5 +1,6 @@
 package dk.sdu.se.f23.InVasion.player;
 
+import bulletpackage.BulletSPI;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Texture;
@@ -15,9 +16,12 @@ import dk.sdu.se.f23.InVasion.common.data.entityparts.MovingPart;
 import dk.sdu.se.f23.InVasion.common.data.entityparts.PositionPart;
 import dk.sdu.se.f23.InVasion.common.services.EntityProcessingService;
 
+import java.util.Collection;
 import java.util.Random;
+import java.util.ServiceLoader;
 
 import static com.sun.java.accessibility.util.AWTEventMonitor.addMouseMotionListener;
+import static java.util.stream.Collectors.toList;
 
 public class PlayerControlSystem implements EntityProcessingService {
 
@@ -36,7 +40,7 @@ public class PlayerControlSystem implements EntityProcessingService {
         float playerX = positionPart.getX();
         float playerY = positionPart.getY();
 
-        System.out.println("fundet"+mouseX+" "+mouseY);
+        //System.out.println("fundet"+mouseX+" "+mouseY);
 
 
         entity.setTexture(new Texture(Gdx.files.internal("images/tower.png")));
@@ -62,10 +66,16 @@ public class PlayerControlSystem implements EntityProcessingService {
     public void process(GameData data, World world, ProcessAt processTime) {
         for (Entity player : world.getEntities(Player.class)) {
             //PositionPart positionPart = player.getPart(PositionPart.class);
+            if (true) {
+                for (BulletSPI bullet : getBulletSPIs()) {
+                    world.addEntity(bullet.createBullet(player, data));
+                    System.out.println("hej");
+                }
+            }
             updateShape(player);
-
         }
-
     }
-
+    private Collection<? extends BulletSPI> getBulletSPIs() {
+        return ServiceLoader.load(BulletSPI.class).stream().map(ServiceLoader.Provider::get).collect(toList());
+    }
 }

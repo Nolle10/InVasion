@@ -14,4 +14,7 @@ public class TimerPart implements EntityPart{
 
     }
 
+    public float getExpiration() {
+        return expiration;
+    }
 }

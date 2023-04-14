@@ -47,7 +47,7 @@ public class MyListener implements InputProcessor {
 
     @Override
     public boolean mouseMoved(int i, int i1) {
-        System.out.println("moved to: "+i+" "+i1);
+        //System.out.println("moved to: "+i+" "+i1);
         setMousePositionX(i);
         setMousePositionY(i1);
         return true;
