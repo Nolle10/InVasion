@@ -1,5 +1,7 @@
 package dk.sdu.se.f23.InVasion.main;
 
+import bulletpackage.BulletController;
+import bulletpackage.BulletPlugin;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.*;
@@ -59,6 +61,10 @@ public class Game implements ApplicationListener {
         EntityProcessingService playerProcess = new PlayerControlSystem();
         pluginServices.add(playerPlugin);
         entityProcessingServices.add(playerProcess);
+        PluginService bullet = new BulletPlugin();
+        EntityProcessingService bulletp = new BulletController();
+        pluginServices.add(bullet);
+        entityProcessingServices.add(bulletp);
 
         for (PluginService plugin : pluginServices) {
             plugin.onEnable(gameData, world);

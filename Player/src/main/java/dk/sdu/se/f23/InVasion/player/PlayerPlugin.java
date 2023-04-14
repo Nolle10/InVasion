@@ -20,8 +20,8 @@ public class PlayerPlugin implements PluginService {
 
     private Entity createPlayerInfo(GameData data){
         Entity player = Player.getInstance();
-        float x = data.getDisplayWidth()/2*5;
-        float y = data.getDisplayHeight()/2*30;
+        float x = data.getDisplayWidth()/2;
+        float y = data.getDisplayHeight()/2;
         float radians = 3.1415f / 2;
         player.add(new PositionPart(new Point((int) x, (int) y), radians));
         return player;

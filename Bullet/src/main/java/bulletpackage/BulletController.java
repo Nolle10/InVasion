@@ -27,24 +27,23 @@ public class BulletController implements EntityProcessingService, BulletSPI {
     @Override
     public void process(GameData data, World world, ProcessAt processTime) {
         for (Entity bullet : world.getEntities(Bullet.class)) {
-            PositionPart positionPart = bullet.getPart(PositionPart.class);
-            MovingPart movingPart = bullet.getPart(MovingPart.class);
-            TimerPart timerPart = bullet.getPart(TimerPart.class);
-            movingPart.setUp(true);
-            if (timerPart.getExpiration() < 0) {
+            //PositionPart positionPart = bullet.getPart(PositionPart.class);
+            //MovingPart movingPart = bullet.getPart(MovingPart.class);
+            //TimerPart timerPart = bullet.getPart(TimerPart.class);
+            /*if (timerPart.getExpiration() < 0) {
                 world.removeEntity(bullet);
             }
 
             timerPart.process(data, bullet);
-            movingPart.process(data, bullet);
-            positionPart.process(data, bullet);
+            movingPart.process(data, bullet);*/
+            //positionPart.process(data, bullet);
 
             updateShape(bullet);
         }
     }
 
     private void updateShape(Entity entity) {
-        entity.setTexture(new Texture(Gdx.files.internal("resources/Small-dark-green-circle.svg.png")));
+        entity.setTexture(new Texture(Gdx.files.internal("Small-dark-green-circle.svg.png")));
         SpriteBatch spriteBatch = new SpriteBatch();
         spriteBatch.begin();
         spriteBatch.draw(entity.getTexture(), 1000, 200);

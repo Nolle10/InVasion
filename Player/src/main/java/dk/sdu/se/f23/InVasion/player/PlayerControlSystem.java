@@ -1,5 +1,6 @@
 package dk.sdu.se.f23.InVasion.player;
 
+import bulletpackage.BulletController;
 import bulletpackage.BulletSPI;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
@@ -30,7 +31,7 @@ public class PlayerControlSystem implements EntityProcessingService {
 
     }
 
-    private void updateShape(Entity entity){
+    private void updateShape(Entity entity, GameData data){
         PositionPart positionPart = entity.getPart(PositionPart.class);
         //call listener on mouse
         Gdx.input.setInputProcessor(MyListener.getInstance());
@@ -40,7 +41,7 @@ public class PlayerControlSystem implements EntityProcessingService {
         float playerX = positionPart.getX();
         float playerY = positionPart.getY();
 
-        //System.out.println("fundet"+mouseX+" "+mouseY);
+        System.out.println("fundet"+mouseX+" "+mouseY);
 
 
         entity.setTexture(new Texture(Gdx.files.internal("images/tower.png")));
@@ -49,7 +50,7 @@ public class PlayerControlSystem implements EntityProcessingService {
 
         SpriteBatch spriteBatch = new SpriteBatch();
         spriteBatch.begin();
-        spriteBatch.draw(entity.getTexture(), playerX, playerY);
+        spriteBatch.draw(entity.getTexture(), data.getDisplayWidth()/2, data.getDisplayHeight()/2);
         spriteBatch.end();
 
         // old code
@@ -67,12 +68,14 @@ public class PlayerControlSystem implements EntityProcessingService {
         for (Entity player : world.getEntities(Player.class)) {
             //PositionPart positionPart = player.getPart(PositionPart.class);
             if (true) {
-                for (BulletSPI bullet : getBulletSPIs()) {
+                world.addEntity(new BulletController().createBullet(player, data));
+                System.out.println("hej");
+                /*for (BulletSPI bullet : getBulletSPIs()) {
                     world.addEntity(bullet.createBullet(player, data));
                     System.out.println("hej");
-                }
+                }*/
             }
-            updateShape(player);
+            updateShape(player, data);
         }
     }
     private Collection<? extends BulletSPI> getBulletSPIs() {
