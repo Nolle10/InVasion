@@ -12,13 +12,10 @@ import dk.sdu.se.f23.InVasion.common.services.EntityProcessingService;
 import dk.sdu.se.f23.InVasion.enemy.services.ActionService;
 
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Random;
 import java.util.ServiceLoader;
 
-import static com.badlogic.gdx.scenes.scene2d.InputEvent.Type.exit;
-import static java.lang.System.exit;
 import static java.util.stream.Collectors.toList;
 
 public class EnemyControlSystem implements EntityProcessingService {
