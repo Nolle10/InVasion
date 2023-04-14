@@ -30,7 +30,7 @@ public class BulletController implements EntityProcessingService, BulletSPI {
             PositionPart positionPart = bullet.getPart(PositionPart.class);
             MovingPart movingPart = bullet.getPart(MovingPart.class);
             TimerPart timerPart = bullet.getPart(TimerPart.class);
-
+            movingPart.setUp(true);
             if (timerPart.getExpiration() < 0) {
                 world.removeEntity(bullet);
             }
