@@ -38,7 +38,7 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>dk.sdu.mmmi.cbse</groupId>
+            <groupId>dk.sdu.se.f23</groupId>
             <artifactId>shadedlibgdx</artifactId>
         </dependency>
     </dependencies>
