@@ -74,7 +74,7 @@ public class MapPlugin implements PluginService {
         ArrayList<ArrayList<Integer>> mask = new ArrayList<>();
         BufferedImage maskImage = null;
         try {
-             maskImage = ImageIO.read(new File("src/main/java/dk/sdu/se/f23/InVasion/map/mask.png"));
+             maskImage = ImageIO.read(new File("src/main/resources/textures/mask.png"));
         } catch (IOException e) {
             System.out.println("Picture not found");
             throw new NoSuchElementException(e);
