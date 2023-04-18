@@ -99,8 +99,12 @@ public class BulletController implements EntityProcessingService, BulletSPI {
 
         float x = shooterPos.getX();
         float y = shooterPos.getY();
-        float radians = shooterPos.getRadians();
+        float radians = shooterPos.getRadians();//i think this is wrong
         float speed = 350;
+        Gdx.input.setInputProcessor(MyListener.getInstance());
+        float mouseX = MyListener.getInstance().getMousePositionX();
+        float mouseY = MyListener.getInstance().getMousePositionY();
+
 
        /* Gdx.input.setInputProcessor(MyListener.getInstance());
         float mouseX = MyListener.getInstance().getMousePositionX();
@@ -113,7 +117,7 @@ public class BulletController implements EntityProcessingService, BulletSPI {
         /*int bx = (int) (cos(radians) * e.getRadius() * bullet.getRadius());
         int by = (int) (sin(radians) * e.getRadius() * bullet.getRadius());*/
 
-        Point p = new Point((int) (x), (int) (y));
+        Point p = new Point((int) (x+mouseX), (int) (y+mouseY));
         //(bx + x + by + y)
         bullet.add(new PositionPart(p, radians));
         bullet.add(new MovingPart(0, 500, speed, 5));
