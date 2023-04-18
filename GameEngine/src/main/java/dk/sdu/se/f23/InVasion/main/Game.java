@@ -46,7 +46,7 @@ public class Game implements ApplicationListener {
         //HEIGHT = Gdx.graphics.getHeight();
 
         cam = new OrthographicCamera(gameData.getDisplayWidth(), gameData.getDisplayHeight());
-        cam.translate(gameData.getDisplayWidth() / 2, gameData.getDisplayHeight() / 2);
+        cam.translate(gameData.getDisplayWidth(), gameData.getDisplayHeight());
         cam.update();
 
 
@@ -57,14 +57,16 @@ public class Game implements ApplicationListener {
         EntityProcessingService enemyProcess = new EnemyControlSystem();
         pluginServices.add(enemyPlugin);
         entityProcessingServices.add(enemyProcess);
+
         PluginService playerPlugin = new PlayerPlugin();
         EntityProcessingService playerProcess = new PlayerControlSystem();
         pluginServices.add(playerPlugin);
         entityProcessingServices.add(playerProcess);
+
         PluginService bullet = new BulletPlugin();
-        EntityProcessingService bulletp = new BulletController();
+        EntityProcessingService bulletplugin = new BulletController();
         pluginServices.add(bullet);
-        entityProcessingServices.add(bulletp);
+        entityProcessingServices.add(bulletplugin);
 
         for (PluginService plugin : pluginServices) {
             plugin.onEnable(gameData, world);
@@ -106,11 +108,11 @@ public class Game implements ApplicationListener {
     public void dispose() {}
 
     //ServiceLoader - Loads in all Plugin services and EntityProcessing services
-    /*
+
     private Collection<? extends PluginService> getPluginServices() {
         return ServiceLoader.load(PluginService.class).stream().map(ServiceLoader.Provider::get).collect(toList());
     }
     private Collection<? extends EntityProcessingService> getEntityProcessingServices() {
         return ServiceLoader.load(EntityProcessingService.class).stream().map(ServiceLoader.Provider::get).collect(toList());
-    }*/
+    }
 }

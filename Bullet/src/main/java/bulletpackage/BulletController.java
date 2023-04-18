@@ -32,7 +32,7 @@ public class BulletController implements EntityProcessingService, BulletSPI {
             MovingPart movingPart = bullet.getPart(MovingPart.class);
             LifePart lifePart = bullet.getPart(LifePart.class);
 
-            // TODO: TEMPORARY RANDOM MOVEMENT
+            /*// TODO: TEMPORARY RANDOM MOVEMENT
             Random rand = new Random();
 
             float rng = rand.nextFloat();
@@ -47,7 +47,7 @@ public class BulletController implements EntityProcessingService, BulletSPI {
 
             if (rng > 0.8f) {
                 movingPart.setRight(true);
-            }
+            }*/
 
             movingPart.process(data, bullet);
             positionPart.process(data, bullet);
@@ -67,8 +67,8 @@ public class BulletController implements EntityProcessingService, BulletSPI {
 
         float x = shooterPos.getX();
         float y = shooterPos.getY();
-        float radians = shooterPos.getRadians();
-        float speed = 350;
+        /*float radians = shooterPos.getRadians();
+        float speed = 350;*/
 
         Gdx.input.setInputProcessor(MyListener.getInstance());
         float mouseX = MyListener.getInstance().getMousePositionX();
@@ -76,7 +76,7 @@ public class BulletController implements EntityProcessingService, BulletSPI {
         System.out.println("fundet"+mouseX+" "+mouseY);
 
 
-        Point p = new Point((int) (mouseX+x), (int) (mouseY+y));
+        Point p = new Point((int) (mouseX-x), (int) (mouseY-y));
         //old
         /*PositionPart positionPart = entity.getPart(PositionPart.class);
         float x = positionPart.getX();

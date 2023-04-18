@@ -62,7 +62,7 @@ public class PlayerControlSystem implements EntityProcessingService {
     public void process(GameData data, World world, ProcessAt processTime) {
         for (Entity player : world.getEntities(Player.class)) {
             //PositionPart positionPart = player.getPart(PositionPart.class);
-            if (true) {
+            for (int i = 0; i < 4 ; i++) {
                 world.addEntity(new BulletController().createBullet(player, data));
                 System.out.println("hej");
                 /*for (BulletSPI bullet : getBulletSPIs()) {
@@ -74,7 +74,7 @@ public class PlayerControlSystem implements EntityProcessingService {
             updateShape(player, data);
         }
     }
-    private Collection<? extends BulletSPI> getBulletSPIs() {
+    /*private Collection<? extends BulletSPI> getBulletSPIs() {
         return ServiceLoader.load(BulletSPI.class).stream().map(ServiceLoader.Provider::get).collect(toList());
-    }
+    }*/
 }
