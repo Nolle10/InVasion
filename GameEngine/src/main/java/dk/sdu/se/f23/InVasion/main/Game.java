@@ -53,7 +53,6 @@ public class Game implements ApplicationListener {
         gsm = new GameStateManager();
 
         //Only for demo - remove later
-        //Add your own modules manually for TESTING only
         PluginService enemyPlugin = new EnemyPlugin();
         EntityProcessingService enemyProcess = new EnemyControlSystem();
         pluginServices.add(enemyPlugin);
@@ -70,10 +69,10 @@ public class Game implements ApplicationListener {
         for (PluginService plugin : pluginServices) {
             plugin.onEnable(gameData, world);
         }
-        for (PluginService plugin : getPluginServices()) {
+        /*for (PluginService plugin : getPluginServices()) {
             plugin.onEnable(gameData, world);
             System.out.println(plugin.getClass().getName() + " loaded");
-        }
+        }*/
     }
 
     public void render() {
@@ -91,9 +90,9 @@ public class Game implements ApplicationListener {
 
     //Update method for EntityProcessingServices: How to do it with ProcessAt.Tick and ProcessAt values?
     private void update(ProcessAt processAt){
-        for (EntityProcessingService entityProcessor : getEntityProcessingServices()) {
+        /*for (EntityProcessingService entityProcessor : getEntityProcessingServices()) {
             entityProcessor.process(gameData, world, processAt);
-        }
+        }*/
         //For demo - remove later
         for (EntityProcessingService entityProcessor : entityProcessingServices) {
             entityProcessor.process(gameData, world, processAt);
@@ -107,11 +106,11 @@ public class Game implements ApplicationListener {
     public void dispose() {}
 
     //ServiceLoader - Loads in all Plugin services and EntityProcessing services
-
+    /*
     private Collection<? extends PluginService> getPluginServices() {
         return ServiceLoader.load(PluginService.class).stream().map(ServiceLoader.Provider::get).collect(toList());
     }
     private Collection<? extends EntityProcessingService> getEntityProcessingServices() {
         return ServiceLoader.load(EntityProcessingService.class).stream().map(ServiceLoader.Provider::get).collect(toList());
-    }
+    }*/
 }

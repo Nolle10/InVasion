@@ -26,15 +26,20 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
+            <groupId>com.badlogicgames.gdx</groupId>
+            <artifactId>gdx</artifactId>
+            <version>1.11.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.13.2</version>
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>dk.sdu.se.f23</groupId>
+            <groupId>dk.sdu.mmmi.cbse</groupId>
             <artifactId>shadedlibgdx</artifactId>
-            <version>1.0.2-SNAPSHOT</version>
         </dependency>
     </dependencies>
 

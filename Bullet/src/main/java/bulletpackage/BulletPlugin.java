@@ -1,4 +1,4 @@
-package dk.sdu.se.f23.InVasion.bullet;
+package bulletpackage;
 
 import dk.sdu.se.f23.InVasion.common.data.Entity;
 import dk.sdu.se.f23.InVasion.common.data.GameData;

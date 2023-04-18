@@ -1,4 +1,4 @@
-package dk.sdu.se.f23.InVasion.ai;
+package dk.sdu.se.f23.InVasion.AI;
 
 import dk.sdu.se.f23.InVasion.common.data.GameData;
 import dk.sdu.se.f23.InVasion.common.data.Point;

@@ -6,14 +6,13 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import dk.sdu.se.f23.InVasion.managers.GameStateManager;
 
 public class MainScreenState extends GameState{
 
     private Stage stage;
-    private TextButton button;
-    private TextButton.TextButtonStyle textButtonStyle;
+    /*private TextButton button;
+    private TextButton.TextButtonStyle textButtonStyle;*/
 
     public MainScreenState(GameStateManager gsm) {
         super(gsm);
@@ -23,7 +22,7 @@ public class MainScreenState extends GameState{
     public void init() {
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
-
+/*
         textButtonStyle = new TextButton.TextButtonStyle();
         textButtonStyle.font = new BitmapFont();
         textButtonStyle.fontColor = Color.WHITE;
@@ -38,7 +37,7 @@ public class MainScreenState extends GameState{
             }
         });
 
-        stage.addActor(button);
+        stage.addActor(button);*/
     }
 
     @Override
