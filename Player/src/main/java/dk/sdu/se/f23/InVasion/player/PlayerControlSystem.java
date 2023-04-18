@@ -29,14 +29,14 @@ public class PlayerControlSystem implements EntityProcessingService {
     private void updateShape(Entity entity, GameData data){
         PositionPart positionPart = entity.getPart(PositionPart.class);
         //call listener on mouse
-        Gdx.input.setInputProcessor(MyListener.getInstance());
+        /*Gdx.input.setInputProcessor(MyListener.getInstance());
 
         float mouseX = MyListener.getInstance().getMousePositionX();
         float mouseY = MyListener.getInstance().getMousePositionY();
         float playerX = positionPart.getX();
         float playerY = positionPart.getY();
 
-        System.out.println("fundet"+mouseX+" "+mouseY);
+        System.out.println("fundet"+mouseX+" "+mouseY);*/
 
 
         entity.setTexture(new Texture(Gdx.files.internal("images/tower.png")));
@@ -70,6 +70,7 @@ public class PlayerControlSystem implements EntityProcessingService {
                     System.out.println("hej");
                 }*/
             }
+
             updateShape(player, data);
         }
     }
