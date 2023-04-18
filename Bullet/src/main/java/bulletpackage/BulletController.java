@@ -43,10 +43,10 @@ public class BulletController implements EntityProcessingService, BulletSPI {
     }
 
     private void updateShape(Entity entity) {
-        entity.setTexture(new Texture(Gdx.files.internal("Small-dark-green-circle.svg.png")));
+        entity.setTexture(new Texture(Gdx.files.internal("star.png")));
         SpriteBatch spriteBatch = new SpriteBatch();
         spriteBatch.begin();
-        spriteBatch.draw(entity.getTexture(), 1000, 200);
+        spriteBatch.draw(entity.getTexture(), 50, 50);
         spriteBatch.end();
     }
 

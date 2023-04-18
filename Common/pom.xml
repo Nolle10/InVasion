@@ -14,8 +14,8 @@
     <repositories>
         <repository>
             <id>github</id>
-            <name>GitHub sweat-tek Apache Maven Packages</name>
-            <url>https://maven.pkg.github.com/sweat-tek/ShadedLibGDX</url>
+            <name>GitHub Crazi12345 Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/Crazi12345/ShadedLibGDX</url>
         </repository>
     </repositories>
 
@@ -31,8 +31,15 @@
             <version>5.4.2</version>
         </dependency>
         <dependency>
-            <groupId>dk.sdu.mmmi.cbse</groupId>
+            <groupId>dk.sdu.se.f23</groupId>
             <artifactId>shadedlibgdx</artifactId>
+            <version>1.0.2-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.badlogicgames.gdx</groupId>
+            <artifactId>gdx</artifactId>
+            <version>1.11.0</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
     <build>
