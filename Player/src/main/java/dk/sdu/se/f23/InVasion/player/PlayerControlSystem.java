@@ -16,7 +16,7 @@ public class PlayerControlSystem implements EntityProcessingService {
 
     private void createPlayer(){
         SpriteBatch spriteBatch = new SpriteBatch();
-        Texture texture = new Texture(Gdx.files.internal("images/tower.png"));
+        Texture texture = new Texture(Gdx.files.internal("Player/src/main/resources/images/tower.png"));
 
 
         spriteBatch.begin();

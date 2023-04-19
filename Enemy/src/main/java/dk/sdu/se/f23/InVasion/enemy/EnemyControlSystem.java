@@ -69,7 +69,8 @@ public class EnemyControlSystem implements EntityProcessingService {
         PositionPart positionPart = entity.getPart(PositionPart.class);
         float x = positionPart.getX();
         float y = positionPart.getY();
-        entity.setTexture(new Texture(Gdx.files.internal("dk/sdu/se/f23/InVasion/enemyresources/textures/enemytest.png")));
+
+        entity.setTexture(new Texture(Gdx.files.internal("Enemy/src/main/resources/dk/sdu/se/f23/InVasion/enemyresources/textures/enemytest.png")));
         SpriteBatch spriteBatch = new SpriteBatch();
         spriteBatch.begin();
         spriteBatch.draw(entity.getTexture(), x, y);
