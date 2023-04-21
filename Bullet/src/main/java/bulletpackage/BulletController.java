@@ -53,7 +53,7 @@ public class BulletController implements EntityProcessingService, BulletSPI {
             positionPart.process(data, bullet);
             lifePart.process(data, bullet);
 
-            updateShape(bullet);
+            updateShape((Bullet) bullet);
 
             movingPart.setRight(false);
             movingPart.setLeft(false);
@@ -61,7 +61,7 @@ public class BulletController implements EntityProcessingService, BulletSPI {
         }
     }
 
-    private void updateShape(Entity entity) {
+    private void updateShape(Bullet entity) {
         //new
         PositionPart shooterPos = entity.getPart(PositionPart.class);
 
@@ -73,10 +73,10 @@ public class BulletController implements EntityProcessingService, BulletSPI {
         Gdx.input.setInputProcessor(MyListener.getInstance());
         float mouseX = MyListener.getInstance().getMousePositionX();
         float mouseY = MyListener.getInstance().getMousePositionY();
-        System.out.println("fundet"+mouseX+" "+mouseY);
+        System.out.println("fundet" + mouseX + " " + mouseY);
 
 
-        Point p = new Point((int) (mouseX-x), (int) (mouseY-y));
+        Point p = new Point((int) (mouseX - x), (int) (mouseY - y));
         //old
         /*PositionPart positionPart = entity.getPart(PositionPart.class);
         float x = positionPart.getX();
@@ -87,8 +87,7 @@ public class BulletController implements EntityProcessingService, BulletSPI {
         float mouseY = MyListener.getInstance().getMousePositionY();
         System.out.println("fundet"+mouseX+" "+mouseY);*/
 
-        entity.setTexture(new Texture(Gdx.files.internal("star2.png")));
-        SpriteBatch spriteBatch = new SpriteBatch();
+        SpriteBatch spriteBatch = entity.getSpriteBatch();
         spriteBatch.begin();
         spriteBatch.draw(entity.getTexture(), p.getX(), p.getY());
         spriteBatch.end();
@@ -111,17 +110,20 @@ public class BulletController implements EntityProcessingService, BulletSPI {
         float mouseY = MyListener.getInstance().getMousePositionY();
         System.out.println("fundet"+mouseX+" "+mouseY);*/
 
-        Entity bullet = new Bullet();
+        Bullet bullet = new Bullet();
         //bullet.setRadius(2);
 
         /*int bx = (int) (cos(radians) * e.getRadius() * bullet.getRadius());
         int by = (int) (sin(radians) * e.getRadius() * bullet.getRadius());*/
 
-        Point p = new Point((int) (x+mouseX), (int) (y+mouseY));
+        Point p = new Point((int) (x + mouseX), (int) (y + mouseY));
         //(bx + x + by + y)
         bullet.add(new PositionPart(p, radians));
         bullet.add(new MovingPart(0, 500, speed, 5));
         bullet.add(new LifePart(1));
+        bullet.setTexture(new Texture(Gdx.files.internal("star2.png")));
+        SpriteBatch spriteBatch = new SpriteBatch();
+        bullet.setSpriteBatch(spriteBatch);
         return bullet;
     }
 }
