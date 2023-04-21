@@ -18,7 +18,7 @@ public class EnemyPlugin implements PluginService {
 
     @Override
     public void onEnable(GameData data, World world) {
-        enemy = createEnemy(data);
+        enemy = createEnemy(data,world);
         world.addEntity(enemy);
 
     }
@@ -30,18 +30,13 @@ public class EnemyPlugin implements PluginService {
 
     //Randomly creates an enemy - Should be adjusted with specific enemy types
     //This specific enemy is a STUPID type enemy
-    private Entity createEnemy(GameData data) {
-        float deacceleration = 10;
-        float acceleration = 150;
-        float maxSpeed = 200;
-        float rotationSpeed = 5;
-        float x = new Random().nextFloat() * data.getDisplayWidth();
-        float y = new Random().nextFloat() * data.getDisplayHeight();
+    private Entity createEnemy(GameData data, World world) {
+        world.setInitState(new Point(200, 300));
+        float x = world.getInitState().getX();
+        float y = world.getInitState().getY();
         float radians = 3.1415f / 2;
 
-
         Entity enemyShip = new Enemy();
-        enemyShip.add(new MovingPart(deacceleration, acceleration, maxSpeed, rotationSpeed));
         enemyShip.add(new PositionPart(new Point((int) x, (int) y), radians));
         enemyShip.add(new LifePart(1));
 
