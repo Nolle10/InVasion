@@ -1,7 +1,5 @@
 package dk.sdu.se.f23.InVasion.main;
 
-import bulletpackage.BulletController;
-import bulletpackage.BulletPlugin;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.*;
@@ -28,6 +26,7 @@ public class Game implements ApplicationListener {
     private GameStateManager gsm;
     private final GameData gameData = new GameData();
     private World world = new World();
+    private static int playerMoney = 0;
 
     public void create() {
 
@@ -45,7 +44,7 @@ public class Game implements ApplicationListener {
         for (PluginService plugin : getPluginServices()) {
             plugin.onEnable(gameData, world);
             System.out.println(plugin.getClass().getName() + " loaded");
-        }*/
+        }
     }
 
     public void render() {
@@ -63,7 +62,7 @@ public class Game implements ApplicationListener {
 
     //Update method for EntityProcessingServices: How to do it with ProcessAt.Tick and ProcessAt values?
     private void update(ProcessAt processAt){
-        /*for (EntityProcessingService entityProcessor : getEntityProcessingServices()) {
+        for (EntityProcessingService entityProcessor : getEntityProcessingServices()) {
             entityProcessor.process(gameData, world, processAt);
         }
 
@@ -74,6 +73,16 @@ public class Game implements ApplicationListener {
     public void pause() {}
     public void resume() {}
     public void dispose() {}
+
+
+    public static int getPlayerMoney() {
+        return playerMoney;
+    }
+
+    public static void setPlayerMoney(int playerMoney) {
+        playerMoney = Game.playerMoney;
+    }
+
 
     //ServiceLoader - Loads in all Plugin services and EntityProcessing services
 

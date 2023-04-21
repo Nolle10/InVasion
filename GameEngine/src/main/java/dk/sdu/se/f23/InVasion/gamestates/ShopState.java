@@ -8,15 +8,18 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import dk.sdu.se.f23.InVasion.main.Game;
 import dk.sdu.se.f23.InVasion.managers.GameStateManager;
 
 public class ShopState extends GameState {
 
     private ShapeRenderer sr;
     private Stage stage;
-    /*
+
     private TextButton button;
-    private TextButton.TextButtonStyle textButtonStyle;*/
+    private TextButton button1;
+    private TextButton.TextButtonStyle textButtonStyle;
 
     public ShopState(GameStateManager gsm) {
         super(gsm);
@@ -26,7 +29,7 @@ public class ShopState extends GameState {
     public void init() {
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
-/*
+
         textButtonStyle = new TextButton.TextButtonStyle();
         textButtonStyle.font = new BitmapFont();
         textButtonStyle.fontColor = Color.RED;
@@ -41,7 +44,11 @@ public class ShopState extends GameState {
             }
         });
 
-        stage.addActor(button);*/
+        button1 = new TextButton(String.format("Current Money: %o",Game.getPlayerMoney()),textButtonStyle);
+        button1.setPosition(700, 800);
+
+        stage.addActor(button);
+        stage.addActor(button1);
 
     }
 
