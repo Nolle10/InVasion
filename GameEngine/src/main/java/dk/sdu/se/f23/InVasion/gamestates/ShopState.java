@@ -29,7 +29,7 @@ public class ShopState extends GameState {
     public void init() {
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
-
+        sr = new ShapeRenderer();
         textButtonStyle = new TextButton.TextButtonStyle();
         textButtonStyle.font = new BitmapFont();
         textButtonStyle.fontColor = Color.RED;
@@ -46,7 +46,7 @@ public class ShopState extends GameState {
 
         button1 = new TextButton(String.format("Current Money: %o",Game.getPlayerMoney()),textButtonStyle);
         button1.setPosition(700, 800);
-
+        draw();
         stage.addActor(button);
         stage.addActor(button1);
 
@@ -59,7 +59,14 @@ public class ShopState extends GameState {
 
     @Override
     public void draw() {
+
+        sr.begin(ShapeRenderer.ShapeType.Filled);
+        sr.setColor(Color.YELLOW);
+        int shopWidth= 200;
+        sr.rect(1920-shopWidth,0,200,1080);
+        sr.end();
         stage.draw();
+
     }
 
     @Override
