@@ -18,6 +18,8 @@
         <module>Player</module>
         <module>Weapon</module>
         <module>Map</module>
+        <module>CommonWeapon</module>
+        <module>CommonBullet</module>
     </modules>
 
     <properties>
