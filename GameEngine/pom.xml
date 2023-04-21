@@ -15,14 +15,15 @@
     <repositories>
         <repository>
             <id>github</id>
-            <name>GitHub sweat-tek Apache Maven Packages</name>
-            <url>https://maven.pkg.github.com/sweat-tek/ShadedLibGDX</url>
+            <name>GitHub Crazi12345 Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/Crazi12345/ShadedLibGDX</url>
         </repository>
+
     </repositories>
     <properties>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
-        <libgdx.version>1.11.0</libgdx.version>
+        <maven.compiler.source>16</maven.compiler.source>
+        <maven.compiler.target>16</maven.compiler.target>
+        <shadedlibgdx.version>1.0.2</shadedlibgdx.version>
     </properties>
 
     <dependencies>
@@ -31,10 +32,6 @@
             <artifactId>Common</artifactId>
             <version>${project.version}</version>
             <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>dk.sdu.mmmi.cbse</groupId>
-            <artifactId>shadedlibgdx</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.maven.plugins</groupId>
@@ -51,6 +48,11 @@
             <artifactId>junit</artifactId>
             <version>4.13.2</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>dk.sdu.se.f23</groupId>
+            <artifactId>shadedlibgdx</artifactId>
+            <version>1.0.2-SNAPSHOT</version>
         </dependency>
     </dependencies>
 
@@ -80,7 +82,7 @@
                         <configuration>
                             <artifactItems>
                                 <artifactItem>
-                                    <groupId>dk.sdu.mmmi.cbse</groupId>
+                                    <groupId>dk.sdu.se.f23</groupId>
                                     <artifactId>shadedlibgdx</artifactId>
                                     <overWrite>true</overWrite>
                                     <outputDirectory>../libs</outputDirectory>

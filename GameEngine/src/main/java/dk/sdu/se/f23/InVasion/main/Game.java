@@ -22,31 +22,29 @@ public class Game implements ApplicationListener {
 
     public static OrthographicCamera cam;
 
+
     private GameStateManager gsm;
     private final GameData gameData = new GameData();
     private World world = new World();
 
     public void create() {
 
-        gameData.setDisplayWidth(Gdx.graphics.getWidth());
-        gameData.setDisplayHeight(Gdx.graphics.getHeight());
-        //WIDTH = Gdx.graphics.getWidth();
-        //HEIGHT = Gdx.graphics.getHeight();
+        WIDTH = Gdx.graphics.getWidth();
+        HEIGHT = Gdx.graphics.getHeight();
+        gameData.setDisplayWidth(WIDTH);
+        gameData.setDisplayHeight(HEIGHT);
 
         cam = new OrthographicCamera(gameData.getDisplayWidth(), gameData.getDisplayHeight());
         cam.translate(gameData.getDisplayWidth() / 2, gameData.getDisplayHeight() / 2);
         cam.update();
 
-
         gsm = new GameStateManager();
-        //Gdx.input.setInputProcessor(new GameStateManager();
 
         for (PluginService plugin : getPluginServices()) {
             plugin.onEnable(gameData, world);
+            System.out.println(plugin.getClass().getName() + " loaded");
         }
     }
-
-
 
     public void render() {
 
@@ -56,6 +54,8 @@ public class Game implements ApplicationListener {
 
         gsm.update(Gdx.graphics.getDeltaTime());
         gsm.draw();
+        gameData.setDelta(Gdx.graphics.getDeltaTime());
+        update(ProcessAt.Tick);
 
     }
 
@@ -64,6 +64,7 @@ public class Game implements ApplicationListener {
         for (EntityProcessingService entityProcessor : getEntityProcessingServices()) {
             entityProcessor.process(gameData, world, processAt);
         }
+
     }
 
     public void resize(int width, int height) {}
@@ -73,6 +74,7 @@ public class Game implements ApplicationListener {
     public void dispose() {}
 
     //ServiceLoader - Loads in all Plugin services and EntityProcessing services
+
     private Collection<? extends PluginService> getPluginServices() {
         return ServiceLoader.load(PluginService.class).stream().map(ServiceLoader.Provider::get).collect(toList());
     }

@@ -1,4 +1,4 @@
-package playerpackage;
+package dk.sdu.se.f23.InVasion.player;
 
 import dk.sdu.se.f23.InVasion.common.data.Entity;
 

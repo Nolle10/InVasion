@@ -1,10 +1,11 @@
-import dk.sdu.se.f23.InVasion.common.services.PluginService;
 import dk.sdu.se.f23.InVasion.common.services.EntityProcessingService;
+import dk.sdu.se.f23.InVasion.common.services.PluginService;
 
 module GameEngine {
+    requires jdk.unsupported;
     requires Common;
     requires java.desktop;
-    requires com.badlogic.gdx;
+    requires shadedlibgdx;
     uses PluginService;
     uses EntityProcessingService;
 }

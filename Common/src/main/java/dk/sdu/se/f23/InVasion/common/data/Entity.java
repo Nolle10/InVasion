@@ -1,5 +1,6 @@
 package dk.sdu.se.f23.InVasion.common.data;
 
+import com.badlogic.gdx.graphics.Texture;
 import dk.sdu.se.f23.InVasion.common.data.entityparts.EntityPart;
 
 import java.util.Map;
@@ -9,8 +10,12 @@ import java.util.concurrent.ConcurrentHashMap;
 public class Entity {
     private final UUID ID = UUID.randomUUID();
 
+    private Texture texture;
+    @Deprecated
     private float[] shapeX = new float[4];
+    @Deprecated
     private float[] shapeY = new float[4];
+    @Deprecated
     private float radius;
     private Map<Class, EntityPart> parts;
 
@@ -30,10 +35,19 @@ public class Entity {
         return (E) parts.get(partClass);
     }
 
+    public Texture getTexture() {
+        return texture;
+    }
+
+    public void setTexture(Texture texture) {
+        this.texture = texture;
+    }
+
+    @Deprecated
     public void setRadius(float r){
         this.radius = r;
     }
-
+    @Deprecated
     public float getRadius(){
         return radius;
     }
@@ -42,18 +56,20 @@ public class Entity {
         return ID.toString();
     }
 
+    @Deprecated
     public float[] getShapeX() {
         return shapeX;
     }
 
+    @Deprecated
     public void setShapeX(float[] shapeX) {
         this.shapeX = shapeX;
     }
-
+    @Deprecated
     public float[] getShapeY() {
         return shapeY;
     }
-
+    @Deprecated
     public void setShapeY(float[] shapeY) {
         this.shapeY = shapeY;
     }

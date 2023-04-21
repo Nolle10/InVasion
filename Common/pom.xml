@@ -11,6 +11,13 @@
     </parent>
     <artifactId>Common</artifactId>
     <packaging>jar</packaging>
+    <repositories>
+        <repository>
+            <id>github</id>
+            <name>GitHub Crazi12345 Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/Crazi12345/ShadedLibGDX</url>
+        </repository>
+    </repositories>
 
 <!--    <properties>
         <maven.compiler.source>16</maven.compiler.source>
@@ -23,6 +30,12 @@
             <artifactId>junit-jupiter</artifactId>
             <version>5.4.2</version>
         </dependency>
+        <dependency>
+            <groupId>dk.sdu.se.f23</groupId>
+            <artifactId>shadedlibgdx</artifactId>
+            <version>1.0.2-SNAPSHOT</version>
+        </dependency>
+
     </dependencies>
     <build>
         <plugins>

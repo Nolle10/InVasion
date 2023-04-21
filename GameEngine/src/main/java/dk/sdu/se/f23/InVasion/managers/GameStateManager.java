@@ -2,8 +2,7 @@ package dk.sdu.se.f23.InVasion.managers;
 
 
 import dk.sdu.se.f23.InVasion.common.data.GameData;
-import dk.sdu.se.f23.InVasion.gamestates.GameState;
-import dk.sdu.se.f23.InVasion.gamestates.PlayState;
+import dk.sdu.se.f23.InVasion.gamestates.*;
 
 
 public class GameStateManager {
@@ -13,20 +12,31 @@ public class GameStateManager {
 
     private GameData gameData;
     public static final int MENU = 0;
-    public static final int PLAY = 893746;
+    public static final int SHOP = 1;
+    public static final int PLAY = 2;
+    public static final int PAUSE = 3;
+
+    private int currentState = 0;
 
     public GameStateManager() {
-        setState(PLAY);
+        setState(MENU);
     }
 
     public void setState(int state) {
         if(gameState != null) gameState.dispose();
         if(state == MENU) {
-            // gameState = new MenuState(this);
+            gameState = new MainScreenState(this);
         }
         if(state == PLAY) {
             gameState = new PlayState(this);
         }
+        if(state == SHOP) {
+            gameState = new ShopState(this);
+        }
+        if(state == PAUSE) {
+            gameState = new PauseState(this);
+        }
+        currentState = state;
     }
 
     public void update(float dt) {
@@ -37,4 +47,10 @@ public class GameStateManager {
         gameState.draw();
     }
 
+    public GameState getGameState() {
+        return gameState; // i just put this here
+    }
+    public int getCurrentState(){
+        return currentState;
+    }
 }
