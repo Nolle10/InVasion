@@ -18,8 +18,8 @@
             <name>GitHub Crazi12345 Apache Maven Packages</name>
             <url>https://maven.pkg.github.com/Crazi12345/ShadedLibGDX</url>
         </repository>
-
     </repositories>
+
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
