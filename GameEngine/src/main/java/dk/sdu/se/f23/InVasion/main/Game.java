@@ -10,15 +10,9 @@ import dk.sdu.se.f23.InVasion.common.data.ProcessAt;
 import dk.sdu.se.f23.InVasion.common.data.World;
 import dk.sdu.se.f23.InVasion.common.services.EntityProcessingService;
 import dk.sdu.se.f23.InVasion.common.services.PluginService;
-import dk.sdu.se.f23.InVasion.enemy.EnemyControlSystem;
-import dk.sdu.se.f23.InVasion.enemy.EnemyPlugin;
 import dk.sdu.se.f23.InVasion.managers.GameStateManager;
-import dk.sdu.se.f23.InVasion.player.PlayerControlSystem;
-import dk.sdu.se.f23.InVasion.player.PlayerPlugin;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import java.util.ServiceLoader;
 
 import static java.util.stream.Collectors.toList;
@@ -30,9 +24,6 @@ public class Game implements ApplicationListener {
 
     public static OrthographicCamera cam;
 
-    //Only for demo - remove later
-    private List<PluginService> pluginServices = new ArrayList<>();
-    private List<EntityProcessingService> entityProcessingServices = new ArrayList<>();
 
     private GameStateManager gsm;
     private final GameData gameData = new GameData();
@@ -40,38 +31,18 @@ public class Game implements ApplicationListener {
 
     public void create() {
 
-        gameData.setDisplayWidth(Gdx.graphics.getWidth());
-        gameData.setDisplayHeight(Gdx.graphics.getHeight());
-        //WIDTH = Gdx.graphics.getWidth();
-        //HEIGHT = Gdx.graphics.getHeight();
+        WIDTH = Gdx.graphics.getWidth();
+        HEIGHT = Gdx.graphics.getHeight();
+        gameData.setDisplayWidth(WIDTH);
+        gameData.setDisplayHeight(HEIGHT);
 
         cam = new OrthographicCamera(gameData.getDisplayWidth(), gameData.getDisplayHeight());
         cam.translate(gameData.getDisplayWidth(), gameData.getDisplayHeight());
         cam.update();
 
-
         gsm = new GameStateManager();
 
-        //Only for demo - remove later
-        PluginService enemyPlugin = new EnemyPlugin();
-        EntityProcessingService enemyProcess = new EnemyControlSystem();
-        pluginServices.add(enemyPlugin);
-        entityProcessingServices.add(enemyProcess);
-
-        PluginService playerPlugin = new PlayerPlugin();
-        EntityProcessingService playerProcess = new PlayerControlSystem();
-        pluginServices.add(playerPlugin);
-        entityProcessingServices.add(playerProcess);
-
-        PluginService bullet = new BulletPlugin();
-        EntityProcessingService bulletplugin = new BulletController();
-        pluginServices.add(bullet);
-        entityProcessingServices.add(bulletplugin);
-
-        for (PluginService plugin : pluginServices) {
-            plugin.onEnable(gameData, world);
-        }
-        /*for (PluginService plugin : getPluginServices()) {
+        for (PluginService plugin : getPluginServices()) {
             plugin.onEnable(gameData, world);
             System.out.println(plugin.getClass().getName() + " loaded");
         }*/
@@ -94,11 +65,8 @@ public class Game implements ApplicationListener {
     private void update(ProcessAt processAt){
         /*for (EntityProcessingService entityProcessor : getEntityProcessingServices()) {
             entityProcessor.process(gameData, world, processAt);
-        }*/
-        //For demo - remove later
-        for (EntityProcessingService entityProcessor : entityProcessingServices) {
-            entityProcessor.process(gameData, world, processAt);
         }
+
     }
 
     public void resize(int width, int height) {}

@@ -13,6 +13,7 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
@@ -73,7 +74,8 @@ public class MapPlugin {
         ArrayList<ArrayList<Integer>> mask = new ArrayList<>();
         BufferedImage maskImage = null;
         try {
-             maskImage = ImageIO.read(new File("src/main/java/dk/sdu/se/f23/InVasion/map/mask.png"));
+            InputStream maskImageStream = getClass().getResourceAsStream("/dk/sdu/se/f23/InVasion/mapresources/textures/mask.png");
+            maskImage = ImageIO.read(maskImageStream);
         } catch (IOException e) {
             System.out.println("Picture not found");
             throw new NoSuchElementException(e);

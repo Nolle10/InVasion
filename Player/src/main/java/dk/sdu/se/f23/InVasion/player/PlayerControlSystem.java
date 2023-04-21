@@ -44,13 +44,7 @@ public class PlayerControlSystem implements EntityProcessingService {
         region.rotate(90);*/
 
         SpriteBatch spriteBatch = new SpriteBatch();
-        spriteBatch.begin();
-        spriteBatch.draw(entity.getTexture(), data.getDisplayWidth()/2, data.getDisplayHeight()/2);
-        spriteBatch.end();
-
-        // old code
-        /*SpriteBatch spriteBatch = new SpriteBatch();
-        Texture texture = new Texture(Gdx.files.internal("images/tower.png"));
+        Texture texture = new Texture(Gdx.files.internal("Player/src/main/resources/images/tower.png"));
 
 
         spriteBatch.begin();
