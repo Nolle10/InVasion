@@ -1,5 +1,7 @@
 package dk.sdu.se.f23.InVasion.bullet;
 
+import com.badlogic.gdx.InputProcessor;
+
 public class ShootListener implements InputProcessor {
     private static ShootListener instance = new ShootListener();
 
