@@ -1,7 +1,6 @@
 package dk.sdu.se.f23.InVasion.player;
 
 import bulletpackage.BulletController;
-import bulletpackage.BulletSPI;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -10,15 +9,9 @@ import dk.sdu.se.f23.InVasion.common.data.GameData;
 import dk.sdu.se.f23.InVasion.common.data.ProcessAt;
 import dk.sdu.se.f23.InVasion.common.data.World;
 import dk.sdu.se.f23.InVasion.common.data.entityparts.PositionPart;
+import dk.sdu.se.f23.InVasion.common.events.EventDistributor;
+import dk.sdu.se.f23.InVasion.common.events.FireShotEvent;
 import dk.sdu.se.f23.InVasion.common.services.EntityProcessingService;
-
-import java.util.Collection;
-import java.util.Random;
-import java.util.ServiceLoader;
-
-import static com.sun.java.accessibility.util.AWTEventMonitor.addMouseMotionListener;
-import static java.util.stream.Collectors.toList;
-
 public class PlayerControlSystem implements EntityProcessingService {
 
     @Override
@@ -49,7 +42,7 @@ public class PlayerControlSystem implements EntityProcessingService {
 
         spriteBatch.begin();
         spriteBatch.draw(texture, 200, 200);
-        spriteBatch.end();*/
+        spriteBatch.end();
     }
 
     @Override
@@ -57,12 +50,8 @@ public class PlayerControlSystem implements EntityProcessingService {
         for (Entity player : world.getEntities(Player.class)) {
             //PositionPart positionPart = player.getPart(PositionPart.class);
             for (int i = 0; i < 4 ; i++) {
-                world.addEntity(new BulletController().createBullet(player, data));
+                EventDistributor.sendEvent(new FireShotEvent(player, 22.00));
                 System.out.println("hej");
-                /*for (BulletSPI bullet : getBulletSPIs()) {
-                    world.addEntity(bullet.createBullet(player, data));
-                    System.out.println("hej");
-                }*/
             }
 
             updateShape(player, data);
