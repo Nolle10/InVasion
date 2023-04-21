@@ -13,5 +13,8 @@ public class TimerPart implements EntityPart{
     private void reduceExpiration(float amount){
 
     }
+    public float getExpiration() {
+        return expiration;
+    }
 
 }
