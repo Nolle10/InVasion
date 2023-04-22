@@ -1,8 +1,8 @@
 package dk.sdu.se.f23.InVasion.bullet;
 
-import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.InputAdapter;
 
-public class ShootListener implements InputProcessor {
+public class ShootListener extends InputAdapter {
     private static ShootListener instance = new ShootListener();
 
     private ShootListener() {
@@ -16,46 +16,10 @@ public class ShootListener implements InputProcessor {
     private int mousePositionY;
 
     @Override
-    public boolean keyDown(int i) {
-        return false;
-    }
-
-    @Override
-    public boolean keyUp(int i) {
-        return false;
-    }
-
-    @Override
-    public boolean keyTyped(char c) {
-        return false;
-    }
-
-    @Override
-    public boolean touchDown(int i, int i1, int i2, int i3) {
-        return false;
-    }
-
-    @Override
-    public boolean touchUp(int i, int i1, int i2, int i3) {
-        return false;
-    }
-
-    @Override
-    public boolean touchDragged(int i, int i1, int i2) {
-        return false;
-    }
-
-    @Override
-    public boolean mouseMoved(int i, int i1) {
-        System.out.println("moved to: " + i + " " + i1);
-        setMousePositionX(i);
-        setMousePositionY(i1);
+    public boolean mouseMoved(int xPos, int yPos) {
+        setMousePositionX(xPos);
+        setMousePositionY(yPos);
         return true;
-    }
-
-    @Override
-    public boolean scrolled(float v, float v1) {
-        return false;
     }
 
     //getters and setters
