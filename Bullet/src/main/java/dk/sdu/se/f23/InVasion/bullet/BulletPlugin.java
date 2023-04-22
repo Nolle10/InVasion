@@ -22,19 +22,8 @@ import static java.lang.Math.cos;
 import static java.lang.Math.sin;
 
 public class BulletPlugin implements PluginService{
-    Entity bullet;
     @Override
     public void onEnable(GameData data, World world) {
-        List<Entity> shooterEntities = new ArrayList<>();
-        for (Event e : data.getEvents()) {
-            if (e.getClass() == FireShotEvent.class) {
-                shooterEntities.add(e.getSource());
-            }
-        }
-        for (Entity e : shooterEntities){
-            world.addEntity(createBullet(data, e));
-        }
-
     }
 
     @Override
@@ -44,26 +33,5 @@ public class BulletPlugin implements PluginService{
                 world.removeEntity(e);
             }
         }
-    }
-    public Entity createBullet(GameData gameData, Entity shooter) {
-        PositionPart shooterPos = shooter.getPart(PositionPart.class);
-        float x = shooterPos.getX();
-        float y = shooterPos.getY();
-        float radians = shooterPos.getRadians();
-        float dt = gameData.getDelta();
-        float speed = 350;
-
-        Entity bullet = new Bullet();
-
-        float bx = (float) cos(radians);
-        float by = (float) sin(radians);
-        bullet.setTexture(new Texture(Gdx.files.internal("Bullet/src/main/resources/star2.png")));
-
-        bullet.add(new PositionPart(new Point((int) (bx + x), (int) (by + y)), radians));
-        bullet.add(new LifePart(1));
-        bullet.add(new MovingPart(0, 5000000, speed, 5));
-        bullet.add(new TimerPart(2));
-
-        return bullet;
     }
 }

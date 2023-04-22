@@ -33,11 +33,11 @@ public class BulletController implements EntityProcessingService, EventListener 
             MovingPart movingPart = bullet.getPart(MovingPart.class);
             TimerPart timerPart = bullet.getPart(TimerPart.class);
             movingPart.setUp(true);
-            if (timerPart.getExpiration() < 0){
+            if (timerPart.getExpiration() < 0) {
                 world.removeEntity(bullet);
             }
 
-            timerPart.process(data,bullet);
+            timerPart.process(data, bullet);
             movingPart.process(data, bullet);
             positionPart.process(data, bullet);
 
@@ -45,6 +45,7 @@ public class BulletController implements EntityProcessingService, EventListener 
         }
 
     }
+
     private void updateShape(Bullet entity) {
         PositionPart shooterPos = entity.getPart(PositionPart.class);
 
@@ -59,40 +60,43 @@ public class BulletController implements EntityProcessingService, EventListener 
 
         Point p = new Point((int) (mouseX - x), (int) (mouseY - y));
 
+        entity.setTexture(new Texture(Gdx.files.internal("Bullet/src/main/resources/star2.png")));
         SpriteBatch spriteBatch = entity.getSpriteBatch();
         spriteBatch.begin();
         spriteBatch.draw(entity.getTexture(), p.getX(), p.getY());
         spriteBatch.end();
     }
 
-    public Entity createBullet(Entity shooter, GameData data) {
+    public Entity createBullet(Entity shooter) {
         PositionPart shooterPos = shooter.getPart(PositionPart.class);
 
         float x = shooterPos.getX();
         float y = shooterPos.getY();
         float radians = shooterPos.getRadians();
-        float deltaT = data.getDelta();
         float speed = 350;
 
-
+        //Some sort of logic that determines the type of shooter and replaces direction with the right
+        //direction for the shooter
         Gdx.input.setInputProcessor(ShootListener.getInstance());
-        float mouseX = ShootListener.getInstance().getMousePositionX();
-        float mouseY = ShootListener.getInstance().getMousePositionY();
+        float directionX = ShootListener.getInstance().getMousePositionX();
+        float directionY = ShootListener.getInstance().getMousePositionY();
+
 
         Bullet bullet = new Bullet();
-        Point p = new Point((int) (x + mouseX), (int) (y + mouseY));
+        Point p = new Point((int) (x + directionX), (int) (y + directionY));
         bullet.add(new PositionPart(p, radians));
         bullet.add(new MovingPart(0, 500, speed, 5));
         bullet.add(new LifePart(1));
+        bullet.add(new TimerPart(2));
 
         return bullet;
     }
 
     @Override
     public void processEvent(Event event) {
-        if (event instanceof FireShotEvent){
+        if (event instanceof FireShotEvent) {
             System.out.println("A bullet was fired");
-            world.addEntity(createBullet(event.getSource(), ));
+            world.addEntity(createBullet(event.getSource()));
         }
     }
 }

@@ -4,10 +4,10 @@ import dk.sdu.se.f23.InVasion.common.data.Entity;
 
 public class FireShotEvent extends Event{
 
-    private double direction;
-    public FireShotEvent(Entity source, double direction) {
+    private String shooterType;
+    public FireShotEvent(Entity source) {
         super(source);
-        this.direction = direction;
+        this.shooterType = getShooterType();
     }
 
     @Override
@@ -15,7 +15,7 @@ public class FireShotEvent extends Event{
         return super.getSource();
     }
 
-    public double getDirection() {
-        return this.direction;
+    public String getShooterType() {
+        return this.getSource().getClass().getName();
     }
 }
