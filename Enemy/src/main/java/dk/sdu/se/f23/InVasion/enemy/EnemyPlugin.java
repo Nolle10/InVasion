@@ -63,6 +63,22 @@ public class EnemyPlugin implements PluginService {
         route.add(new Point(110,10));
         route.add(new Point(115,10));
         route.add(new Point(120,10));
+        route.add(new Point(125,10));
+        route.add(new Point(130,10));
+        route.add(new Point(135,10));
+        route.add(new Point(140,10));
+        route.add(new Point(145,10));
+        route.add(new Point(150,10));
+        route.add(new Point(155,10));
+        route.add(new Point(160,10));
+        route.add(new Point(165,10));
+        route.add(new Point(170,10));
+        route.add(new Point(175,10));
+        route.add(new Point(180,10));
+        route.add(new Point(185,10));
+        route.add(new Point(190,10));
+        route.add(new Point(195,10));
+        route.add(new Point(200,10));
 
         Entity enemyShip = new Enemy(route);
         enemyShip.setTexture(new Texture(Gdx.files.internal("Enemy/src/main/resources/dk/sdu/se/f23/InVasion/enemyresources/textures/enemytest.png")));
