@@ -23,37 +23,19 @@ public class EnemyControlSystem implements EntityProcessingService {
     public EnemyControlSystem() {
     }
 
-    public List<Point> testRoute () {
-        List<Point> route = new ArrayList<>();
-        route.add(new Point(10,10));
-        route.add(new Point(15,10));
-        route.add(new Point(1000,200));
-        return route;
-    }
-
     @Override
     public void process(GameData data, World world, ProcessAt processTime) {
         for (Entity enemy : world.getEntities(Enemy.class)) {
-            updateShape(enemy);
-            PositionPart positionPart = enemy.getPart(PositionPart.class);
-            LifePart lifePart = enemy.getPart(LifePart.class);
-
-
-            for (Point point : testRoute()){
-                System.out.println(point.getX() +" "+ point.getY());
-                moveTo(enemy,point);
-                lifePart.process(data, enemy);
-                updateShape(enemy);
-            }
+            updateShape(enemy, data);
         }
     }
 
-    private void updateShape(Entity entity) {
-        PositionPart positionPart = entity.getPart(PositionPart.class);
-        float x = positionPart.getX();
-        float y = positionPart.getY();
+    private void updateShape(Entity entity, GameData data) {
+        Point nextPoint = ((Enemy) entity).getNextPoint(data.getDelta());
 
-        entity.setTexture(new Texture(Gdx.files.internal("Enemy/src/main/resources/dk/sdu/se/f23/InVasion/enemyresources/textures/enemytest.png")));
+        float x = nextPoint.getX();
+        float y = nextPoint.getY();
+
         SpriteBatch spriteBatch = new SpriteBatch();
         spriteBatch.begin();
         spriteBatch.draw(entity.getTexture(), x, y);
