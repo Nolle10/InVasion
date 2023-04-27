@@ -27,7 +27,6 @@ public class MainScreenState extends GameState{
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
 
-
         BitmapFont font = new BitmapFont();
         font.getData().setScale(4);
         Label.LabelStyle style = new Label.LabelStyle(font, Color.WHITE);
