@@ -62,41 +62,37 @@ public class BulletController implements EntityProcessingService, EventListener 
 
     private void updateShape(Entity bullet) {
         PositionPart bulletPos = bullet.getPart(PositionPart.class);
-
-
         float x = bulletPos.getX();
         float y = bulletPos.getY();
 
         Gdx.input.setInputProcessor(MouseProcessor.getInstance());
         float mouseX = MouseProcessor.getInstance().getMousePositionX();
-        float mouseY = MouseProcessor.getInstance().getMousePositionY();
-        System.out.println("fundet" + mouseX + " " + mouseY);
-
-
-        Point p = new Point((int) (mouseX - x), (int) (mouseY - y));
+        float mouseY = Gdx.graphics.getHeight()-MouseProcessor.getInstance().getMousePositionY();
 
         bullet.getSpriteBatch().begin();
-        bullet.getSpriteBatch().draw(bullet.getTexture(), p.getX(), p.getY());
+        bullet.getSpriteBatch().draw(bullet.getTexture(),x+mouseX, mouseY+y);
         bullet.getSpriteBatch().end();
     }
 
     public Entity createBullet(Entity shooter) {
         PositionPart shooterPos = shooter.getPart(PositionPart.class);
 
-        float x = shooterPos.getX();
-        float y = shooterPos.getY();
+        float shooterPosX = shooterPos.getX();
+        float shooterPosY = shooterPos.getY();
         if (shooterPos == null){
-            x = 400;
-            y = 600;
+            shooterPosX = 400;
+            shooterPosY = 600;
         }
         float radians = shooterPos.getRadians();
         float speed = 350;
 
+        Entity bullet = new Bullet();
+
         //Some sort of logic that determines the type of shooter and replaces direction with the right
         //direction for the shooter
         Gdx.input.setInputProcessor(MouseProcessor.getInstance());
-        float mouseX = MouseProcessor.getInstance().getMousePositionX();
-        float mouseY = MouseProcessor.getInstance().getMousePositionY();
+        int mouseX = MouseProcessor.getInstance().getMousePositionX();
+        int mouseY = MouseProcessor.getInstance().getMousePositionY();
 
         float directionX = mouseX - shooterPos.getX();
         float directionY = mouseY - shooterPos.getY();
@@ -104,9 +100,7 @@ public class BulletController implements EntityProcessingService, EventListener 
         directionX /= directionLength;
         directionY /= directionLength;
 
-        Bullet bullet = new Bullet();
-        Point p = new Point((int) (x + mouseX), (int) (y + mouseY));
-        bullet.add(new PositionPart(new Point((int) shooterPos.getX(), (int) shooterPos.getY()), radians));
+        bullet.add(new PositionPart(new Point((int) shooterPosX+mouseX, (int) shooterPosY+mouseY), radians));
         bullet.add(new MovingPart(directionX*speed, directionY*speed, speed, 0));
         bullet.add(new LifePart(1));
         bullet.add(new TimerPart(2000));
