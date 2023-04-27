@@ -1,5 +1,8 @@
 package dk.sdu.se.f23.InVasion.gamestates;
 
+import dk.sdu.se.f23.InVasion.common.data.buttonSkin;
+import dk.sdu.se.f23.InVasion.managers.GameStateManager;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -8,8 +11,6 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import dk.sdu.se.f23.InVasion.common.data.buttonSkin;
-import dk.sdu.se.f23.InVasion.managers.GameStateManager;
 
 public class MainScreenState extends GameState{
 
@@ -26,15 +27,16 @@ public class MainScreenState extends GameState{
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
 
+
         BitmapFont font = new BitmapFont();
-        font.getData().setScale(3);
+        font.getData().setScale(4);
         Label.LabelStyle style = new Label.LabelStyle(font, Color.WHITE);
         titleLabel = new Label("InVasion", style);
-        titleLabel.setPosition(400, 600);
+        titleLabel.setPosition(860, 800);
 
         button = new TextButton("Start game", buttonSkin.getSkin());
         button.getLabel().setFontScale(2,2);
-        button.setPosition(760,540);
+        button.setPosition(760,500);
         button.addListener( new InputListener(){
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button){
