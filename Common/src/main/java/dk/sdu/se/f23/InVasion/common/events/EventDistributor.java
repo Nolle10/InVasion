@@ -1,6 +1,8 @@
 package dk.sdu.se.f23.InVasion.common.events;
 
 
+import dk.sdu.se.f23.InVasion.common.data.World;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,9 +16,17 @@ public class EventDistributor {
         eventActivatorMap.get(eventClass).add(listener);
     }
 
-    public static void sendEvent(Event event){
-        for (EventListener eventListener : eventActivatorMap.get(event.getClass())) {
-            eventListener.processEvent(event);
+    public static void sendEvent(Event event, World world){
+        if (eventActivatorMap.containsKey(event.getClass())) {
+            for (EventListener eventListener : eventActivatorMap.get(event.getClass())) {
+                eventListener.processEvent(event, world);
+            }
+        } else {
+            System.out.println("No listeners for event: " + event.getClass().getName());
         }
+    }
+
+    public static Map<Class<?>, List<EventListener>> getEventActivatorMap() {
+        return eventActivatorMap;
     }
 }

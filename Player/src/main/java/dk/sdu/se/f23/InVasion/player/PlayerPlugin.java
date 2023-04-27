@@ -2,7 +2,9 @@ package dk.sdu.se.f23.InVasion.player;
 
 import dk.sdu.se.f23.InVasion.common.data.Entity;
 import dk.sdu.se.f23.InVasion.common.data.GameData;
+import dk.sdu.se.f23.InVasion.common.data.Point;
 import dk.sdu.se.f23.InVasion.common.data.World;
+import dk.sdu.se.f23.InVasion.common.data.entityparts.PositionPart;
 import dk.sdu.se.f23.InVasion.common.services.PluginService;
 
 public class PlayerPlugin implements PluginService {
@@ -16,6 +18,7 @@ public class PlayerPlugin implements PluginService {
 
     private Entity createPlayerInfo(GameData data){
         Entity player = new Player();
+        player.add(new PositionPart(new Point(data.getDisplayWidth() / 2, data.getDisplayHeight() / 2), 3.1415f / 2));
         return player;
     }
 

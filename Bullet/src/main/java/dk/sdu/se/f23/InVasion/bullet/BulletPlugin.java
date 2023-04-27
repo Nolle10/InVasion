@@ -12,6 +12,8 @@ import dk.sdu.se.f23.InVasion.common.data.entityparts.MovingPart;
 import dk.sdu.se.f23.InVasion.common.data.entityparts.PositionPart;
 import dk.sdu.se.f23.InVasion.common.data.entityparts.TimerPart;
 import dk.sdu.se.f23.InVasion.common.events.Event;
+import dk.sdu.se.f23.InVasion.common.events.EventDistributor;
+import dk.sdu.se.f23.InVasion.common.events.EventListener;
 import dk.sdu.se.f23.InVasion.common.events.FireShotEvent;
 import dk.sdu.se.f23.InVasion.common.services.PluginService;
 
@@ -22,8 +24,11 @@ import static java.lang.Math.cos;
 import static java.lang.Math.sin;
 
 public class BulletPlugin implements PluginService{
+
     @Override
     public void onEnable(GameData data, World world) {
+        BulletController bulletController = new BulletController();
+        EventDistributor.addListener(FireShotEvent.class, bulletController);
     }
 
     @Override

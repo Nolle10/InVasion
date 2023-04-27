@@ -2,13 +2,13 @@ package dk.sdu.se.f23.InVasion.bullet;
 
 import com.badlogic.gdx.InputAdapter;
 
-public class ShootListener extends InputAdapter {
-    private static ShootListener instance = new ShootListener();
+public class MouseProcessor extends InputAdapter {
+    private static MouseProcessor instance = new MouseProcessor();
 
-    private ShootListener() {
+    private MouseProcessor() {
     }
 
-    public static ShootListener getInstance() {
+    public static MouseProcessor getInstance() {
         return instance;
     }
 
