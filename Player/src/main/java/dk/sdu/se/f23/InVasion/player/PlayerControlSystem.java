@@ -13,6 +13,7 @@ import dk.sdu.se.f23.InVasion.common.events.FireShotEvent;
 import dk.sdu.se.f23.InVasion.common.services.EntityProcessingService;
 
 public class PlayerControlSystem implements EntityProcessingService {
+    private long lastShot = 0;
 
     @Override
     public void process(GameData data, World world) {
@@ -34,8 +35,10 @@ public class PlayerControlSystem implements EntityProcessingService {
     @Override
     public void process(GameData data, World world, ProcessAt processTime) {
         for (Entity player : world.getEntities(Player.class)) {
-            for (int i = 0; i < 4; i++) {
+            long currentTime = System.currentTimeMillis();
+            if (currentTime - lastShot >= 500) {
                 EventDistributor.sendEvent(new FireShotEvent(player),world);
+                lastShot = currentTime;
             }
             createPlayer(player);
         }
