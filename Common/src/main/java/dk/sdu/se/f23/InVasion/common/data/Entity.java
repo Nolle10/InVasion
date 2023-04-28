@@ -1,16 +1,20 @@
 package dk.sdu.se.f23.InVasion.common.data;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import dk.sdu.se.f23.InVasion.common.data.entityparts.EntityPart;
 
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class Entity {
+public class Entity extends Actor {
     private final UUID ID = UUID.randomUUID();
 
     private Texture texture;
+
+    private SpriteBatch spriteBatch;
     @Deprecated
     private float[] shapeX = new float[4];
     @Deprecated
@@ -41,6 +45,13 @@ public class Entity {
 
     public void setTexture(Texture texture) {
         this.texture = texture;
+    }
+
+    public SpriteBatch getSpriteBatch() {
+        return spriteBatch;
+    }
+    public void setSpriteBatch(SpriteBatch spriteBatch) {
+        this.spriteBatch = spriteBatch;
     }
 
     @Deprecated
