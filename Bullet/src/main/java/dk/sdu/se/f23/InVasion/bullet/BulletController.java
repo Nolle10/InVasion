@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import dk.sdu.se.f23.InVasion.common.data.*;
 import dk.sdu.se.f23.InVasion.common.data.entityparts.LifePart;
+import dk.sdu.se.f23.InVasion.common.data.entityparts.MovingPart;
 import dk.sdu.se.f23.InVasion.common.data.entityparts.PositionPart;
 import dk.sdu.se.f23.InVasion.common.data.entityparts.TimerPart;
 import dk.sdu.se.f23.InVasion.common.events.Event;
@@ -24,44 +25,36 @@ public class BulletController implements EntityProcessingService, EventListener 
     public void process(GameData data, World world, ProcessAt processTime) {
         for (Entity bullet : world.getEntities(Bullet.class)) {
             PositionPart positionPart = bullet.getPart(PositionPart.class);
-            System.out.println(positionPart.getX() + " " + positionPart.getY());
             TimerPart timerPart = bullet.getPart(TimerPart.class);
-            if (timerPart.getDuration() < 0) {
-                world.removeEntity(bullet);
-            }
-            System.out.println("Delta: " + data.getDelta());
+            MovingPart movingPart = bullet.getPart(MovingPart.class);
 
             timerPart.process(data, bullet);
             positionPart.process(data, bullet);
+            movingPart.process(data, bullet);
+            if (timerPart.getDuration() < 0) {
+                world.removeEntity(bullet);
+            }
 
-            updateShape(bullet);
+            updateShape(bullet,data);
         }
 
     }
 
-    private void updateShape(Entity bullet) {
+    private void updateShape(Entity bullet, GameData data) {
         PositionPart bulletPos = bullet.getPart(PositionPart.class);
+        MovingPart bulletMoving = bullet.getPart(MovingPart.class);
+
+        bulletMoving.process(data,bullet);
         float x = bulletPos.getX();
         float y = bulletPos.getY();
 
-        Gdx.input.setInputProcessor(MouseProcessor.getInstance());
-        float mouseX = MouseProcessor.getInstance().getMousePositionX();
-        float mouseY = Gdx.graphics.getHeight() - MouseProcessor.getInstance().getMousePositionY();
-
-        float angle = MathUtils.atan2(mouseY - y, mouseX - x) * MathUtils.radiansToDegrees;
-        bulletPos.setRadians(angle - 90);
-        float speed = 200;
-        float dx = MathUtils.cosDeg(angle) * speed;
-        float dy = MathUtils.sinDeg(angle) * speed;
-        bulletPos.setX(x + dx * Gdx.graphics.getDeltaTime());
-        bulletPos.setY(y + dy * Gdx.graphics.getDeltaTime());
 
         bullet.getSpriteBatch().begin();
-        bullet.getSpriteBatch().draw(bullet.getTexture(), bulletPos.getX(), bulletPos.getY());
+        bullet.getSpriteBatch().draw(bullet.getTexture(), x, y);
         bullet.getSpriteBatch().end();
     }
 
-    public Entity createBullet(Entity shooter) {
+    public Entity createBullet(Entity shooter, Point direction) {
         PositionPart shooterPos = shooter.getPart(PositionPart.class);
 
         float shooterPosX = shooterPos.getX();
@@ -73,15 +66,10 @@ public class BulletController implements EntityProcessingService, EventListener 
         float radians = shooterPos.getRadians();
         Entity bullet = new Bullet();
 
-        //Some sort of logic that determines the type of shooter and replaces direction with the right
-        //direction for the shooter
-        Gdx.input.setInputProcessor(MouseProcessor.getInstance());
-        int mouseX = MouseProcessor.getInstance().getMousePositionX();
-        int mouseY = MouseProcessor.getInstance().getMousePositionY();
-
-        bullet.add(new PositionPart(new Point((int) shooterPosX + mouseX, (int) shooterPosY + mouseY), radians));
+        bullet.add(new PositionPart(new Point((int) shooterPosX + direction.getX(), (int) shooterPosY + direction.getY()), radians));
+        bullet.add(new MovingPart(direction, 100, 100));
         bullet.add(new LifePart(1));
-        bullet.add(new TimerPart(40));
+        bullet.add(new TimerPart(3));
         bullet.setTexture(new Texture(Gdx.files.internal("Bullet/src/main/resources/star2.png")));
         bullet.setSpriteBatch(new SpriteBatch());
         return bullet;
@@ -90,11 +78,7 @@ public class BulletController implements EntityProcessingService, EventListener 
     @Override
     public void processEvent(Event event, World world) {
         if (event instanceof FireShotEvent) {
-            world.addEntity(createBullet(event.getSource()));
-            //TEMP solution: Should find a way for the process method to be called in game (but it
-            //doesn't for some reason)
-            gameData.setDelta(Gdx.graphics.getDeltaTime());
-            process(gameData, world, ProcessAt.Tick);
+            world.addEntity(createBullet(event.getSource(),((FireShotEvent) event).getDirection()));
         }
     }
 }
