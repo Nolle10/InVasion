@@ -47,6 +47,8 @@ public class World {
     public ArrayList<ArrayList<Integer>> getWorldMask(){
         return worldMask;
     }
+    public int getWorldMaskRows(){ return worldMask.get(0).size()-1; }
+    public int getWorldMaskColumns(){ return worldMask.size(); }
     public boolean isAvailable(int x, int y){
         return worldMask.get(x).get(y)==0;
     }
