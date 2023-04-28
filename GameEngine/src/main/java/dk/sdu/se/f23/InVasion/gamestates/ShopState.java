@@ -47,7 +47,6 @@ public class ShopState extends GameState {
         button.addListener( new InputListener(){
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button){
-                System.out.println("Wave button clicked!");
                 gsm.setState(2);
                 return true;
             }
