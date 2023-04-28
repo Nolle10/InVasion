@@ -18,7 +18,7 @@ public class PlayerControlSystem implements EntityProcessingService {
         for (Entity player : world.getEntities(Player.class)) {
             lastShot += data.getDelta()*50;
             if (lastShot >= 0.5) {
-                EventDistributor.sendEvent(new FireShotEvent(player,shotDirection()),world);
+                EventDistributor.sendEvent(new FireShotEvent(player,shotDirection(data)),world);
                 lastShot = 0;
             }
             PositionPart part = player.getPart(PositionPart.class);
@@ -26,8 +26,9 @@ public class PlayerControlSystem implements EntityProcessingService {
         }
     }
 
-    private Point shotDirection(){
-        Gdx.input.setInputProcessor(MouseProcessor.getInstance());
+    private Point shotDirection(GameData data){
+        //Gdx.input.setInputProcessor(MouseProcessor.getInstance());
+        data.addInputProcessor(MouseProcessor.getInstance());
         int mouseX = MouseProcessor.getInstance().getMousePositionX();
         int mouseY = Gdx.graphics.getHeight() - MouseProcessor.getInstance().getMousePositionY();
         return new Point(mouseX,mouseY);
