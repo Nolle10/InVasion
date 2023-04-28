@@ -9,27 +9,36 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import dk.sdu.se.f23.InVasion.common.data.World;
 import dk.sdu.se.f23.InVasion.main.Game;
 import dk.sdu.se.f23.InVasion.managers.GameStateManager;
+
+import java.util.ArrayList;
 
 public class ShopState extends GameState {
 
     private ShapeRenderer sr;
     private Stage stage;
 
+    private ArrayList<String> weapons;
     private TextButton button;
     private TextButton button1;
     private TextButton.TextButtonStyle textButtonStyle;
 
+    private  GameStateManager gsm;
+
     public ShopState(GameStateManager gsm) {
         super(gsm);
+        this.gsm = gsm;
+        weapons = new ArrayList<>();
+        weapons.addAll(gsm.getWorld().getWeapons());
     }
 
     @Override
     public void init() {
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
-
+        sr = new ShapeRenderer();
         textButtonStyle = new TextButton.TextButtonStyle();
         textButtonStyle.font = new BitmapFont();
         textButtonStyle.fontColor = Color.RED;
@@ -38,7 +47,6 @@ public class ShopState extends GameState {
         button.addListener( new InputListener(){
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button){
-                System.out.println("Wave button clicked!");
                 gsm.setState(2);
                 return true;
             }
@@ -46,7 +54,7 @@ public class ShopState extends GameState {
 
         button1 = new TextButton(String.format("Current Money: %o",Game.getPlayerMoney()),textButtonStyle);
         button1.setPosition(700, 800);
-
+        draw();
         stage.addActor(button);
         stage.addActor(button1);
 
@@ -59,7 +67,23 @@ public class ShopState extends GameState {
 
     @Override
     public void draw() {
+        sr.begin(ShapeRenderer.ShapeType.Filled);
+        sr.setColor(Color.YELLOW);
+        int shopWidth= 200;
+        sr.rect(1920-shopWidth,0,200,1080);
+        sr.end();
+        sr.begin(ShapeRenderer.ShapeType.Filled);
+        sr.setColor(Color.GRAY);
+        try {
+        for(int i = 0; i< weapons.size();i++) {
+            sr.rect(1920 - (shopWidth), 800-(i*200), 100, 100);
+        }}
+        catch (NullPointerException e){
+            System.out.println("There are no weapons goddamn");
+        }
+        sr.end();
         stage.draw();
+
     }
 
     @Override

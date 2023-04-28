@@ -2,8 +2,6 @@ package dk.sdu.se.f23.InVasion.bullet;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.MathUtils;
 import dk.sdu.se.f23.InVasion.common.data.*;
 import dk.sdu.se.f23.InVasion.common.data.entityparts.LifePart;
 import dk.sdu.se.f23.InVasion.common.data.entityparts.MovingPart;
@@ -20,13 +18,15 @@ public class BulletController implements EntityProcessingService, EventListener 
     public BulletController() {
     }
 
-
     @Override
     public void process(GameData data, World world, ProcessAt processTime) {
         for (Entity bullet : world.getEntities(Bullet.class)) {
             PositionPart positionPart = bullet.getPart(PositionPart.class);
             TimerPart timerPart = bullet.getPart(TimerPart.class);
             MovingPart movingPart = bullet.getPart(MovingPart.class);
+            if (timerPart.getDuration() < 0) {
+                world.removeEntity(bullet);
+            }
 
             timerPart.process(data, bullet);
             positionPart.process(data, bullet);
@@ -35,7 +35,7 @@ public class BulletController implements EntityProcessingService, EventListener 
                 world.removeEntity(bullet);
             }
 
-            updateShape(bullet,data);
+            updateShape(bullet, data);
         }
 
     }
@@ -49,9 +49,7 @@ public class BulletController implements EntityProcessingService, EventListener 
         float y = bulletPos.getY();
 
 
-        bullet.getSpriteBatch().begin();
-        bullet.getSpriteBatch().draw(bullet.getTexture(), x, y);
-        bullet.getSpriteBatch().end();
+        data.getSpriteBatch().draw(bullet.getTexture(), x, y);
     }
 
     public Entity createBullet(Entity shooter, Point direction) {
@@ -71,7 +69,6 @@ public class BulletController implements EntityProcessingService, EventListener 
         bullet.add(new LifePart(1));
         bullet.add(new TimerPart(3));
         bullet.setTexture(new Texture(Gdx.files.internal("Bullet/src/main/resources/star2.png")));
-        bullet.setSpriteBatch(new SpriteBatch());
         return bullet;
     }
 

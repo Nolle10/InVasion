@@ -1,4 +1,5 @@
 module Enemy {
+    uses dk.sdu.se.f23.InVasion.enemy.services.ActionService;
     requires Common;
     requires shadedlibgdx;
     exports dk.sdu.se.f23.InVasion.enemy;

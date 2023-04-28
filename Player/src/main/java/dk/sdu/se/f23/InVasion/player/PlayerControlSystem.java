@@ -13,19 +13,6 @@ public class PlayerControlSystem implements EntityProcessingService {
     private long lastShot = 0;
 
 
-
-    private void createPlayer(Entity player) {
-        PositionPart positionPart = player.getPart(PositionPart.class);
-        SpriteBatch spriteBatch = new SpriteBatch();
-        Texture texture = new Texture(Gdx.files.internal("Player/src/main/resources/images/tower.png"));
-
-        player.setTexture(texture);
-
-        spriteBatch.begin();
-        spriteBatch.draw(texture, positionPart.getX(), positionPart.getY());
-        spriteBatch.end();
-    }
-
     @Override
     public void process(GameData data, World world, ProcessAt processTime) {
         for (Entity player : world.getEntities(Player.class)) {
@@ -34,7 +21,8 @@ public class PlayerControlSystem implements EntityProcessingService {
                 EventDistributor.sendEvent(new FireShotEvent(player,shotDirection()),world);
                 lastShot = 0;
             }
-            createPlayer(player);
+            PositionPart part = player.getPart(PositionPart.class);
+            data.getSpriteBatch().draw(player.getTexture(), part.getX(), part.getY());
         }
     }
 
