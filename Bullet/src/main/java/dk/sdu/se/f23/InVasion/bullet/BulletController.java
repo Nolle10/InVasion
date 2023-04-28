@@ -61,7 +61,7 @@ public class BulletController implements EntityProcessingService, EventListener 
         bullet.getSpriteBatch().end();
     }
 
-    public Entity createBullet(Entity shooter) {
+    private Entity createBullet(Entity shooter) {
         PositionPart shooterPos = shooter.getPart(PositionPart.class);
 
         float shooterPosX = shooterPos.getX();
