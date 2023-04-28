@@ -18,18 +18,6 @@ public class AIAction implements ActionService {
 
     @Override
     public List<Point> calculate(GameData gameData, World world, Enemy enemy) {
-        /*PositionPart positionPart = enemy.getPart(PositionPart.class);
-        MovingPart movingPart = enemy.getPart(MovingPart.class);
-        Point point;
-        // calculate direction and distance to player base
-        float dx = world.getGoalState().getX() - positionPart.getPos().getX();
-        float dy = world.getGoalState().getY() - positionPart.getPos().getY();
-        float distance = (float) Math.sqrt(dx*dx + dy*dy);
-        dx /= distance;
-        dy /= distance;
-
-        // set velocity
-        movingPart.setPos(new Point((int) (dx * movingPart.getSpeed()), (int) (dy * movingPart.getSpeed())));*/
 
         //TEST ROUTE - SHOULD BE REMOVED
         List<Point> route = new ArrayList<>();
