@@ -6,11 +6,6 @@ import dk.sdu.se.f23.InVasion.common.data.World;
 import dk.sdu.se.f23.InVasion.common.services.EntityProcessingService;
 
 public class WeaponControlSystem implements EntityProcessingService {
-t
-    @Override
-    public void process(GameData data, World world) {
-
-    }
 
     @Override
     public void process(GameData data, World world, ProcessAt processTime) {
