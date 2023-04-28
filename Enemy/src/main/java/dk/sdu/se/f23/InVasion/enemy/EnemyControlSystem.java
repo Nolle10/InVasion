@@ -17,7 +17,7 @@ import java.util.*;
 
 import static java.util.stream.Collectors.toList;
 
-public class EnemyControlSystem implements EntityProcessingService {
+public class EnemyControlSystem implements EntityProcessingService, EventListener{
 
     private MoveToAction movingAction = new MoveToAction();
 
@@ -43,10 +43,7 @@ public class EnemyControlSystem implements EntityProcessingService {
         float x = nextPoint.getX();
         float y = nextPoint.getY();
 
-        SpriteBatch spriteBatch = new SpriteBatch();
-        spriteBatch.begin();
-        spriteBatch.draw(entity.getTexture(), x, y);
-        spriteBatch.end();
+        data.getSpriteBatch().draw(entity.getTexture(), x, y);
     }
 
 
