@@ -15,10 +15,7 @@ import dk.sdu.se.f23.InVasion.common.services.EntityProcessingService;
 public class PlayerControlSystem implements EntityProcessingService {
     private long lastShot = 0;
 
-    @Override
-    public void process(GameData data, World world) {
 
-    }
 
     private void createPlayer(Entity player) {
         PositionPart positionPart = player.getPart(PositionPart.class);

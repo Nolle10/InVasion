@@ -19,11 +19,6 @@ public class BulletController implements EntityProcessingService, EventListener 
     public BulletController() {
     }
 
-    @Deprecated
-    @Override
-    public void process(GameData data, World world) {
-
-    }
 
     @Override
     public void process(GameData data, World world, ProcessAt processTime) {
