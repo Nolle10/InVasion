@@ -2,7 +2,9 @@ package dk.sdu.se.f23.InVasion.gamestates;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -14,13 +16,14 @@ import dk.sdu.se.f23.InVasion.main.Game;
 import dk.sdu.se.f23.InVasion.managers.GameStateManager;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class ShopState extends GameState {
 
     private ShapeRenderer sr;
     private Stage stage;
 
-    private ArrayList<String> weapons;
+    private ArrayList<ArrayList<Object>> weapons;
     private TextButton button;
     private TextButton button1;
     private TextButton.TextButtonStyle textButtonStyle;
@@ -74,14 +77,24 @@ public class ShopState extends GameState {
         sr.end();
         sr.begin(ShapeRenderer.ShapeType.Filled);
         sr.setColor(Color.GRAY);
+        SpriteBatch spriteBatch = new SpriteBatch();
+        spriteBatch.begin();
         try {
         for(int i = 0; i< weapons.size();i++) {
             sr.rect(1920 - (shopWidth), 800-(i*200), 100, 100);
+            Texture t = (Texture) weapons.get(i).get(1);
+
+            spriteBatch.draw(t, 1920-shopWidth, (800-(i*200)));
+
         }}
         catch (NullPointerException e){
             System.out.println("There are no weapons goddamn");
         }
+
+
+
         sr.end();
+        spriteBatch.end();
         stage.draw();
 
     }
