@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import dk.sdu.se.f23.InVasion.common.data.GameData;
 import dk.sdu.se.f23.InVasion.main.Game;
 import dk.sdu.se.f23.InVasion.managers.GameStateManager;
 
@@ -44,7 +45,7 @@ public class ShopState extends GameState {
             }
         });
 
-        button1 = new TextButton(String.format("Current Money: %o",Game.getPlayerMoney()),textButtonStyle);
+        button1 = new TextButton(String.format("Current Money: %o",new GameData().getPlayerMoney()),textButtonStyle);
         button1.setPosition(700, 800);
 
         stage.addActor(button);

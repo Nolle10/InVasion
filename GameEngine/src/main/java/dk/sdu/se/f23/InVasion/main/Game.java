@@ -26,7 +26,7 @@ public class Game implements ApplicationListener {
     private GameStateManager gsm;
     private final GameData gameData = new GameData();
     private World world = new World();
-    private static int playerMoney = 0;
+    private int playerMoney = gameData.getPlayerMoney();
 
     public void create() {
 
@@ -75,12 +75,12 @@ public class Game implements ApplicationListener {
     public void dispose() {}
 
 
-    public static int getPlayerMoney() {
-        return playerMoney;
+    public int getPlayerMoney() {
+        return gameData.getPlayerMoney();
     }
 
-    public static void setPlayerMoney(int playerMoney) {
-        playerMoney = Game.playerMoney;
+    public void setPlayerMoney(int playerMoney) {
+        gameData.setPlayerMoney(playerMoney);
     }
 
 

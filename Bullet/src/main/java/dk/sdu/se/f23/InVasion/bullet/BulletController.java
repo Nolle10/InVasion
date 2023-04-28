@@ -24,19 +24,16 @@ public class BulletController implements EntityProcessingService, EventListener 
     public void process(GameData data, World world, ProcessAt processTime) {
         for (Entity bullet : world.getEntities(Bullet.class)) {
             PositionPart positionPart = bullet.getPart(PositionPart.class);
-            System.out.println(positionPart.getX() + " " + positionPart.getY());
             TimerPart timerPart = bullet.getPart(TimerPart.class);
             if (timerPart.getDuration() < 0) {
                 world.removeEntity(bullet);
             }
-            System.out.println("Delta: " + data.getDelta());
 
             timerPart.process(data, bullet);
             positionPart.process(data, bullet);
 
             updateShape(bullet);
         }
-
     }
 
     private void updateShape(Entity bullet) {

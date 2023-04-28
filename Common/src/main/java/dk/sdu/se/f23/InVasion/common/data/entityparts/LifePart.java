@@ -38,4 +38,17 @@ public class LifePart implements EntityPart {
     public void setHit(boolean hit) {
         isHit = hit;
     }
+
+    public boolean isDead() {
+        return isDead;
+    }
+
+    public boolean isNotDead() {
+        if (isDead == isDead()){
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
 }

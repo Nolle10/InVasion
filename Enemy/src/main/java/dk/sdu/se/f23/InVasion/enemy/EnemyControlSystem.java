@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import dk.sdu.se.f23.InVasion.common.data.*;
 import dk.sdu.se.f23.InVasion.common.data.entityparts.LifePart;
+import dk.sdu.se.f23.InVasion.common.data.entityparts.MoneyPart;
 import dk.sdu.se.f23.InVasion.common.data.entityparts.PositionPart;
 import dk.sdu.se.f23.InVasion.common.services.EntityProcessingService;
 import dk.sdu.se.f23.InVasion.enemy.services.ActionService;
@@ -26,6 +27,12 @@ public class EnemyControlSystem implements EntityProcessingService {
     @Override
     public void process(GameData data, World world, ProcessAt processTime) {
         for (Entity enemy : world.getEntities(Enemy.class)) {
+            MoneyPart moneyPart = enemy.getPart(MoneyPart.class);
+            LifePart lifePart = enemy.getPart(LifePart.class);
+
+            moneyPart.process(data, enemy);
+            lifePart.process(data, enemy);
+
             updateShape(enemy, data);
         }
     }
