@@ -45,15 +45,19 @@ public class CollisionDetector implements EntityProcessingService {
         }
     }
 
-    public Boolean collides(Enemy entity, Bullet entity2) {
-        PositionPart entMov = entity.getPart(PositionPart.class);
-        PositionPart entMov2 = entity2.getPart(PositionPart.class);
-        float dx = (float) entMov.getX() - (float) entMov2.getX();
-        float dy = (float) entMov.getY() - (float) entMov2.getY();
-        float distance = (float) Math.sqrt(dx * dx + dy * dy);
-        if (distance < (entity + entity2.getHitShapeX())) {
-            return true;
+    public Boolean collides(Entity entity, Entity entity2) {
+        if (entity instanceof Enemy || entity instanceof Bullet) {
+            PositionPart entMov = entity.getPart(PositionPart.class);
+            PositionPart entMov2 = entity2.getPart(PositionPart.class);
+            float dx = (float) entMov.getX() - (float) entMov2.getX();
+            float dy = (float) entMov.getY() - (float) entMov2.getY();
+            float distance = (float) Math.sqrt(dx * dx + dy * dy);
+            if (distance < ((entity.getHitShapeX()[entity.getHitShapeX().length - 1] - entity.getHitShapeX()[0]) + (entity.getHitShapeX()[entity2.getHitShapeX().length - 1] - entity2.getHitShapeX()[0]))) {
+                return true;
+            }
+
+            return false;
         }
-        return false;
+        return null;
     }
 }
