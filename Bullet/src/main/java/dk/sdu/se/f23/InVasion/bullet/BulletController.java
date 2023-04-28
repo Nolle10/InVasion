@@ -21,7 +21,6 @@ public class BulletController implements EntityProcessingService, EventListener 
 
     @Override
     public void process(GameData data, World world, ProcessAt processTime) {
-        System.out.println("there");
         for (Entity bullet : world.getEntities(Bullet.class)) {
             PositionPart positionPart = bullet.getPart(PositionPart.class);
             TimerPart timerPart = bullet.getPart(TimerPart.class);
@@ -31,7 +30,6 @@ public class BulletController implements EntityProcessingService, EventListener 
 
             timerPart.process(data, bullet);
             positionPart.process(data, bullet);
-            System.out.println("hereeeee");
 
             updateShape(bullet, data);
         }
@@ -87,10 +85,6 @@ public class BulletController implements EntityProcessingService, EventListener 
     public void processEvent(Event event, World world) {
         if (event instanceof FireShotEvent) {
             world.addEntity(createBullet(event.getSource()));
-            //TEMP solution: Should find a way for the process method to be called in game (but it
-            //doesn't for some reason)
-            /*gameData.setDelta(Gdx.graphics.getDeltaTime());
-            process(gameData, world, ProcessAt.Tick);*/
         }
     }
 }
