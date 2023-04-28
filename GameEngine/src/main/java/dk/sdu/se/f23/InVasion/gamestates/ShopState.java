@@ -77,7 +77,7 @@ public class ShopState extends GameState {
         sr.setColor(Color.GRAY);
         try {
         for(int i = 0; i< weapons.size();i++) {
-            sr.rect(1920 - (shopWidth / 2), 800-(i*200), 100, 100);
+            sr.rect(1920 - (shopWidth), 800-(i*200), 100, 100);
         }}
         catch (NullPointerException e){
             System.out.println("There are no weapons goddamn");
