@@ -1,7 +1,6 @@
 package dk.sdu.se.f23.InVasion.common.data;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import dk.sdu.se.f23.InVasion.common.data.entityparts.EntityPart;
 
@@ -60,20 +59,21 @@ public class Entity extends Actor {
     }
 
     @Deprecated
-    public float[] getShapeX() {
+    public float[] getHitShapeX() {
         return shapeX;
     }
 
     @Deprecated
-    public void setShapeX(float[] shapeX) {
+    public void setHitShapeX(float[] shapeX) {
         this.shapeX = shapeX;
     }
     @Deprecated
-    public float[] getShapeY() {
+    public float[] getHitShapeY() {
         return shapeY;
     }
     @Deprecated
-    public void setShapeY(float[] shapeY) {
+    public void setHitShapeY(float[] shapeY) {
         this.shapeY = shapeY;
     }
 }
+
