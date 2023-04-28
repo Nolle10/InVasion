@@ -27,6 +27,8 @@ public class WeaponPlugin implements PluginService {
         weaponVariables.add(cost);
         world.addWeapon(weaponVariables);
 
+
+
     }
 
 
