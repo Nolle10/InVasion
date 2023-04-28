@@ -2,6 +2,7 @@ package dk.sdu.se.f23.InVasion.managers;
 
 
 import dk.sdu.se.f23.InVasion.common.data.GameData;
+import dk.sdu.se.f23.InVasion.common.data.World;
 import dk.sdu.se.f23.InVasion.gamestates.*;
 
 
@@ -15,10 +16,11 @@ public class GameStateManager {
     public static final int SHOP = 1;
     public static final int PLAY = 2;
     public static final int PAUSE = 3;
-
+    private World world;
     private int currentState = 0;
 
-    public GameStateManager() {
+    public GameStateManager(World world) {
+        this.world = world;
         setState(MENU);
     }
 
@@ -46,7 +48,9 @@ public class GameStateManager {
     public void draw() {
         gameState.draw();
     }
-
+    public World getWorld(){
+        return world;
+    }
     public GameState getGameState() {
         return gameState; // i just put this here
     }

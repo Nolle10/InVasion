@@ -6,8 +6,11 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+
 import dk.sdu.se.f23.InVasion.managers.GameStateManager;
+import dk.sdu.se.f23.InVasion.common.data.buttonSkin;
 
 public class PauseState extends GameState{
 
@@ -15,7 +18,7 @@ public class PauseState extends GameState{
 
     private TextButton button;
     private TextButton button1;
-    private TextButton.TextButtonStyle textButtonStyle;
+    private Label titleLabel;
 
     public PauseState(GameStateManager gsm) {
         super(gsm);
@@ -26,11 +29,16 @@ public class PauseState extends GameState{
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
 
-        textButtonStyle = new TextButton.TextButtonStyle();
-        textButtonStyle.font = new BitmapFont();
-        textButtonStyle.fontColor = Color.GREEN;
-        button = new TextButton("Back to game button", textButtonStyle);
-        button.setPosition(900,800);
+        BitmapFont font = new BitmapFont();
+        font.getData().setScale(4);
+        Label.LabelStyle style = new Label.LabelStyle(font, Color.WHITE);
+        titleLabel = new Label("Game is paused", style);
+        titleLabel.setPosition(750, 800);
+
+
+        button = new TextButton("Resume game", buttonSkin.getSkin());
+        button.getLabel().setFontScale(2,2);
+        button.setPosition(760,500);
         button.addListener( new InputListener(){
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button){
@@ -39,8 +47,10 @@ public class PauseState extends GameState{
                 return true;
             }
         });
-        button1 = new TextButton("Back to main menu button", textButtonStyle);
-        button1.setPosition(900,700);
+
+        button1 = new TextButton("Back to main menu", buttonSkin.getSkin());
+        button1.getLabel().setFontScale(2,2);
+        button1.setPosition(760,350);
         button1.addListener( new InputListener(){
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button){
@@ -52,6 +62,7 @@ public class PauseState extends GameState{
 
         stage.addActor(button);
         stage.addActor(button1);
+        stage.addActor(titleLabel);
     }
 
     @Override

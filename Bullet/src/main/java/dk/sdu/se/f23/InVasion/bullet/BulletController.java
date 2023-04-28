@@ -19,7 +19,6 @@ public class BulletController implements EntityProcessingService, EventListener 
     public BulletController() {
     }
 
-
     @Override
     public void process(GameData data, World world, ProcessAt processTime) {
         for (Entity bullet : world.getEntities(Bullet.class)) {
@@ -32,11 +31,11 @@ public class BulletController implements EntityProcessingService, EventListener 
             timerPart.process(data, bullet);
             positionPart.process(data, bullet);
 
-            updateShape(bullet);
+            updateShape(bullet, data);
         }
     }
 
-    private void updateShape(Entity bullet) {
+    private void updateShape(Entity bullet, GameData data) {
         PositionPart bulletPos = bullet.getPart(PositionPart.class);
         float x = bulletPos.getX();
         float y = bulletPos.getY();
@@ -53,9 +52,7 @@ public class BulletController implements EntityProcessingService, EventListener 
         bulletPos.setX(x + dx * Gdx.graphics.getDeltaTime());
         bulletPos.setY(y + dy * Gdx.graphics.getDeltaTime());
 
-        bullet.getSpriteBatch().begin();
-        bullet.getSpriteBatch().draw(bullet.getTexture(), bulletPos.getX(), bulletPos.getY());
-        bullet.getSpriteBatch().end();
+        data.getSpriteBatch().draw(bullet.getTexture(), bulletPos.getX(), bulletPos.getY());
     }
 
     public Entity createBullet(Entity shooter) {
@@ -80,7 +77,6 @@ public class BulletController implements EntityProcessingService, EventListener 
         bullet.add(new LifePart(1));
         bullet.add(new TimerPart(40));
         bullet.setTexture(new Texture(Gdx.files.internal("Bullet/src/main/resources/star2.png")));
-        bullet.setSpriteBatch(new SpriteBatch());
         return bullet;
     }
 
@@ -88,10 +84,6 @@ public class BulletController implements EntityProcessingService, EventListener 
     public void processEvent(Event event, World world) {
         if (event instanceof FireShotEvent) {
             world.addEntity(createBullet(event.getSource()));
-            //TEMP solution: Should find a way for the process method to be called in game (but it
-            //doesn't for some reason)
-            gameData.setDelta(Gdx.graphics.getDeltaTime());
-            process(gameData, world, ProcessAt.Tick);
         }
     }
 }
