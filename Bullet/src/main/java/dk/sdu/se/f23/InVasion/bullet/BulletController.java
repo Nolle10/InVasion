@@ -85,10 +85,6 @@ public class BulletController implements EntityProcessingService, EventListener 
     public void processEvent(Event event, World world) {
         if (event instanceof FireShotEvent) {
             world.addEntity(createBullet(event.getSource()));
-            //TEMP solution: Should find a way for the process method to be called in game (but it
-            //doesn't for some reason)
-            /*gameData.setDelta(Gdx.graphics.getDeltaTime());
-            process(gameData, world, ProcessAt.Tick);*/
         }
     }
 }
