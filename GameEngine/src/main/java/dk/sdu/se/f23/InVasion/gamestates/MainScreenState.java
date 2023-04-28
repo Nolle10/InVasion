@@ -16,6 +16,7 @@ public class MainScreenState extends GameState{
 
     private Stage stage;
     private TextButton button;
+    private TextButton button1;
     private Label titleLabel;
 
     public MainScreenState(GameStateManager gsm) {
@@ -45,9 +46,22 @@ public class MainScreenState extends GameState{
             }
         });
 
+        button1 = new TextButton("Exit game", buttonSkin.getSkin());
+        button1.getLabel().setFontScale(2,2);
+        button1.setPosition(760,350);
+        button1.addListener( new InputListener(){
+            @Override
+            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button){
+                System.out.println("Exit game clicked!");
+                Gdx.app.exit();
+                return true;
+            }
+        });
+
         // Add actors to the stage
         stage.addActor(titleLabel);
         stage.addActor(button);
+        stage.addActor(button1);
     }
 
     @Override
