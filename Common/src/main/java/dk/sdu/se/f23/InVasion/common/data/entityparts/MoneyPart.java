@@ -29,11 +29,10 @@ public class MoneyPart implements EntityPart {
     public void process(GameData data, Entity entity) {
         LifePart enemyLifePart = entity.getPart(LifePart.class);
 
-        if(enemyLifePart.getLife() <= 0 && enemyLifePart.isNotDead()){
+        if(enemyLifePart.getLife() <= 0 && !enemyLifePart.isDead()){
             int balance = data.getPlayerMoney() + getMoney();
             data.setPlayerMoney(balance);
         }
-
     }
 
     public int getMoney() {

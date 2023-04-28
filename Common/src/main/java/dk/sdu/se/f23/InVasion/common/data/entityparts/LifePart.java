@@ -42,13 +42,4 @@ public class LifePart implements EntityPart {
     public boolean isDead() {
         return isDead;
     }
-
-    public boolean isNotDead() {
-        if (isDead == isDead()){
-            return false;
-        }
-        else{
-            return true;
-        }
-    }
 }
