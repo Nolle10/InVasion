@@ -6,6 +6,7 @@ import dk.sdu.se.f23.InVasion.common.data.GameData;
 public class LifePart implements EntityPart {
     private int life;
     private boolean isHit = false;
+    private boolean isDead = false;
 
     public LifePart(int life) {
         this.life = life;
@@ -13,15 +14,13 @@ public class LifePart implements EntityPart {
 
     @Override
     public void process(GameData data, Entity entity) {
-
-    }
-
-    public boolean isAlive() {
         if (isHit) {
-            life = - 1;
+            life -= 1;
             isHit = false;
         }
-        return isAlive();
+        if (life <= 0) {
+            isDead = true;
+        }
     }
 
     public int getLife() {

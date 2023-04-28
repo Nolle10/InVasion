@@ -1,6 +1,7 @@
 package dk.sdu.se.f23.InVasion.common.data;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import dk.sdu.se.f23.InVasion.common.data.entityparts.EntityPart;
 
@@ -12,6 +13,14 @@ public class Entity extends Actor {
     private final UUID ID = UUID.randomUUID();
 
     private Texture texture;
+
+    private SpriteBatch spriteBatch;
+    @Deprecated
+    private float[] shapeX = new float[4];
+    @Deprecated
+    private float[] shapeY = new float[4];
+    @Deprecated
+    private float radius;
     private Map<Class, EntityPart> parts;
 
     public Entity() {
@@ -38,7 +47,41 @@ public class Entity extends Actor {
         this.texture = texture;
     }
 
+    public SpriteBatch getSpriteBatch() {
+        return spriteBatch;
+    }
+    public void setSpriteBatch(SpriteBatch spriteBatch) {
+        this.spriteBatch = spriteBatch;
+    }
+
+    @Deprecated
+    public void setRadius(float r){
+        this.radius = r;
+    }
+    @Deprecated
+    public float getRadius(){
+        return radius;
+    }
+
     public String getID() {
         return ID.toString();
+    }
+
+    @Deprecated
+    public float[] getShapeX() {
+        return shapeX;
+    }
+
+    @Deprecated
+    public void setShapeX(float[] shapeX) {
+        this.shapeX = shapeX;
+    }
+    @Deprecated
+    public float[] getShapeY() {
+        return shapeY;
+    }
+    @Deprecated
+    public void setShapeY(float[] shapeY) {
+        this.shapeY = shapeY;
     }
 }

@@ -64,9 +64,5 @@ public class EnemyControlSystem implements EntityProcessingService {
     }
 
 
-    //TODO: Delete this
-    @Deprecated
-    @Override
-    public void process(GameData data, World world) {
-    }
+
 }
