@@ -86,7 +86,7 @@ public class BulletController implements EntityProcessingService, EventListener 
 
         bullet.add(new PositionPart(new Point((int) shooterPosX + mouseX, (int) shooterPosY + mouseY), radians));
         bullet.add(new LifePart(1));
-        bullet.add(new TimerPart(10));
+        bullet.add(new TimerPart(40));
         bullet.setTexture(new Texture(Gdx.files.internal("Bullet/src/main/resources/star2.png")));
         bullet.setSpriteBatch(new SpriteBatch());
         return bullet;
