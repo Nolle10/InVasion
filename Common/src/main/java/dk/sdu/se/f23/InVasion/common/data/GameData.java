@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class GameData {
+    private int playerMoney;
     private float delta;
     private int displayWidth;
     private int displayHeight;
@@ -74,5 +75,13 @@ public class GameData {
         }
 
         return r;
+    }
+
+    public int getPlayerMoney() {
+        return playerMoney;
+    }
+
+    public void setPlayerMoney(int playerMoney) {
+        this.playerMoney = playerMoney;
     }
 }
