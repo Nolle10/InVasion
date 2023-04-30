@@ -3,6 +3,7 @@ package dk.sdu.se.f23.InVasion.main;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.*;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import dk.sdu.se.f23.InVasion.common.data.GameData;
 import dk.sdu.se.f23.InVasion.common.data.ProcessAt;
 import dk.sdu.se.f23.InVasion.common.data.World;
@@ -26,7 +27,7 @@ public class Game implements ApplicationListener {
     private GameStateManager gsm;
     private final GameData gameData = new GameData();
     private World world = new World();
-    private static int playerMoney = 0;
+    private int playerMoney = gameData.getPlayerMoney();
 
     public void create() {
 
@@ -48,7 +49,6 @@ public class Game implements ApplicationListener {
     }
 
     public void render() {
-
         // clear screen to black
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -56,8 +56,10 @@ public class Game implements ApplicationListener {
         gsm.update(Gdx.graphics.getDeltaTime());
         gsm.draw();
         gameData.setDelta(Gdx.graphics.getDeltaTime());
+        gameData.setSpriteBatch(new SpriteBatch());
+        gameData.getSpriteBatch().begin();
         update(ProcessAt.Tick);
-
+        gameData.getSpriteBatch().end();
     }
 
     //Update method for EntityProcessingServices: How to do it with ProcessAt.Tick and ProcessAt values?
@@ -65,7 +67,6 @@ public class Game implements ApplicationListener {
         for (EntityProcessingService entityProcessor : getEntityProcessingServices()) {
             entityProcessor.process(gameData, world, processAt);
         }
-
     }
 
     public void resize(int width, int height) {}
@@ -75,14 +76,13 @@ public class Game implements ApplicationListener {
     public void dispose() {}
 
 
-    public static int getPlayerMoney() {
-        return playerMoney;
+    public int getPlayerMoney() {
+        return gameData.getPlayerMoney();
     }
 
-    public static void setPlayerMoney(int playerMoney) {
-        playerMoney = Game.playerMoney;
+    public void setPlayerMoney(int playerMoney) {
+        gameData.setPlayerMoney(playerMoney);
     }
-
 
     //ServiceLoader - Loads in all Plugin services and EntityProcessing services
 

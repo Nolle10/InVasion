@@ -1,19 +1,23 @@
 package dk.sdu.se.f23.InVasion.gamestates;
 
+import dk.sdu.se.f23.InVasion.common.data.buttonSkin;
+import dk.sdu.se.f23.InVasion.managers.GameStateManager;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import dk.sdu.se.f23.InVasion.managers.GameStateManager;
 
 public class MainScreenState extends GameState{
 
     private Stage stage;
     private TextButton button;
-    private TextButton.TextButtonStyle textButtonStyle;
+    private TextButton button1;
+    private Label titleLabel;
 
     public MainScreenState(GameStateManager gsm) {
         super(gsm);
@@ -24,11 +28,15 @@ public class MainScreenState extends GameState{
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
 
-        textButtonStyle = new TextButton.TextButtonStyle();
-        textButtonStyle.font = new BitmapFont();
-        textButtonStyle.fontColor = Color.WHITE;
-        button = new TextButton("Play game button", textButtonStyle);
-        button.setPosition(900,500);
+        BitmapFont font = new BitmapFont();
+        font.getData().setScale(4);
+        Label.LabelStyle style = new Label.LabelStyle(font, Color.WHITE);
+        titleLabel = new Label("InVasion", style);
+        titleLabel.setPosition(860, 800);
+
+        button = new TextButton("Start game", buttonSkin.getSkin());
+        button.getLabel().setFontScale(2,2);
+        button.setPosition(760,500);
         button.addListener( new InputListener(){
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button){
@@ -38,7 +46,22 @@ public class MainScreenState extends GameState{
             }
         });
 
+        button1 = new TextButton("Exit game", buttonSkin.getSkin());
+        button1.getLabel().setFontScale(2,2);
+        button1.setPosition(760,350);
+        button1.addListener( new InputListener(){
+            @Override
+            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button){
+                System.out.println("Exit game clicked!");
+                Gdx.app.exit();
+                return true;
+            }
+        });
+
+        // Add actors to the stage
+        stage.addActor(titleLabel);
         stage.addActor(button);
+        stage.addActor(button1);
     }
 
     @Override
