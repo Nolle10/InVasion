@@ -54,8 +54,8 @@ public class BulletController implements EntityProcessingService, EventListener 
     public Entity createBullet(Entity shooter, Point direction) {
         PositionPart shooterPos = shooter.getPart(PositionPart.class);
 
-        float shooterPosX = shooterPos.getX();
-        float shooterPosY = shooterPos.getY();
+        float shooterPosX = shooterPos.getPos().getX();
+        float shooterPosY = shooterPos.getPos().getY();
         if (shooterPos == null) {
             shooterPosX = 400;
             shooterPosY = 600;

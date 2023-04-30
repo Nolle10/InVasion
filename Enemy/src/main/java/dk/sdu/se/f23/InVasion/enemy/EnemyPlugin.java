@@ -10,7 +10,6 @@ import dk.sdu.se.f23.InVasion.common.data.Point;
 import dk.sdu.se.f23.InVasion.common.data.World;
 import dk.sdu.se.f23.InVasion.common.data.entityparts.LifePart;
 import dk.sdu.se.f23.InVasion.common.data.entityparts.MoneyPart;
-import dk.sdu.se.f23.InVasion.common.data.entityparts.MovingPart;
 import dk.sdu.se.f23.InVasion.common.data.entityparts.PositionPart;
 import dk.sdu.se.f23.InVasion.common.services.PluginService;
 
@@ -86,7 +85,7 @@ public class EnemyPlugin implements PluginService {
 
 
         enemyShip.add(new PositionPart(new Point((int) x, (int) y), radians));
-        enemyShip.add(new LifePart(1));
+        enemyShip.add(new LifePart(100));
         enemyShip.add(new MoneyPart(10));
 
         return enemyShip;

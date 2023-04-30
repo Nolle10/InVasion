@@ -7,6 +7,7 @@ import dk.sdu.se.f23.InVasion.common.data.Entity;
 import dk.sdu.se.f23.InVasion.common.data.GameData;
 import dk.sdu.se.f23.InVasion.common.data.Point;
 import dk.sdu.se.f23.InVasion.common.data.World;
+import dk.sdu.se.f23.InVasion.common.data.entityparts.LifePart;
 import dk.sdu.se.f23.InVasion.common.data.entityparts.PositionPart;
 import dk.sdu.se.f23.InVasion.common.services.PluginService;
 
@@ -21,8 +22,8 @@ public class PlayerPlugin implements PluginService {
 
     private Entity createPlayer(GameData data){
         Entity player = new Player();
-        player.add(new PositionPart(new Point(data.getDisplayWidth() / 2, data.getDisplayHeight() / 2), 3.1415f / 2));
-        PositionPart positionPart = player.getPart(PositionPart.class);
+        player.add(new PositionPart(new Point(100, 100), 3.1415f / 2));
+        player.add(new LifePart(100));
         Texture texture = new Texture(Gdx.files.internal("Player/src/main/resources/images/tower.png"));
 
         player.setTexture(texture);
