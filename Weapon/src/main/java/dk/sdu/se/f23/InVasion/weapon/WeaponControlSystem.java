@@ -16,7 +16,7 @@ public class WeaponControlSystem implements EntityProcessingService, EventListen
         for (Entity weapon : world.getEntities(Weapon.class)) {
             lastShot += data.getDelta()*50;
             if (lastShot >= 2) {
-                EventDistributor.sendEvent(new FireShotEvent(weapon/*,getDirection()*/),world);
+                EventDistributor.sendEvent(new FireShotEvent(weapon,getDirection()),world);
                 lastShot = 0;
             }
         }
