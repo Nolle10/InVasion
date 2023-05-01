@@ -2,6 +2,7 @@ package dk.sdu.se.f23.InVasion.common.events;
 
 
 import dk.sdu.se.f23.InVasion.common.data.World;
+import dk.sdu.se.f23.InVasion.common.events.events.Event;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,6 +15,11 @@ public class EventDistributor {
     public static void addListener(Class<?> eventClass, EventListener listener){
         eventActivatorMap.computeIfAbsent(eventClass, k -> new ArrayList<>());
         eventActivatorMap.get(eventClass).add(listener);
+    }
+
+    public static boolean removeListener(Class<?> eventClass, EventListener eventListener){
+        return eventActivatorMap.get(eventClass).remove(eventListener);
+
     }
 
     public static void sendEvent(Event event, World world){

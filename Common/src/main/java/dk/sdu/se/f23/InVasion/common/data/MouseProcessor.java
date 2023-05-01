@@ -1,4 +1,4 @@
-package dk.sdu.se.f23.InVasion.bullet;
+package dk.sdu.se.f23.InVasion.common.data;
 
 import com.badlogic.gdx.InputAdapter;
 

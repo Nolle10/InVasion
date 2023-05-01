@@ -3,6 +3,9 @@ package dk.sdu.se.f23.InVasion.managers;
 
 import dk.sdu.se.f23.InVasion.common.data.GameData;
 import dk.sdu.se.f23.InVasion.common.data.World;
+import dk.sdu.se.f23.InVasion.common.events.EventDistributor;
+import dk.sdu.se.f23.InVasion.common.events.events.Event;
+import dk.sdu.se.f23.InVasion.common.events.events.SpawnEnemysEvent;
 import dk.sdu.se.f23.InVasion.gamestates.*;
 
 
@@ -31,6 +34,7 @@ public class GameStateManager {
         }
         if(state == PLAY) {
             gameState = new PlayState(this);
+            EventDistributor.sendEvent(new SpawnEnemysEvent(1), world);
         }
         if(state == SHOP) {
             gameState = new ShopState(this);

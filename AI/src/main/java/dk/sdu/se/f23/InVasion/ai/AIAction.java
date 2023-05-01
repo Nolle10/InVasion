@@ -17,7 +17,7 @@ public class AIAction implements ActionService {
     private AIType aiType = AIType.STUPID;
 
     @Override
-    public List<Point> calculate(GameData gameData, World world, Enemy enemy) {
+    public List<Point> calculate(World world) {
 
         //TEST ROUTE - SHOULD BE REMOVED
         List<Point> route = new ArrayList<>();
