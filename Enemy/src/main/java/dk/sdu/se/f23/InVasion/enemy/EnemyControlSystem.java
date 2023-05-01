@@ -88,6 +88,8 @@ public class EnemyControlSystem implements EntityProcessingService, EventListene
         for (int i = 0; i < amountToSpawn; i++) {
             List<Point> route = actionService.calculate(world);
             Enemy enemy = new Enemy(route);
+            enemy.add(new LifePart(spawnEnemiesEvent.getWaveLevel()*2));
+            enemy.add(new MoneyPart(spawnEnemiesEvent.getWaveLevel()*2));
             enemy.setTexture(new Texture(Gdx.files.internal("Enemy/src/main/resources/dk/sdu/se/f23/InVasion/enemyresources/textures/enemytest.png")));
             world.addEntity(enemy);
         }
