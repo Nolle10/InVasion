@@ -32,14 +32,15 @@ public class CollisionDetector implements EntityProcessingService {
                 // CollisionDetection
                 if (this.collides(entity, otherEntity)) {
                     // if entity has been hit, and should have its life reduced
-                    if (entityLife.getLife() > 0) {
+                    System.out.println("collision");
+                    /*if (entityLife.getLife() > 0) {
                         entityLife.setLife(entityLife.getLife() - 1);
                         entityLife.setHit(true);
                         // if entity is out of life - remove
                         if (entityLife.getLife() <= 0) {
                             world.removeEntity(entity);
                         }
-                    }
+                    }*/
                 }
             }
         }
