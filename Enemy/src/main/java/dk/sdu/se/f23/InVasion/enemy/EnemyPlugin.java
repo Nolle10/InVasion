@@ -9,6 +9,7 @@ import dk.sdu.se.f23.InVasion.common.data.GameData;
 import dk.sdu.se.f23.InVasion.common.data.Point;
 import dk.sdu.se.f23.InVasion.common.data.World;
 import dk.sdu.se.f23.InVasion.common.data.entityparts.LifePart;
+import dk.sdu.se.f23.InVasion.common.data.entityparts.MoneyPart;
 import dk.sdu.se.f23.InVasion.common.data.entityparts.MovingPart;
 import dk.sdu.se.f23.InVasion.common.data.entityparts.PositionPart;
 import dk.sdu.se.f23.InVasion.common.events.EventDistributor;
@@ -37,5 +38,4 @@ public class EnemyPlugin implements PluginService {
         EventDistributor.removeListener(SpawnEnemysEvent.class, enemyControlSystem);
         world.removeEntity(enemy);
     }
-
 }

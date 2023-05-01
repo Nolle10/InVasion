@@ -37,7 +37,6 @@ public class BulletController implements EntityProcessingService, EventListener 
 
             updateShape(bullet, data);
         }
-
     }
 
     private void updateShape(Entity bullet, GameData data) {
