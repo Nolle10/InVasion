@@ -59,9 +59,7 @@ public class Entity extends Actor {
     }
 
     @Deprecated
-    public float[] getHitShapeX() {
-        return shapeX;
-    }
+    public float[] getHitShapeX() {return shapeX;}
 
     @Deprecated
     public void setHitShapeX(float[] shapeX) {
@@ -76,4 +74,3 @@ public class Entity extends Actor {
         this.shapeY = shapeY;
     }
 }
-

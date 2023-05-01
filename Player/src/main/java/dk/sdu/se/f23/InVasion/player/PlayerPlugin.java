@@ -24,7 +24,6 @@ public class PlayerPlugin implements PluginService {
         player.add(new PositionPart(new Point(data.getDisplayWidth() / 2, data.getDisplayHeight() / 2), 3.1415f / 2));
         PositionPart positionPart = player.getPart(PositionPart.class);
         Texture texture = new Texture(Gdx.files.internal("Player/src/main/resources/images/tower.png"));
-
         player.setTexture(texture);
 
         return player;
