@@ -6,6 +6,8 @@ import dk.sdu.se.f23.InVasion.common.data.*;
 import dk.sdu.se.f23.InVasion.common.data.entityparts.LifePart;
 import dk.sdu.se.f23.InVasion.common.data.entityparts.PositionPart;
 import dk.sdu.se.f23.InVasion.common.events.*;
+import dk.sdu.se.f23.InVasion.common.events.events.Event;
+import dk.sdu.se.f23.InVasion.common.events.events.FireShotEvent;
 import dk.sdu.se.f23.InVasion.common.services.EntityProcessingService;
 import dk.sdu.se.f23.InVasion.commonweapon.Weapon;
 

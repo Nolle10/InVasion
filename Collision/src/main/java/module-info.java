@@ -5,6 +5,7 @@ module Collision {
     requires Bullet;
     requires Enemy;
     requires shadedlibgdx;
+    requires Player;
 
     provides dk.sdu.se.f23.InVasion.common.services.EntityProcessingService with CollisionDetector;
 }

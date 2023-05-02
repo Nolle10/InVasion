@@ -9,6 +9,7 @@ import dk.sdu.se.f23.InVasion.common.data.entityparts.LifePart;
 import dk.sdu.se.f23.InVasion.common.data.entityparts.PositionPart;
 import dk.sdu.se.f23.InVasion.common.services.EntityProcessingService;
 import dk.sdu.se.f23.InVasion.enemy.Enemy;
+import dk.sdu.se.f23.InVasion.player.Player;
 
 import java.util.Arrays;
 import java.util.stream.DoubleStream;
@@ -20,8 +21,8 @@ public class CollisionDetector implements EntityProcessingService {
     public void process(GameData data, World world, ProcessAt processTime) {
         // two for loops for all entities in the world
         //FIXME make sure at collision only happens when a bullet and an enemy collides
-        for (Entity entity : world.getEntities()) { //Entity enemy : world.getEntities(Enemy.class)
-            for (Entity otherEntity : world.getEntities()) { //Entity bullet : world.getEntities(Bullet.class)
+        for (Entity entity : world.getEntities(Player.class)) { //Entity enemy : world.getEntities(Enemy.class)
+            for (Entity otherEntity : world.getEntities(Bullet.class)) { //Entity bullet : world.getEntities(Bullet.class)
                 // get life parts on all entities
                 LifePart entityLife = entity.getPart(LifePart.class);
 
