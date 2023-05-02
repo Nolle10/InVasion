@@ -58,6 +58,7 @@ public class Entity extends Actor {
         return ID.toString();
     }
 
+    //TODO delete these if they are still unused
     @Deprecated
     public float[] getHitShapeX() {return shapeX;}
 

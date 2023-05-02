@@ -19,8 +19,9 @@ public class CollisionDetector implements EntityProcessingService {
     @Override
     public void process(GameData data, World world, ProcessAt processTime) {
         // two for loops for all entities in the world
-        for (Entity entity : world.getEntities()) {
-            for (Entity otherEntity : world.getEntities()) {
+        //FIXME make sure at collision only happens when a bullet and an enemy collides
+        for (Entity entity : world.getEntities()) { //Entity enemy : world.getEntities(Enemy.class)
+            for (Entity otherEntity : world.getEntities()) { //Entity bullet : world.getEntities(Bullet.class)
                 // get life parts on all entities
                 LifePart entityLife = entity.getPart(LifePart.class);
 
@@ -49,11 +50,10 @@ public class CollisionDetector implements EntityProcessingService {
     }
 
     public Boolean collides(Entity entity, Entity otherEntity) {
-        //if (entity instanceof Enemy || entity instanceof Bullet) {
             PositionPart entMov = entity.getPart(PositionPart.class);
             PositionPart entMov2 = otherEntity.getPart(PositionPart.class);
-            float dx = (float) entMov.getX() - (float) entMov2.getX();
-            float dy = (float) entMov.getY() - (float) entMov2.getY();
+            float dx = entMov.getX() - entMov2.getX();
+            float dy = entMov.getY() - entMov2.getY();
             float distance = (float) Math.sqrt(dx * dx + dy * dy);
 
             int entityHeigth = entity.getTexture().getHeight();
@@ -61,14 +61,11 @@ public class CollisionDetector implements EntityProcessingService {
             int otherEntityHeigth = otherEntity.getTexture().getHeight();
             int otherEntityWidth = otherEntity.getTexture().getWidth();
             float hitSquareEntity = entityHeigth*entityWidth; //(xt,yt - xt,yb) * (xt,yb - xb,yb) = area/hit square
-            float hitSquareOtherEntity = otherEntityHeigth*otherEntityHeigth;
+            float hitSquareOtherEntity = otherEntityHeigth*otherEntityWidth;
             if (distance < (hitSquareEntity + hitSquareOtherEntity)){
-            //if (distance < ((entity.getHitShapeX()[entity.getHitShapeX().length - 1] - entity.getHitShapeX()[0]) + (entity.getHitShapeX()[otherEntity.getHitShapeX().length - 1] - otherEntity.getHitShapeX()[0]))) {
                 return true;
             }
 
             return false;
-        /*}
-        return null;*/
     }
 }
