@@ -3,7 +3,7 @@ package dk.sdu.se.f23.InVasion.common.data;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import dk.sdu.se.f23.InVasion.common.events.Event;
+import dk.sdu.se.f23.InVasion.common.events.events.Event;
 
 import java.util.ArrayList;
 import java.util.List;

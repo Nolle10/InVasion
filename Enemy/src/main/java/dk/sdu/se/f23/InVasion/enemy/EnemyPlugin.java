@@ -11,6 +11,9 @@ import dk.sdu.se.f23.InVasion.common.data.World;
 import dk.sdu.se.f23.InVasion.common.data.entityparts.LifePart;
 import dk.sdu.se.f23.InVasion.common.data.entityparts.MoneyPart;
 import dk.sdu.se.f23.InVasion.common.data.entityparts.PositionPart;
+import dk.sdu.se.f23.InVasion.common.events.EventDistributor;
+import dk.sdu.se.f23.InVasion.common.events.events.FireShotEvent;
+import dk.sdu.se.f23.InVasion.common.events.events.SpawnEnemysEvent;
 import dk.sdu.se.f23.InVasion.common.services.PluginService;
 
 import java.util.ArrayList;
@@ -19,16 +22,19 @@ import java.util.Random;
 
 public class EnemyPlugin implements PluginService {
     Entity enemy;
+    EnemyControlSystem enemyControlSystem;
+
 
     @Override
     public void onEnable(GameData data, World world) {
-        enemy = createEnemy(data,world);
-        world.addEntity(enemy);
 
+        this.enemyControlSystem = new EnemyControlSystem();
+        EventDistributor.addListener(SpawnEnemysEvent.class, enemyControlSystem);
     }
 
     @Override
     public void onDisable(GameData data, World world) {
+        EventDistributor.removeListener(SpawnEnemysEvent.class, enemyControlSystem);
         world.removeEntity(enemy);
     }
 
@@ -90,4 +96,5 @@ public class EnemyPlugin implements PluginService {
 
         return enemyShip;
     }
+
 }

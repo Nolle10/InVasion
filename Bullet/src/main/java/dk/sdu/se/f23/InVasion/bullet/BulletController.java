@@ -7,9 +7,9 @@ import dk.sdu.se.f23.InVasion.common.data.entityparts.LifePart;
 import dk.sdu.se.f23.InVasion.common.data.entityparts.MovingPart;
 import dk.sdu.se.f23.InVasion.common.data.entityparts.PositionPart;
 import dk.sdu.se.f23.InVasion.common.data.entityparts.TimerPart;
-import dk.sdu.se.f23.InVasion.common.events.Event;
+import dk.sdu.se.f23.InVasion.common.events.events.Event;
 import dk.sdu.se.f23.InVasion.common.events.EventListener;
-import dk.sdu.se.f23.InVasion.common.events.FireShotEvent;
+import dk.sdu.se.f23.InVasion.common.events.events.FireShotEvent;
 import dk.sdu.se.f23.InVasion.common.services.EntityProcessingService;
 
 public class BulletController implements EntityProcessingService, EventListener {
