@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 
 public class WeaponPlugin implements PluginService {
-    private final String weaponName = "Steven";
+    private final String weaponName = "Tower1";
     private Texture texture = new Texture(Gdx.files.internal("Weapon/src/main/resources/TOWER.png"));
     private int cost = 200;
 
