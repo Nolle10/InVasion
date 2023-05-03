@@ -225,7 +225,7 @@ public class AStarAction implements ActionService  {
     }
 
     @Override
-    public List<Point> calculate(GameData gameData, World world, Enemy enemy) {
+    public List<Point> calculate(World world) {
         Node initialNode = new Node(10,10);
         Node finalNode = new Node(100,240);
 

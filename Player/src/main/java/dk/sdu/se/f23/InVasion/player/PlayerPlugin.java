@@ -1,5 +1,8 @@
 package dk.sdu.se.f23.InVasion.player;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import dk.sdu.se.f23.InVasion.common.data.Entity;
 import dk.sdu.se.f23.InVasion.common.data.GameData;
 import dk.sdu.se.f23.InVasion.common.data.Point;
@@ -12,13 +15,17 @@ public class PlayerPlugin implements PluginService {
 
     @Override
     public void onEnable(GameData data, World world) {
-        player = createPlayerInfo(data);
+        player = createPlayer(data);
         world.addEntity(player);
     }
 
-    private Entity createPlayerInfo(GameData data){
+    private Entity createPlayer(GameData data){
         Entity player = new Player();
-        player.add(new PositionPart(new Point(data.getDisplayWidth() / 2, data.getDisplayHeight() / 2), 3.1415f / 2));
+        player.add(new PositionPart(new Point(1000, 1000), 3.1415f / 2));
+        Texture texture = new Texture(Gdx.files.internal("Player/src/main/resources/images/tower.png"));
+
+        player.setTexture(texture);
+
         return player;
     }
 

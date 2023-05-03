@@ -14,7 +14,6 @@ public class Entity extends Actor {
 
     private Texture texture;
 
-    private SpriteBatch spriteBatch;
     @Deprecated
     private float[] shapeX = new float[4];
     @Deprecated
@@ -45,13 +44,6 @@ public class Entity extends Actor {
 
     public void setTexture(Texture texture) {
         this.texture = texture;
-    }
-
-    public SpriteBatch getSpriteBatch() {
-        return spriteBatch;
-    }
-    public void setSpriteBatch(SpriteBatch spriteBatch) {
-        this.spriteBatch = spriteBatch;
     }
 
     @Deprecated
