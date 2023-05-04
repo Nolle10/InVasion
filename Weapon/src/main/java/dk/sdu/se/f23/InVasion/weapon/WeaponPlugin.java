@@ -4,9 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import dk.sdu.se.f23.InVasion.common.data.*;
 import dk.sdu.se.f23.InVasion.common.data.entityparts.PositionPart;
-import dk.sdu.se.f23.InVasion.common.events.BuyTowerEvent;
+import dk.sdu.se.f23.InVasion.common.events.events.BuyTowerEvent;
 import dk.sdu.se.f23.InVasion.common.events.EventDistributor;
-import dk.sdu.se.f23.InVasion.common.events.TargetEvent;
+import dk.sdu.se.f23.InVasion.common.events.events.TargetEvent;
 import dk.sdu.se.f23.InVasion.common.services.PluginService;
 import dk.sdu.se.f23.InVasion.commonweapon.Weapon;
 

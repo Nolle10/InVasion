@@ -1,12 +1,10 @@
 package dk.sdu.se.f23.InVasion.player;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import dk.sdu.se.f23.InVasion.common.data.*;
 import dk.sdu.se.f23.InVasion.common.data.entityparts.PositionPart;
 import dk.sdu.se.f23.InVasion.common.events.EventDistributor;
-import dk.sdu.se.f23.InVasion.common.events.FireShotEvent;
+import dk.sdu.se.f23.InVasion.common.events.events.FireShotEvent;
 import dk.sdu.se.f23.InVasion.common.services.EntityProcessingService;
 
 public class PlayerControlSystem implements EntityProcessingService {

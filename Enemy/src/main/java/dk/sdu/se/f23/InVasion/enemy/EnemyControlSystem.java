@@ -1,13 +1,18 @@
 package dk.sdu.se.f23.InVasion.enemy;
 
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import dk.sdu.se.f23.InVasion.common.data.*;
 import dk.sdu.se.f23.InVasion.common.data.entityparts.LifePart;
 import dk.sdu.se.f23.InVasion.common.data.entityparts.MoneyPart;
 import dk.sdu.se.f23.InVasion.common.data.entityparts.PositionPart;
 import dk.sdu.se.f23.InVasion.common.events.EventDistributor;
-import dk.sdu.se.f23.InVasion.common.events.TargetEvent;
+import dk.sdu.se.f23.InVasion.common.events.events.TargetEvent;
+import dk.sdu.se.f23.InVasion.common.events.EventListener;
+import dk.sdu.se.f23.InVasion.common.events.events.Event;
+import dk.sdu.se.f23.InVasion.common.events.events.SpawnEnemysEvent;
 import dk.sdu.se.f23.InVasion.common.services.EntityProcessingService;
 import dk.sdu.se.f23.InVasion.enemy.services.ActionService;
 
@@ -16,7 +21,7 @@ import java.util.*;
 
 import static java.util.stream.Collectors.toList;
 
-public class EnemyControlSystem implements EntityProcessingService, EventListener{
+public class EnemyControlSystem implements EntityProcessingService, EventListener {
 
     private MoveToAction movingAction = new MoveToAction();
 
@@ -55,11 +60,36 @@ public class EnemyControlSystem implements EntityProcessingService, EventListene
 
     public void moveTo(Entity enemy, Point location) {
         movingAction.setPosition(location.getX(), location.getY());
-        movingAction.setDuration(((Enemy)enemy).getSpeed());
+        movingAction.setDuration(((Enemy) enemy).getSpeed());
+        enemy.addAction(movingAction);
     }
 
 
 
 
+    @Override
+    public void processEvent(Event event, World world) {
+        SpawnEnemysEvent spawnEnemiesEvent = (SpawnEnemysEvent) event;
+        for (ActionService actionService : getActionServices()) {
+            if (actionService.getAiType() != AIType.A_STAR) {
+                continue;
+            }
+            spawnEnemys(world, spawnEnemiesEvent, actionService);
+        }
+    }
 
+    private static void spawnEnemys(World world, SpawnEnemysEvent spawnEnemiesEvent, ActionService actionService) {
+
+        int amountToSpawn = spawnEnemiesEvent.getWaveLevel() * 2;
+        for (int i = 0; i < amountToSpawn; i++) {
+            List<Point> route = actionService.calculate(world);
+            Enemy enemy = new Enemy(route);
+            enemy.add(new PositionPart(route.get(0),0));
+            enemy.add(new LifePart(spawnEnemiesEvent.getWaveLevel()*2));
+            enemy.add(new MoneyPart(spawnEnemiesEvent.getWaveLevel()*2));
+            enemy.setTexture(new Texture(Gdx.files.internal("Enemy/src/main/resources/dk/sdu/se/f23/InVasion/enemyresources/textures/enemytest.png")));
+            world.addEntity(enemy);
+        }
+
+    }
 }
