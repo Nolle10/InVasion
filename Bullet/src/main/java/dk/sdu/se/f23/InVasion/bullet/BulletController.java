@@ -57,13 +57,14 @@ public class BulletController implements EntityProcessingService, EventListener 
         float shooterPosX = shooterPos.getPos().getX();
         float shooterPosY = shooterPos.getPos().getY();
         if (shooterPos == null) {
+            System.out.println("ShooterPos is null");
             shooterPosX = 400;
             shooterPosY = 600;
         }
         float radians = shooterPos.getRadians();
         Entity bullet = new Bullet();
 
-        bullet.add(new PositionPart(new Point((int) shooterPosX + direction.getX(), (int) shooterPosY + direction.getY()), radians));
+        bullet.add(new PositionPart(new Point((int) shooterPosX, (int) shooterPosY), radians));
         bullet.add(new MovingPart(direction, 100, 100));
         bullet.add(new LifePart(1));
         bullet.add(new TimerPart(3));

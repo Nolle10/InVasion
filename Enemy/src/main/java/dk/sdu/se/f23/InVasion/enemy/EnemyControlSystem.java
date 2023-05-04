@@ -1,8 +1,5 @@
 package dk.sdu.se.f23.InVasion.enemy;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import dk.sdu.se.f23.InVasion.common.data.*;
@@ -33,7 +30,6 @@ public class EnemyControlSystem implements EntityProcessingService, EventListene
             LifePart lifePart = enemy.getPart(LifePart.class);
             PositionPart positionPart = enemy.getPart(PositionPart.class);
             EventDistributor.sendEvent(new TargetEvent(enemy,positionPart.getPos()),world);
-            System.out.println("Shots fired");
             moneyPart.process(data, enemy);
             lifePart.process(data, enemy);
             updateShape(enemy, data);

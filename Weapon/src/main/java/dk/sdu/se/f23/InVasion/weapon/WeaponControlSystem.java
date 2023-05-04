@@ -19,7 +19,11 @@ public class WeaponControlSystem implements EntityProcessingService, EventListen
     @Override
     public void process(GameData data, World world, ProcessAt processTime) {
         for (Entity weapon : world.getEntities(Weapon.class)) {
-            Point direction = findNearestNeighbor(world);
+            //Point direction = findNearestNeighbor(world);
+            //Temp solution: Shoots at InitState of world since targets list is empty
+            world.setInitState(new Point(0,100));
+            Point direction = world.getInitState();
+
             lastShot += data.getDelta() * 50;
             if (lastShot >= 0.5) {
                 if (direction != null) {
@@ -34,6 +38,7 @@ public class WeaponControlSystem implements EntityProcessingService, EventListen
         }
     }
 
+    //Will be called by BuyTowerEvent when implemented in shop to create a new weapon
     private Entity createWeapon(Point position) {
         Entity weapon = new Weapon();
         weapon.add(new PositionPart(new Point(position.getX(), position.getY()), 0));
@@ -44,16 +49,20 @@ public class WeaponControlSystem implements EntityProcessingService, EventListen
 
     @Override
     public void processEvent(Event event, World world) {
-        if (event instanceof BuyTowerEvent) {
+        //Needed when Event firing from shop is implemented
+        /*if (event instanceof BuyTowerEvent) {
             world.addEntity(createWeapon(((BuyTowerEvent) event).getPosition()));
-        }
+        }*/
         if (event instanceof TargetEvent) {
+            //TODO: Fix target list is empty
             targets.add(event.getSource());
-            cleanEnemies();
         }
     }
 
+    //Currently not used as TargetEvent sources are not properly added to targets list
+    //Will be used to find nearest enemy
     private Point findNearestNeighbor(World world) {
+
         //Implementation of Nearest Neighbor algorithm
         if (!targets.isEmpty()) {
             Point enemyPosition = null;
@@ -63,7 +72,6 @@ public class WeaponControlSystem implements EntityProcessingService, EventListen
                 double closestDistance = Double.MAX_VALUE;
                 Entity closestTarget = null;
                 for (Entity target : targets) {
-                    System.out.println("Target: " + ((PositionPart) target.getPart(PositionPart.class)).getX() + " " + ((PositionPart) target.getPart(PositionPart.class)).getY());
                     if (!((LifePart) target.getPart(LifePart.class)).isDead()) {
                         float targetX = ((PositionPart) target.getPart(PositionPart.class)).getPos().getX();
                         float targetY = ((PositionPart) target.getPart(PositionPart.class)).getPos().getY();
@@ -84,12 +92,12 @@ public class WeaponControlSystem implements EntityProcessingService, EventListen
                 }
             }
             cleanEnemies();
-            assert enemyPosition != null;
             System.out.println("Enemy position: " + enemyPosition.getX() + " " + enemyPosition.getY());
             return enemyPosition;
+        } else {
+            System.out.println("No target");
+            return null;
         }
-        System.out.println("No target");
-        return null;
     }
 
     private void cleanEnemies() {
