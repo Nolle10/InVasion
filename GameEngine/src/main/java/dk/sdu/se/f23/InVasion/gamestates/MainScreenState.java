@@ -28,8 +28,7 @@ public class MainScreenState extends GameState{
     @Override
     public void init() {
         stage = new Stage();
-        gsm.getGameData().addInputProcessor(stage);
-        //Gdx.input.setInputProcessor(stage);
+        Gdx.input.setInputProcessor(stage);
 
         BitmapFont font = new BitmapFont();
         font.getData().setScale(4);

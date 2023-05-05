@@ -33,9 +33,9 @@ public class ShopState extends GameState {
     private GameData gameData;
     private  GameStateManager gsm;
 
+
     public ShopState(GameStateManager gsm) {
         super(gsm);
-        this.gsm = gsm;
         weapons = new ArrayList<>();
         weapons.addAll(gsm.getWorld().getWeapons());
         world = gsm.getWorld();
@@ -65,10 +65,8 @@ public class ShopState extends GameState {
 
         button1 = new TextButton(String.format("Current Money: %o",new GameData().getPlayerMoney()),textButtonStyle);
         button1.setPosition(700, 800);
-        draw(gsm.getGameData());
         stage.addActor(button);
         stage.addActor(button1);
-
     }
 
     @Override
@@ -84,24 +82,17 @@ public class ShopState extends GameState {
         sr.rect(1920-shopWidth,0,200,1080);
         sr.end();
 
-
         SpriteBatch spriteBatch = gameData.getSpriteBatch();
         spriteBatch.begin();
         try {
         for(int i = 0; i< weapons.size();i++) {
-
             Texture t = (Texture) weapons.get(i).get(1);
-
             spriteBatch.draw(t, 1920 - (shopWidth), 800-(i*200));
 
         }}
         catch (NullPointerException e){
             System.out.println("There are no weapons goddamn");
         }
-
-
-
-
         spriteBatch.end();
         stage.draw();
     }
