@@ -22,6 +22,7 @@
         <module>Map</module>
         <module>CommonWeapon</module>
         <module>CommonBullet</module>
+        <module>CommonEnemy</module>
     </modules>
 
     <properties>

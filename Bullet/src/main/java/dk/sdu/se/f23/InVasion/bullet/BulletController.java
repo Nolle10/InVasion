@@ -11,6 +11,7 @@ import dk.sdu.se.f23.InVasion.common.events.events.Event;
 import dk.sdu.se.f23.InVasion.common.events.EventListener;
 import dk.sdu.se.f23.InVasion.common.events.events.FireShotEvent;
 import dk.sdu.se.f23.InVasion.common.services.EntityProcessingService;
+import dk.sdu.se.f23.InVasion.commonbullet.Bullet;
 
 public class BulletController implements EntityProcessingService, EventListener {
     private GameData gameData = new GameData();
