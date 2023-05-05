@@ -38,7 +38,7 @@ public class ShopState extends GameState {
     @Override
     public void init() {
         stage = new Stage();
-        Gdx.input.setInputProcessor(stage);
+
         sr = new ShapeRenderer();
         textButtonStyle = new TextButton.TextButtonStyle();
         textButtonStyle.font = new BitmapFont();
@@ -48,6 +48,7 @@ public class ShopState extends GameState {
         button.addListener( new InputListener(){
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button){
+                gsm.getGameData().removeProcessor(stage);
                 gsm.setState(2);
                 return true;
             }
@@ -57,6 +58,7 @@ public class ShopState extends GameState {
         button1.setPosition(700, 800);
         stage.addActor(button);
         stage.addActor(button1);
+        gsm.getGameData().addProcessor(stage);
     }
 
     @Override

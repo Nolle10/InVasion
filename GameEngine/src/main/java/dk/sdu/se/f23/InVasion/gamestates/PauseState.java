@@ -28,7 +28,6 @@ public class PauseState extends GameState{
     @Override
     public void init() {
         stage = new Stage();
-        Gdx.input.setInputProcessor(stage);
 
         BitmapFont font = new BitmapFont();
         font.getData().setScale(4);
@@ -44,6 +43,7 @@ public class PauseState extends GameState{
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button){
                 System.out.println("Back to game button clicked!");
+                gsm.getGameData().removeProcessor(stage);
                 gsm.setState(2);
                 return true;
             }
@@ -56,6 +56,7 @@ public class PauseState extends GameState{
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button){
                 System.out.println("Back to menu button clicked!");
+                gsm.getGameData().removeProcessor(stage);
                 gsm.setState(0);
                 return true;
             }
@@ -64,6 +65,7 @@ public class PauseState extends GameState{
         stage.addActor(button);
         stage.addActor(button1);
         stage.addActor(titleLabel);
+        gsm.getGameData().addProcessor(stage);
     }
 
     @Override

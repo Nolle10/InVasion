@@ -21,7 +21,6 @@ public class PlayerControlSystem implements EntityProcessingService {
     }
 
     private Point shotDirection(GameData data){
-        data.addProcessor(MouseProcessor.getInstance());
         //Gdx.input.setInputProcessor(MouseProcessor.getInstance());
         int mouseX = MouseProcessor.getInstance().getMousePositionX();
         int mouseY = Gdx.graphics.getHeight() - MouseProcessor.getInstance().getMousePositionY();
