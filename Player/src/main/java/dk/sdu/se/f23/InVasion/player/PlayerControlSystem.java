@@ -10,7 +10,6 @@ import dk.sdu.se.f23.InVasion.common.services.EntityProcessingService;
 public class PlayerControlSystem implements EntityProcessingService {
     private long lastShot = 0;
 
-
     @Override
     public void process(GameData data, World world, ProcessAt processTime) {
         for (Entity player : world.getEntities(Player.class)) {
@@ -26,7 +25,6 @@ public class PlayerControlSystem implements EntityProcessingService {
 
     private Point shotDirection(GameData data){
         //Gdx.input.setInputProcessor(MouseProcessor.getInstance());
-        data.addInputProcessor(MouseProcessor.getInstance());
         int mouseX = MouseProcessor.getInstance().getMousePositionX();
         int mouseY = Gdx.graphics.getHeight() - MouseProcessor.getInstance().getMousePositionY();
         return new Point(mouseX,mouseY);

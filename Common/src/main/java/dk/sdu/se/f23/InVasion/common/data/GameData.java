@@ -1,7 +1,5 @@
 package dk.sdu.se.f23.InVasion.common.data;
 
-import com.badlogic.gdx.InputMultiplexer;
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import dk.sdu.se.f23.InVasion.common.events.events.Event;
 
@@ -15,7 +13,6 @@ public class GameData {
     private int displayWidth;
     private int displayHeight;
     private SpriteBatch spriteBatch;
-    private InputMultiplexer inputMultiplexer = new InputMultiplexer();
 
     //private final GameKeys keys = new GameKeys();
     private List<Event> events = new CopyOnWriteArrayList<>();
@@ -26,15 +23,6 @@ public class GameData {
 
     public void setSpriteBatch(SpriteBatch spriteBatch) {
         this.spriteBatch = spriteBatch;
-    }
-
-    public InputMultiplexer getInputMultiplexer(){
-        return inputMultiplexer;
-    }
-
-    public void addInputProcessor(InputProcessor inputProcessor){
-        this.inputMultiplexer.addProcessor(inputProcessor);
-        System.out.println(inputProcessor);
     }
 
     public void addEvent(Event e) {
