@@ -51,7 +51,7 @@ public class GameStateManager {
     }
 
     public void draw() {
-        gameState.draw();
+        gameState.draw(gameData);
     }
     public World getWorld(){
         return world;

@@ -58,7 +58,7 @@ public class ShopState extends GameState {
 
         button1 = new TextButton(String.format("Current Money: %o",new GameData().getPlayerMoney()),textButtonStyle);
         button1.setPosition(700, 800);
-        draw();
+        draw(gsm.getGameData());
         stage.addActor(button);
         stage.addActor(button1);
 
@@ -70,7 +70,7 @@ public class ShopState extends GameState {
     }
 
     @Override
-    public void draw() {
+    public void draw(GameData gameData) {
         sr.begin(ShapeRenderer.ShapeType.Filled);
         sr.setColor(Color.YELLOW);
         int shopWidth= 200;
@@ -78,7 +78,7 @@ public class ShopState extends GameState {
         sr.end();
 
 
-        SpriteBatch spriteBatch = new SpriteBatch();
+        SpriteBatch spriteBatch = gameData.getSpriteBatch();
         spriteBatch.begin();
         try {
         for(int i = 0; i< weapons.size();i++) {

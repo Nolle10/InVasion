@@ -1,5 +1,6 @@
 package dk.sdu.se.f23.InVasion.gamestates;
 
+import dk.sdu.se.f23.InVasion.common.data.GameData;
 import dk.sdu.se.f23.InVasion.common.data.buttonSkin;
 import dk.sdu.se.f23.InVasion.managers.GameStateManager;
 
@@ -71,7 +72,7 @@ public class MainScreenState extends GameState{
     }
 
     @Override
-    public void draw() {
+    public void draw(GameData gameData) {
         stage.draw();
     }
 

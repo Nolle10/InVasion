@@ -69,7 +69,7 @@ public class PlayState extends GameState {
 
     }
 
-    public void draw() {
+    public void draw(GameData gameData) {
 
         stage.draw();
     }
