@@ -1,15 +1,12 @@
 package dk.sdu.se.f23.InVasion.common.data;
 
 import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.Map;
 
 public class World {
     private final Map<String, Entity> entityMap = new ConcurrentHashMap<>();
-    private ArrayList<String> weapons = new ArrayList<>();
+    private ArrayList<ArrayList<Object>> weapons = new ArrayList<>();
     private int baseHealth;
     private Point initState;
     private Point goalState;
@@ -82,16 +79,13 @@ public class World {
         return entityMap.get(ID);
     }
 
-    public ArrayList<String> getWeapons(){
+    public ArrayList<ArrayList<Object>> getWeapons(){
+
         return weapons;
     }
 
-    public void addWeapon(String weaponName){
-        for(String w : weapons){
-           if (w.equals(weaponName)){
-               return;
-           }
-        }
-        weapons.add(weaponName);
+    public void addWeapon(ArrayList<Object> list){
+
+        weapons.add(list);
     }
 }

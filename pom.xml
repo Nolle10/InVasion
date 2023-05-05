@@ -10,7 +10,9 @@
     <modules>
         <module>GameEngine</module>
         <module>AI</module>
+
         <module>Bullet</module>
+
         <module>Collision</module>
         <module>Common</module>
         <module>Enemy</module>
@@ -20,6 +22,7 @@
         <module>Map</module>
         <module>CommonWeapon</module>
         <module>CommonBullet</module>
+        <module>CommonEnemy</module>
     </modules>
 
     <properties>

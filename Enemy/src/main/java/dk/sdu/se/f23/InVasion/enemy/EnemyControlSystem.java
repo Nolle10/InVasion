@@ -1,18 +1,20 @@
 package dk.sdu.se.f23.InVasion.enemy;
 
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import dk.sdu.se.f23.InVasion.common.data.*;
 import dk.sdu.se.f23.InVasion.common.data.entityparts.LifePart;
 import dk.sdu.se.f23.InVasion.common.data.entityparts.MoneyPart;
 import dk.sdu.se.f23.InVasion.common.data.entityparts.PositionPart;
+import dk.sdu.se.f23.InVasion.common.events.EventDistributor;
+import dk.sdu.se.f23.InVasion.common.events.events.TargetEvent;
 import dk.sdu.se.f23.InVasion.common.events.EventListener;
 import dk.sdu.se.f23.InVasion.common.events.events.Event;
 import dk.sdu.se.f23.InVasion.common.events.events.SpawnEnemysEvent;
 import dk.sdu.se.f23.InVasion.common.services.EntityProcessingService;
+import dk.sdu.se.f23.InVasion.commonenemy.Enemy;
 import dk.sdu.se.f23.InVasion.enemy.services.ActionService;
 
 
@@ -32,10 +34,10 @@ public class EnemyControlSystem implements EntityProcessingService, EventListene
         for (Entity enemy : world.getEntities(Enemy.class)) {
             MoneyPart moneyPart = enemy.getPart(MoneyPart.class);
             LifePart lifePart = enemy.getPart(LifePart.class);
-
+            PositionPart positionPart = enemy.getPart(PositionPart.class);
+            EventDistributor.sendEvent(new TargetEvent(enemy,positionPart.getPos()),world);
             moneyPart.process(data, enemy);
             lifePart.process(data, enemy);
-
             updateShape(enemy, data);
         }
     }
@@ -46,6 +48,8 @@ public class EnemyControlSystem implements EntityProcessingService, EventListene
         float x = nextPoint.getX();
         float y = nextPoint.getY();
 
+        PositionPart positionPart = entity.getPart(PositionPart.class);
+        positionPart.setPos(nextPoint);
         data.getSpriteBatch().draw(entity.getTexture(), x, y);
     }
 
@@ -56,19 +60,12 @@ public class EnemyControlSystem implements EntityProcessingService, EventListene
     }
 
     public void moveTo(Entity enemy, Point location) {
-        movingAction.setActor(enemy);
         movingAction.setPosition(location.getX(), location.getY());
         movingAction.setDuration(((Enemy) enemy).getSpeed());
         enemy.addAction(movingAction);
     }
 
-    public void stopAction(Entity enemy) {
-        enemy.removeAction(movingAction);
-    }
 
-    public void stopAllActions(Entity enemy) {
-        enemy.clearActions();
-    }
 
 
     @Override
@@ -88,6 +85,7 @@ public class EnemyControlSystem implements EntityProcessingService, EventListene
         for (int i = 0; i < amountToSpawn; i++) {
             List<Point> route = actionService.calculate(world);
             Enemy enemy = new Enemy(route);
+            enemy.add(new PositionPart(route.get(0),0));
             enemy.add(new LifePart(spawnEnemiesEvent.getWaveLevel()*2));
             enemy.add(new MoneyPart(spawnEnemiesEvent.getWaveLevel()*2));
             enemy.setTexture(new Texture(Gdx.files.internal("Enemy/src/main/resources/dk/sdu/se/f23/InVasion/enemyresources/textures/enemytest.png")));
