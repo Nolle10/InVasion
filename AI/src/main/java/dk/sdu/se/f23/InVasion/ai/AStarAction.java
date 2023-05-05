@@ -18,12 +18,11 @@ public class AStarAction implements ActionService {
     private int hvCost;
     private int diagonalCost;
     private Node[][] searchArea;
-    private Thread thread;
     private PriorityQueue<Node> openList;
     private Set<Node> closedSet;
     private Node initialNode;
     private Node finalNode;
-    List<Point> pathPoints = new ArrayList<>();
+    private List<Point> pathPoints = new ArrayList<>();
 
     public AStarAction(){
 
@@ -230,20 +229,12 @@ public class AStarAction implements ActionService {
     public List<Point> calculate(World world) {
 
         Node initialNode = new Node(world.getInitState().getX(), world.getInitState().getY());
-        Node finalNode = new Node(1000, 750);
-
-        long start = System.currentTimeMillis();
+        Node finalNode = new Node(1000, 300);
 
         AStarAction aStarAction = new AStarAction(world.getWorldMaskRows(), world.getWorldMaskColumns(), initialNode, finalNode);
 
-        List<Node> path = aStarAction.findPath();
-        path.stream()
-                .filter(s -> s.getCol() %4==0 && s.getRow()%4==0)
-                .forEach(d -> pathPoints.add(new Point(d.getRow(), d.getCol())));
+        aStarAction.findPath().forEach(s -> pathPoints.add(new Point(s.getRow(), s.getCol())));
 
-
-
-        System.out.println(System.currentTimeMillis() - start);
 
         return pathPoints;
     }
