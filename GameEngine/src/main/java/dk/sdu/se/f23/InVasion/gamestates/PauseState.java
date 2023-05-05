@@ -42,7 +42,6 @@ public class PauseState extends GameState{
         button.addListener( new InputListener(){
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button){
-                System.out.println("Back to game button clicked!");
                 gsm.getGameData().removeProcessor(stage);
                 gsm.setState(2);
                 return true;
@@ -55,7 +54,6 @@ public class PauseState extends GameState{
         button1.addListener( new InputListener(){
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button){
-                System.out.println("Back to menu button clicked!");
                 gsm.getGameData().removeProcessor(stage);
                 gsm.setState(0);
                 return true;

@@ -42,7 +42,6 @@ public class MainScreenState extends GameState{
         button.addListener(new InputListener(){
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button){
-                System.out.println("Start button clicked!");
                 gsm.getGameData().removeProcessor(stage);
                 gsm.setState(1);
                 return true;
@@ -55,7 +54,6 @@ public class MainScreenState extends GameState{
         button1.addListener( new InputListener(){
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button){
-                System.out.println("Exit game clicked!");
                 Gdx.app.exit();
                 return true;
             }

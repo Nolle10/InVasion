@@ -26,14 +26,10 @@ public class GameData {
 
     public void addProcessor(InputProcessor p){
         multiplexer.addProcessor(p);
-        System.out.println("addProcessor");
-        System.out.println(multiplexer.getProcessors());
     }
 
     public void removeProcessor(InputProcessor p){
         multiplexer.removeProcessor(p);
-        System.out.println("removeProcessor");
-        System.out.println(multiplexer.getProcessors());
     }
 
     public SpriteBatch getSpriteBatch() {
