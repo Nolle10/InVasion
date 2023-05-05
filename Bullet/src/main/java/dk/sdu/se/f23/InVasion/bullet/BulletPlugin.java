@@ -6,6 +6,7 @@ import dk.sdu.se.f23.InVasion.common.data.World;
 import dk.sdu.se.f23.InVasion.common.events.EventDistributor;
 import dk.sdu.se.f23.InVasion.common.events.events.FireShotEvent;
 import dk.sdu.se.f23.InVasion.common.services.PluginService;
+import dk.sdu.se.f23.InVasion.commonbullet.Bullet;
 
 public class BulletPlugin implements PluginService{
     BulletController bulletController = new BulletController();

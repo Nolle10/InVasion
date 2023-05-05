@@ -14,6 +14,7 @@ import dk.sdu.se.f23.InVasion.common.events.EventListener;
 import dk.sdu.se.f23.InVasion.common.events.events.Event;
 import dk.sdu.se.f23.InVasion.common.events.events.SpawnEnemysEvent;
 import dk.sdu.se.f23.InVasion.common.services.EntityProcessingService;
+import dk.sdu.se.f23.InVasion.commonenemy.Enemy;
 import dk.sdu.se.f23.InVasion.enemy.services.ActionService;
 
 
