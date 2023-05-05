@@ -74,15 +74,16 @@ public class EnemyControlSystem implements EntityProcessingService, EventListene
             if (actionService.getAiType() != AIType.A_STAR) {
                 continue;
             }
-            spawnEnemys(world, spawnEnemiesEvent, actionService);
+            spawnEnemies(world, spawnEnemiesEvent, actionService);
         }
     }
 
-    private static void spawnEnemys(World world, SpawnEnemysEvent spawnEnemiesEvent, ActionService actionService) {
+    private static void spawnEnemies(World world, SpawnEnemysEvent spawnEnemiesEvent, ActionService actionService) {
 
         int amountToSpawn = spawnEnemiesEvent.getWaveLevel() * 2;
+        List<Point> route = actionService.calculate(world);
+
         for (int i = 0; i < amountToSpawn; i++) {
-            List<Point> route = actionService.calculate(world);
             Enemy enemy = new Enemy(route);
             enemy.add(new PositionPart(route.get(0),0));
             enemy.add(new LifePart(spawnEnemiesEvent.getWaveLevel()*2));

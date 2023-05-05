@@ -22,6 +22,7 @@ public class AStarAction implements ActionService  {
     private Set<Node> closedSet;
     private Node initialNode;
     private Node finalNode;
+    List<Point> pathPoints = new ArrayList<>();
 
     public AStarAction(){
 
@@ -226,18 +227,19 @@ public class AStarAction implements ActionService  {
 
     @Override
     public List<Point> calculate(World world) {
-        Node initialNode = new Node(10,10);
-        Node finalNode = new Node(100,240);
+        Node initialNode = new Node(world.getInitState().getX(), world.getInitState().getY());
+        Node finalNode = new Node(world.getGoalState().getX(), world.getGoalState().getY());
+
+        long start = System.currentTimeMillis();
 
         AStarAction aStarAction = new AStarAction(world.getWorldMaskRows(), world.getWorldMaskColumns(), initialNode, finalNode);
 
         List<Node> path = aStarAction.findPath();
-        List<Point> pathPoints = new ArrayList<>();
 
-        for(Node node : path){
-            System.out.println(node.toString());
-            pathPoints.add(new Point(node.getRow(), node.getCol()));
-        }
+        path.forEach(node -> pathPoints.add(new Point(node.getRow(), node.getCol())));
+
+
+        System.out.println(System.currentTimeMillis() - start);
 
         return pathPoints;
     }
