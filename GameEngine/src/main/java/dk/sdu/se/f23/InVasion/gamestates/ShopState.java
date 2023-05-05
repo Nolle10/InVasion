@@ -47,7 +47,7 @@ public class ShopState extends GameState {
         textButtonStyle.font = new BitmapFont();
         textButtonStyle.fontColor = Color.RED;
         button = new TextButton("Start wave button", textButtonStyle);
-        button.setPosition(900,900);
+        button.setPosition(300,300);
         button.addListener( new InputListener(){
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button){
@@ -57,7 +57,7 @@ public class ShopState extends GameState {
         });
 
         button1 = new TextButton(String.format("Current Money: %o",new GameData().getPlayerMoney()),textButtonStyle);
-        button1.setPosition(700, 800);
+        button1.setPosition(350, 400);
         draw();
         stage.addActor(button);
         stage.addActor(button1);
@@ -74,7 +74,7 @@ public class ShopState extends GameState {
         sr.begin(ShapeRenderer.ShapeType.Filled);
         sr.setColor(Color.YELLOW);
         int shopWidth= 200;
-        sr.rect(1920-shopWidth,0,200,1080);
+        sr.rect(1280-shopWidth,0,200,720);
         sr.end();
         sr.begin(ShapeRenderer.ShapeType.Filled);
         sr.setColor(Color.GRAY);

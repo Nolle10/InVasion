@@ -8,8 +8,8 @@ public class Main {
 
         Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
         config.setTitle("InVasion");
-        int height = 1080;
-        int width = 1920;
+        int height = 720;
+        int width = 1280;
         config.setWindowSizeLimits(width,height,width,height);
         config.setWindowedMode(width,height);
 

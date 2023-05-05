@@ -10,7 +10,7 @@ import dk.sdu.se.f23.InVasion.enemy.services.ActionService;
 
 import java.util.*;
 
-public class AStarAction implements ActionService  {
+public class AStarAction implements ActionService {
     AIType aiType = AIType.A_STAR;
 
     private static int DEFAULT_HV_COST = 10; // Horizontal - Vertical Cost
@@ -18,6 +18,7 @@ public class AStarAction implements ActionService  {
     private int hvCost;
     private int diagonalCost;
     private Node[][] searchArea;
+    private Thread thread;
     private PriorityQueue<Node> openList;
     private Set<Node> closedSet;
     private Node initialNode;
@@ -227,16 +228,19 @@ public class AStarAction implements ActionService  {
 
     @Override
     public List<Point> calculate(World world) {
+
         Node initialNode = new Node(world.getInitState().getX(), world.getInitState().getY());
-        Node finalNode = new Node(world.getGoalState().getX(), world.getGoalState().getY());
+        Node finalNode = new Node(1000, 750);
 
         long start = System.currentTimeMillis();
 
         AStarAction aStarAction = new AStarAction(world.getWorldMaskRows(), world.getWorldMaskColumns(), initialNode, finalNode);
 
         List<Node> path = aStarAction.findPath();
+        path.stream()
+                .filter(s -> s.getCol() %4==0 && s.getRow()%4==0)
+                .forEach(d -> pathPoints.add(new Point(d.getRow(), d.getCol())));
 
-        path.forEach(node -> pathPoints.add(new Point(node.getRow(), node.getCol())));
 
 
         System.out.println(System.currentTimeMillis() - start);

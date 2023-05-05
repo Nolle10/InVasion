@@ -32,6 +32,8 @@ public class Game implements ApplicationListener {
     public void create() {
 
         WIDTH = Gdx.graphics.getWidth();
+
+        System.out.println(WIDTH);
         HEIGHT = Gdx.graphics.getHeight();
         gameData.setDisplayWidth(WIDTH);
         gameData.setDisplayHeight(HEIGHT);

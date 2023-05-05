@@ -33,11 +33,11 @@ public class MainScreenState extends GameState{
         font.getData().setScale(4);
         Label.LabelStyle style = new Label.LabelStyle(font, Color.WHITE);
         titleLabel = new Label("InVasion", style);
-        titleLabel.setPosition(860, 800);
+        titleLabel.setPosition(430, 800);
 
         button = new TextButton("Start game", buttonSkin.getSkin());
         button.getLabel().setFontScale(2,2);
-        button.setPosition(760,500);
+        button.setPosition(330,500);
         button.addListener( new InputListener(){
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button){
@@ -49,7 +49,7 @@ public class MainScreenState extends GameState{
 
         button1 = new TextButton("Exit game", buttonSkin.getSkin());
         button1.getLabel().setFontScale(2,2);
-        button1.setPosition(760,350);
+        button1.setPosition(330,350);
         button1.addListener( new InputListener(){
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button){

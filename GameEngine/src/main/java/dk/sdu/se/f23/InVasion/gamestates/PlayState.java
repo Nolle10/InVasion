@@ -36,7 +36,7 @@ public class PlayState extends GameState {
         textButtonStyle.font = new BitmapFont();
         textButtonStyle.fontColor = Color.YELLOW;
         button = new TextButton("go back to shop button", textButtonStyle);
-        button.setPosition(900,800);
+        button.setPosition(450,400);
         button.addListener( new InputListener(){
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button){
@@ -46,7 +46,7 @@ public class PlayState extends GameState {
             }
         });
         button1 = new TextButton("pause button", textButtonStyle);
-        button1.setPosition(1500,900);
+        button1.setPosition(750,300);
         button1.addListener( new InputListener(){
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button){
