@@ -14,10 +14,8 @@ public class CollisionDetector implements EntityProcessingService {
 
     @Override
     public void process(GameData data, World world, ProcessAt processTime) {
-        // two for loops for all entities in the world
         for (Entity entity : world.getEntities(Enemy.class)) {
             for (Entity otherEntity : world.getEntities(Bullet.class)) {
-                // get life parts on all entities
                 LifePart entityLife = entity.getPart(LifePart.class);
 
                 // if the two entities are identical, skip the iteration
@@ -27,7 +25,7 @@ public class CollisionDetector implements EntityProcessingService {
 
                 // CollisionDetection
                 if (this.collides(entity, otherEntity) && entity.getPart(LifePart.class) != null) {
-                    // if entity has been hit, and should have its life reduced
+                    // if entity has been hit, it's life should be reduced
                     System.out.println("collision");
                     if (entityLife.getLife() > 0) {
                         entityLife.setLife(entityLife.getLife() - 1);
