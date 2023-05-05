@@ -31,22 +31,19 @@ public class ShopState extends GameState {
     private TextButton.TextButtonStyle textButtonStyle;
     private World world ;
     private GameData gameData;
-    private  GameStateManager gsm;
+
 
 
     public ShopState(GameStateManager gsm) {
         super(gsm);
-        weapons = new ArrayList<>();
-        weapons.addAll(gsm.getWorld().getWeapons());
-        world = gsm.getWorld();
-        System.out.println("HERR");
-        System.out.println(world);
-        System.out.println("HERE");
-        gameData = gsm.getGameData();
     }
 
     @Override
     public void init() {
+        weapons = new ArrayList<>();
+        weapons.addAll(gsm.getWorld().getWeapons());
+        world = gsm.getWorld();
+        gameData = gsm.getGameData();
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
         sr = new ShapeRenderer();
@@ -63,7 +60,7 @@ public class ShopState extends GameState {
             }
         });
 
-        button1 = new TextButton(String.format("Current Money: %o",new GameData().getPlayerMoney()),textButtonStyle);
+        button1 = new TextButton(String.format("Current Money: %o",gameData.getPlayerMoney()),textButtonStyle);
         button1.setPosition(700, 800);
         stage.addActor(button);
         stage.addActor(button1);

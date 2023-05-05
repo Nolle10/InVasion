@@ -29,9 +29,9 @@ import java.util.NoSuchElementException;
 public class MapPlugin implements PluginService {
 
 
-    private int height = 1080;
-    private int width = 1920;
-
+    private int height = 720;
+    private int width = 1280;
+    private int tilesSize = 24;
     private ArrayList<ArrayList<Square>> mapFields;
     private ArrayList<Texture> tiles;
     private  ArrayList<ArrayList<Integer>> mask;
@@ -52,71 +52,10 @@ public class MapPlugin implements PluginService {
         world.loadWorldMask(generateMask());
         world.setInitState(new Point(0, 0));
         world.setGoalState(new Point(width, height));
-        HashMap<Integer,Integer> occurenceMap= new HashMap<>();
-        SpriteBatch spriteBatch = new SpriteBatch();
-        spriteBatch.begin();
-        for (int i = 0; i < height; i++) {
-            ArrayList<Square> lines = new ArrayList<>();
-
-            for (int j = 0; j < width; j++) {
-                    int switcher = mask.get(j).get(i);
-                switch (switcher) {
-                    case 0 -> {
-                        Square s = new Square(Color.RED);
-                        s.setIsOccupied(false);
-                        lines.add(s);
-                    }
-                    // System.out.println("White");
-                    case 1 -> {
-                        Square square = new Square(Color.SCARLET);
-                        square.setIsOccupied(true);
-                        // System.out.println("Black");
-                        lines.add(square);
-                    }
-                    case 2 -> {
-                        Square sq = new Square(Color.SALMON);
-                        sq.setIsOccupied(true);
-                        //  System.out.println("Grey");
-                        lines.add(sq);
-                    }
-                    default -> {
-                        System.out.println("SOMETHING WENT WRONG ");
-                        throw new NoSuchElementException();
-                    }
-                }
-                    if(height%48 == 0 && width%48==0){
-                        int max = 0;
-                        int maxId = 0;
-                            for(Map.Entry<Integer,Integer> numberId : occurenceMap.entrySet()){
-                               if( numberId.getValue()>max){
-                                   max = numberId.getValue();
-                                   maxId = numberId.getKey();
-                               }
-                            }
-
-                        spriteBatch.draw(tiles.get(maxId),i-48,j-48,48,48);
-
-                    }
-                    else {
-                        Integer key = mask.get(j).get(i);
-                        if (occurenceMap.containsKey(key)){
-                            occurenceMap.put(key,occurenceMap.get(key)+1);
-                        }
-                        else {
-                            occurenceMap.put(key,1);
-                        }
-                    }
 
 
-                }
 
-            mapFields.add(lines);
-
-
-        }
-        spriteBatch.end();
-
-       // draw();
+       //draw();
     }
 
     public ArrayList<ArrayList<Integer>> generateMask() {
@@ -173,17 +112,74 @@ public class MapPlugin implements PluginService {
         width = w;
     }
 
-    public void draw() {
-        ShapeRenderer shape = new ShapeRenderer();
-        shape.begin(ShapeRenderer.ShapeType.Filled);
-
+    public void draw(GameData gameData) {
+        System.out.println("HELLO");
+        generateMask();
+        HashMap<Integer,Integer> occurenceMap= new HashMap<>();
+        gameData.getSpriteBatch().begin();
         for (int i = 0; i < height; i++) {
+            ArrayList<Square> lines = new ArrayList<>();
+          //  System.out.println("IM SAD");
             for (int j = 0; j < width; j++) {
-                shape.setColor(getSquareColor(i, j));
-                shape.box(j, i, 0, 1, 1, 0);
+                int switcher = mask.get(j).get(i);
+                switch (switcher) {
+                    case 0 -> {
+                        Square s = new Square(Color.RED);
+                        s.setIsOccupied(false);
+                        lines.add(s);
+                    }
+                    // System.out.println("White");
+                    case 1 -> {
+                        Square square = new Square(Color.SCARLET);
+                        square.setIsOccupied(true);
+                        // System.out.println("Black");
+                        lines.add(square);
+                    }
+                    case 2 -> {
+                        Square sq = new Square(Color.SALMON);
+                        sq.setIsOccupied(true);
+                        //  System.out.println("Grey");
+                        lines.add(sq);
+                    }
+                    default -> {
+                        System.out.println("SOMETHING WENT WRONG ");
+                        throw new NoSuchElementException();
+                    }
+                }
+              //  System.out.println(height+" :  "+width);
+                if(i%tilesSize == 0 && j%tilesSize==0){
+                    int max = 0;
+                    System.out.println("DRAW BITCH");
+                    int maxId = 0;
+                    for(Map.Entry<Integer,Integer> numberId : occurenceMap.entrySet()){
+                        if( numberId.getValue()>max){
+                            max = numberId.getValue();
+                            maxId = numberId.getKey();
+                        }
+                    }
+
+                    gameData.getSpriteBatch().draw(tiles.get(maxId),j,i,tilesSize,tilesSize);
+
+                }
+                else {
+                    Integer key = mask.get(j).get(i);
+                    if (occurenceMap.containsKey(key)){
+                        occurenceMap.put(key,occurenceMap.get(key)+1);
+                    }
+                    else {
+                        occurenceMap.put(key,1);
+                    }
+                }
+
+
             }
+
+            mapFields.add(lines);
+
+
         }
-        shape.end();
+        gameData.getSpriteBatch().end();
+
     }
 
     private Color getSquareColor(int x, int y) {
