@@ -34,8 +34,6 @@ public class EnemyControlSystem implements EntityProcessingService, EventListene
         for (Entity enemy : world.getEntities(Enemy.class)) {
             MoneyPart moneyPart = enemy.getPart(MoneyPart.class);
             LifePart lifePart = enemy.getPart(LifePart.class);
-            PositionPart positionPart = enemy.getPart(PositionPart.class);
-            EventDistributor.sendEvent(new TargetEvent(enemy,positionPart.getPos()),world);
             moneyPart.process(data, enemy);
             lifePart.process(data, enemy);
             updateShape(enemy, data);
