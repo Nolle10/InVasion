@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import dk.sdu.se.f23.InVasion.common.data.GameData;
 import dk.sdu.se.f23.InVasion.common.data.World;
 import dk.sdu.se.f23.InVasion.managers.GameStateManager;
+import dk.sdu.se.f23.InVasion.map.MapPlugin;
 
 public class PlayState extends GameState {
 

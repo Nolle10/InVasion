@@ -22,8 +22,10 @@ public class GameStateManager {
     private World world;
     private int currentState = 0;
 
-    public GameStateManager(World world) {
+    public GameStateManager(GameData gameData, World world) {
+        this.gameData = gameData;
         this.world = world;
+        System.out.println(world);
         setState(MENU);
     }
 
@@ -37,6 +39,7 @@ public class GameStateManager {
             EventDistributor.sendEvent(new SpawnEnemysEvent(1), world);
         }
         if(state == SHOP) {
+            //System.out.println("IM FUCKING HERE");
             gameState = new ShopState(this);
         }
         if(state == PAUSE) {
@@ -55,6 +58,11 @@ public class GameStateManager {
     public World getWorld(){
         return world;
     }
+
+    public GameData getGameData() {
+        return gameData;
+    }
+
     public GameState getGameState() {
         return gameState; // i just put this here
     }

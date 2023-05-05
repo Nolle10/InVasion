@@ -13,6 +13,7 @@ import dk.sdu.se.f23.InVasion.common.data.GameData;
 import dk.sdu.se.f23.InVasion.common.data.World;
 import dk.sdu.se.f23.InVasion.main.Game;
 import dk.sdu.se.f23.InVasion.managers.GameStateManager;
+import dk.sdu.se.f23.InVasion.map.MapPlugin;
 
 import java.util.ArrayList;
 
@@ -25,7 +26,8 @@ public class ShopState extends GameState {
     private TextButton button;
     private TextButton button1;
     private TextButton.TextButtonStyle textButtonStyle;
-
+    private World world ;
+    private GameData gameData;
     private  GameStateManager gsm;
 
     public ShopState(GameStateManager gsm) {
@@ -33,6 +35,11 @@ public class ShopState extends GameState {
         this.gsm = gsm;
         weapons = new ArrayList<>();
         weapons.addAll(gsm.getWorld().getWeapons());
+        world = gsm.getWorld();
+        System.out.println("HERR");
+        System.out.println(world);
+        System.out.println("HERE");
+        gameData = gsm.getGameData();
     }
 
     @Override
@@ -84,7 +91,6 @@ public class ShopState extends GameState {
         }
         sr.end();
         stage.draw();
-
     }
 
     @Override

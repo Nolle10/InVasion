@@ -2,7 +2,10 @@ package dk.sdu.se.f23.InVasion.map;
 
 
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 import dk.sdu.se.f23.InVasion.common.data.GameData;
@@ -11,11 +14,15 @@ import dk.sdu.se.f23.InVasion.common.data.World;
 import dk.sdu.se.f23.InVasion.common.services.PluginService;
 
 import javax.imageio.ImageIO;
+import java.awt.image.AreaAveragingScaleFilter;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.AttributedCharacterIterator;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.NoSuchElementException;
 
 
@@ -26,9 +33,18 @@ public class MapPlugin implements PluginService {
     private int width = 1920;
 
     private ArrayList<ArrayList<Square>> mapFields;
+    private ArrayList<Texture> tiles;
+    private  ArrayList<ArrayList<Integer>> mask;
 
     public MapPlugin() {
         mapFields = new ArrayList<>();
+        tiles = new ArrayList<>();
+        Texture texture1 = new Texture(Gdx.files.internal("Map/src/main/resources/dk/sdu/se/f23/InVasion/mapresources/textures/pixil-frame-1.png"));
+        Texture texture2 = new Texture(Gdx.files.internal("Map/src/main/resources/dk/sdu/se/f23/InVasion/mapresources/textures/pixil-frame-0.png"));
+        Texture texture3 = new Texture(Gdx.files.internal("Map/src/main/resources/dk/sdu/se/f23/InVasion/mapresources/textures/pixil-frame-3.png"));
+        tiles.add(texture1);
+        tiles.add(texture3);
+        tiles.add(texture2);
     }
 
 
@@ -36,39 +52,71 @@ public class MapPlugin implements PluginService {
         world.loadWorldMask(generateMask());
         world.setInitState(new Point(0, 0));
         world.setGoalState(new Point(width, height));
+        HashMap<Integer,Integer> occurenceMap= new HashMap<>();
+        SpriteBatch spriteBatch = new SpriteBatch();
+        spriteBatch.begin();
         for (int i = 0; i < height; i++) {
             ArrayList<Square> lines = new ArrayList<>();
 
             for (int j = 0; j < width; j++) {
-                switch ((j + i) % 10) {
-                    case 0:
-                        lines.add(new Square(Color.BLACK));
-                        break;
-                    case 1:
-                        lines.add(new Square(Color.BLUE));
-                        break;
-                    case 2:
-                        lines.add(new Square(Color.PINK));
-                        break;
-                    case 3:
-                        lines.add(new Square(Color.CHARTREUSE));
-                        break;
-                    case 4:
-                        lines.add(new Square(Color.OLIVE));
-                        break;
-                    case 5:
-                        lines.add(new Square(Color.GREEN));
-                        break;
-                    case 6:
-                        lines.add(new Square(Color.FIREBRICK));
-                        break;
-                    default:
-                        lines.add(new Square(Color.GRAY));
-                        break;
+                    int switcher = mask.get(j).get(i);
+                switch (switcher) {
+                    case 0 -> {
+                        Square s = new Square(Color.RED);
+                        s.setIsOccupied(false);
+                        lines.add(s);
+                    }
+                    // System.out.println("White");
+                    case 1 -> {
+                        Square square = new Square(Color.SCARLET);
+                        square.setIsOccupied(true);
+                        // System.out.println("Black");
+                        lines.add(square);
+                    }
+                    case 2 -> {
+                        Square sq = new Square(Color.SALMON);
+                        sq.setIsOccupied(true);
+                        //  System.out.println("Grey");
+                        lines.add(sq);
+                    }
+                    default -> {
+                        System.out.println("SOMETHING WENT WRONG ");
+                        throw new NoSuchElementException();
+                    }
                 }
-            }
+                    if(height%48 == 0 && width%48==0){
+                        int max = 0;
+                        int maxId = 0;
+                            for(Map.Entry<Integer,Integer> numberId : occurenceMap.entrySet()){
+                               if( numberId.getValue()>max){
+                                   max = numberId.getValue();
+                                   maxId = numberId.getKey();
+                               }
+                            }
+
+                        spriteBatch.draw(tiles.get(maxId),i-48,j-48,48,48);
+
+                    }
+                    else {
+                        Integer key = mask.get(j).get(i);
+                        if (occurenceMap.containsKey(key)){
+                            occurenceMap.put(key,occurenceMap.get(key)+1);
+                        }
+                        else {
+                            occurenceMap.put(key,1);
+                        }
+                    }
+
+
+                }
+
             mapFields.add(lines);
+
+
         }
+        spriteBatch.end();
+
+       // draw();
     }
 
     public ArrayList<ArrayList<Integer>> generateMask() {
@@ -76,6 +124,7 @@ public class MapPlugin implements PluginService {
         BufferedImage maskImage = null;
         try {
             InputStream maskImageStream = getClass().getResourceAsStream("/dk/sdu/se/f23/InVasion/mapresources/textures/mask.png");
+            assert maskImageStream != null;
             maskImage = ImageIO.read(maskImageStream);
         } catch (IOException e) {
             System.out.println("Picture not found");
@@ -86,22 +135,21 @@ public class MapPlugin implements PluginService {
             for (int j = 0; j < height; j++) {
                 int rgb = maskImage.getRGB(i, j);
                 switch (rgb) {
-                    case -1: //White
-                        line.add(0);
-                        break;
-                    case 0: // Black
-                        line.add(1);
-                        break;
-                    case 125: // Unknown color please provide right one
-                        line.add(2);
-                        break;
-                    default:
-                        System.out.println("I do not know this pixel");
+                    case -1 -> //White
+                            line.add(0);
+                    case -16777216 -> // Black
+                            line.add(1);
+                    case -8421505 -> // Unknown color please provide right one
+                            line.add(2);
+                    default -> {
+                        System.out.println("I do not know this pixel: " + rgb);
                         throw new NoSuchElementException();
+                    }
                 }
             }
             mask.add(line);
         }
+        this.mask = mask;
         return mask;
     }
 

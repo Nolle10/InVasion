@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import dk.sdu.se.f23.InVasion.map.MapPlugin;
 
 public class MainScreenState extends GameState{
 
@@ -72,6 +73,8 @@ public class MainScreenState extends GameState{
     @Override
     public void draw() {
         stage.draw();
+        MapPlugin n = new MapPlugin();
+
     }
 
     @Override

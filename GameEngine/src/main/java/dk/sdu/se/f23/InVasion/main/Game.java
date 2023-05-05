@@ -10,6 +10,7 @@ import dk.sdu.se.f23.InVasion.common.data.World;
 import dk.sdu.se.f23.InVasion.common.services.EntityProcessingService;
 import dk.sdu.se.f23.InVasion.common.services.PluginService;
 import dk.sdu.se.f23.InVasion.managers.GameStateManager;
+import dk.sdu.se.f23.InVasion.map.MapPlugin;
 
 import java.util.Collection;
 import java.util.ServiceLoader;
@@ -39,8 +40,8 @@ public class Game implements ApplicationListener {
         cam = new OrthographicCamera(gameData.getDisplayWidth(), gameData.getDisplayHeight());
         cam.translate(gameData.getDisplayWidth() / 2, gameData.getDisplayHeight() / 2);
         cam.update();
-
-        gsm = new GameStateManager(world);
+        System.out.println(world);
+        gsm = new GameStateManager(gameData,world);
 
         for (PluginService plugin : getPluginServices()) {
             plugin.onEnable(gameData, world);
@@ -60,6 +61,8 @@ public class Game implements ApplicationListener {
         gameData.getSpriteBatch().begin();
         update(ProcessAt.Tick);
         gameData.getSpriteBatch().end();
+        MapPlugin m = new MapPlugin();
+        m.onEnable(gameData,world);
     }
 
     //Update method for EntityProcessingServices: How to do it with ProcessAt.Tick and ProcessAt values?
