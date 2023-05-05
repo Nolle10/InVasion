@@ -40,9 +40,8 @@ public class Game implements ApplicationListener {
         cam.translate(gameData.getDisplayWidth() / 2, gameData.getDisplayHeight() / 2);
         cam.update();
 
-        Gdx.input.setInputProcessor(gameData.getInputMultiplexer());
 
-        gsm = new GameStateManager(world, gameData);
+        gsm = new GameStateManager(gameData, world);
 
         for (PluginService plugin : getPluginServices()) {
             plugin.onEnable(gameData, world);
