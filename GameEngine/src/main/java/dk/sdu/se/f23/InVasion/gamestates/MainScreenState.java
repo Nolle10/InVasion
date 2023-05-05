@@ -1,5 +1,8 @@
 package dk.sdu.se.f23.InVasion.gamestates;
 
+import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import dk.sdu.se.f23.InVasion.common.data.GameData;
 import dk.sdu.se.f23.InVasion.common.data.buttonSkin;
 import dk.sdu.se.f23.InVasion.managers.GameStateManager;
 
@@ -26,8 +29,6 @@ public class MainScreenState extends GameState{
     @Override
     public void init() {
         stage = new Stage();
-        gsm.getGameData().addInputProcessor(stage);
-        //Gdx.input.setInputProcessor(stage);
 
         BitmapFont font = new BitmapFont();
         font.getData().setScale(4);
@@ -37,11 +38,11 @@ public class MainScreenState extends GameState{
 
         button = new TextButton("Start game", buttonSkin.getSkin());
         button.getLabel().setFontScale(2,2);
-        button.setPosition(330,500);
-        button.addListener( new InputListener(){
+        button.setPosition(760,500);
+        button.addListener(new InputListener(){
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button){
-                System.out.println("Start button clicked!");
+                gsm.getGameData().removeProcessor(stage);
                 gsm.setState(1);
                 return true;
             }
@@ -53,7 +54,6 @@ public class MainScreenState extends GameState{
         button1.addListener( new InputListener(){
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button){
-                System.out.println("Exit game clicked!");
                 Gdx.app.exit();
                 return true;
             }
@@ -63,25 +63,20 @@ public class MainScreenState extends GameState{
         stage.addActor(titleLabel);
         stage.addActor(button);
         stage.addActor(button1);
+        gsm.getGameData().addProcessor(stage);
     }
 
     @Override
-    public void update(float dt) {
-
-    }
+    public void update(float dt) {}
 
     @Override
-    public void draw() {
+    public void draw(GameData gameData) {
         stage.draw();
     }
 
     @Override
-    public void handleInput() {
-
-    }
+    public void handleInput() {}
 
     @Override
-    public void dispose() {
-
-    }
+    public void dispose() {}
 }

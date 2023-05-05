@@ -24,8 +24,7 @@ public class PlayerPlugin implements PluginService {
         Entity player = new Player();
         player.add(new PositionPart(new Point(500, 500), 3.1415f / 2));
         player.add(new LifePart(100));
-        Texture texture = new Texture(Gdx.files.internal("Player/src/main/resources/images/tower.png"));
-
+        Texture texture = new Texture(Gdx.files.internal("Player/src/main/resources/images/player3.png"));
         player.setTexture(texture);
 
         return player;

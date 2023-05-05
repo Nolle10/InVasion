@@ -1,5 +1,4 @@
-package dk.sdu.se.f23.InVasion.enemy;
-import com.badlogic.gdx.graphics.Texture;
+package dk.sdu.se.f23.InVasion.commonenemy;
 import dk.sdu.se.f23.InVasion.common.data.Entity;
 import dk.sdu.se.f23.InVasion.common.data.Point;
 import java.util.ArrayList;
@@ -8,7 +7,6 @@ import java.util.List;
 
 public class Enemy extends Entity {
     private List<Point> route = new ArrayList<>();
-    private AIType type;
     private float speed;
     private int routeStep;
     private float timeSinceLastMove;
@@ -17,17 +15,12 @@ public class Enemy extends Entity {
 
     public Enemy(List<Point> route) {
         this.route = route;
-        this.type = AIType.STUPID;
         this.speed = 50;
         this.routeStep = 0;
         this.timeSinceLastMove = 0;
     }
     //Make new enemy with specific AIType
 
-    public Enemy(AIType type) {
-        this.type = type;
-        this.speed = 100;
-    }
 
     public List<Point> getRoute() {
         return route;
@@ -37,9 +30,6 @@ public class Enemy extends Entity {
         this.route = route;
     }
 
-    public AIType getAIType() {
-        return type;
-    }
     public void setSpeed(float speed) {
         this.speed = speed;
     }

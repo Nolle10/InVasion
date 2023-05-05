@@ -22,9 +22,9 @@ public class GameStateManager {
     private World world;
     private int currentState = 0;
 
-    public GameStateManager(World world, GameData gameData) {
+    public GameStateManager(GameData data, World world) {
         this.world = world;
-        this.gameData = gameData;
+        this.gameData = data;
         setState(MENU);
     }
 
@@ -51,16 +51,15 @@ public class GameStateManager {
     }
 
     public void draw() {
-        gameState.draw();
+        gameState.draw(gameData);
     }
     public World getWorld(){
         return world;
     }
 
     public GameData getGameData(){
-        return gameData;
+        return  gameData;
     }
-
     public GameState getGameState() {
         return gameState; // i just put this here
     }

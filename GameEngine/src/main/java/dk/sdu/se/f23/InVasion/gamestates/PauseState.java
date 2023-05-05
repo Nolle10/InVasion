@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
+import dk.sdu.se.f23.InVasion.common.data.GameData;
 import dk.sdu.se.f23.InVasion.managers.GameStateManager;
 import dk.sdu.se.f23.InVasion.common.data.buttonSkin;
 
@@ -27,7 +28,6 @@ public class PauseState extends GameState{
     @Override
     public void init() {
         stage = new Stage();
-        Gdx.input.setInputProcessor(stage);
 
         BitmapFont font = new BitmapFont();
         font.getData().setScale(4);
@@ -42,7 +42,7 @@ public class PauseState extends GameState{
         button.addListener( new InputListener(){
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button){
-                System.out.println("Back to game button clicked!");
+                gsm.getGameData().removeProcessor(stage);
                 gsm.setState(2);
                 return true;
             }
@@ -54,7 +54,7 @@ public class PauseState extends GameState{
         button1.addListener( new InputListener(){
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button){
-                System.out.println("Back to menu button clicked!");
+                gsm.getGameData().removeProcessor(stage);
                 gsm.setState(0);
                 return true;
             }
@@ -63,6 +63,7 @@ public class PauseState extends GameState{
         stage.addActor(button);
         stage.addActor(button1);
         stage.addActor(titleLabel);
+        gsm.getGameData().addProcessor(stage);
     }
 
     @Override
@@ -71,7 +72,7 @@ public class PauseState extends GameState{
     }
 
     @Override
-    public void draw() {
+    public void draw(GameData gameData) {
         stage.draw();
     }
 

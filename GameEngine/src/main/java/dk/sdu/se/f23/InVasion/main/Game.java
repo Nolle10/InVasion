@@ -2,9 +2,11 @@ package dk.sdu.se.f23.InVasion.main;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import dk.sdu.se.f23.InVasion.common.data.GameData;
+import dk.sdu.se.f23.InVasion.common.data.MouseProcessor;
 import dk.sdu.se.f23.InVasion.common.data.ProcessAt;
 import dk.sdu.se.f23.InVasion.common.data.World;
 import dk.sdu.se.f23.InVasion.common.services.EntityProcessingService;
@@ -38,13 +40,16 @@ public class Game implements ApplicationListener {
         gameData.setDisplayWidth(WIDTH);
         gameData.setDisplayHeight(HEIGHT);
 
+        InputMultiplexer inputHandler = new InputMultiplexer();
+        gameData.setMultiplexer(inputHandler);
+        Gdx.input.setInputProcessor(inputHandler);
+        gameData.addProcessor(MouseProcessor.getInstance());
+
         cam = new OrthographicCamera(gameData.getDisplayWidth(), gameData.getDisplayHeight());
         cam.translate(gameData.getDisplayWidth() / 2, gameData.getDisplayHeight() / 2);
         cam.update();
 
-        Gdx.input.setInputProcessor(gameData.getInputMultiplexer());
-
-        gsm = new GameStateManager(world, gameData);
+        gsm = new GameStateManager(gameData, world);
 
         for (PluginService plugin : getPluginServices()) {
             plugin.onEnable(gameData, world);

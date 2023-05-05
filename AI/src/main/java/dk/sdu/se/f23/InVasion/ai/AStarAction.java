@@ -1,11 +1,8 @@
 package dk.sdu.se.f23.InVasion.ai;
 
-import dk.sdu.se.f23.InVasion.common.data.GameData;
 import dk.sdu.se.f23.InVasion.common.data.Point;
 import dk.sdu.se.f23.InVasion.common.data.World;
-import dk.sdu.se.f23.InVasion.common.data.entityparts.PositionPart;
 import dk.sdu.se.f23.InVasion.enemy.AIType;
-import dk.sdu.se.f23.InVasion.enemy.Enemy;
 import dk.sdu.se.f23.InVasion.enemy.services.ActionService;
 
 import java.util.*;
@@ -234,7 +231,6 @@ public class AStarAction implements ActionService {
         AStarAction aStarAction = new AStarAction(world.getWorldMaskRows(), world.getWorldMaskColumns(), initialNode, finalNode);
 
         aStarAction.findPath().forEach(s -> pathPoints.add(new Point(s.getRow(), s.getCol())));
-
 
         return pathPoints;
     }

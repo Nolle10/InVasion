@@ -29,11 +29,8 @@ public class ShopState extends GameState {
     private TextButton button1;
     private TextButton.TextButtonStyle textButtonStyle;
 
-    private  GameStateManager gsm;
-
     public ShopState(GameStateManager gsm) {
         super(gsm);
-        this.gsm = gsm;
         weapons = new ArrayList<>();
         weapons.addAll(gsm.getWorld().getWeapons());
     }
@@ -41,7 +38,7 @@ public class ShopState extends GameState {
     @Override
     public void init() {
         stage = new Stage();
-        Gdx.input.setInputProcessor(stage);
+
         sr = new ShapeRenderer();
         textButtonStyle = new TextButton.TextButtonStyle();
         textButtonStyle.font = new BitmapFont();
@@ -51,17 +48,17 @@ public class ShopState extends GameState {
         button.addListener( new InputListener(){
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button){
+                gsm.getGameData().removeProcessor(stage);
                 gsm.setState(2);
                 return true;
             }
         });
 
         button1 = new TextButton(String.format("Current Money: %o",new GameData().getPlayerMoney()),textButtonStyle);
-        button1.setPosition(350, 400);
-        draw();
+        button1.setPosition(700, 800);
         stage.addActor(button);
         stage.addActor(button1);
-
+        gsm.getGameData().addProcessor(stage);
     }
 
     @Override
@@ -70,34 +67,26 @@ public class ShopState extends GameState {
     }
 
     @Override
-    public void draw() {
+    public void draw(GameData gameData) {
         sr.begin(ShapeRenderer.ShapeType.Filled);
         sr.setColor(Color.YELLOW);
         int shopWidth= 200;
         sr.rect(1280-shopWidth,0,200,720);
         sr.end();
-        sr.begin(ShapeRenderer.ShapeType.Filled);
-        sr.setColor(Color.GRAY);
-        SpriteBatch spriteBatch = new SpriteBatch();
+
+        SpriteBatch spriteBatch = gameData.getSpriteBatch();
         spriteBatch.begin();
         try {
         for(int i = 0; i< weapons.size();i++) {
-            sr.rect(1920 - (shopWidth), 800-(i*200), 100, 100);
             Texture t = (Texture) weapons.get(i).get(1);
-
-            spriteBatch.draw(t, 1920-shopWidth, (800-(i*200)));
+            spriteBatch.draw(t, 1920 - (shopWidth), 800-(i*200));
 
         }}
         catch (NullPointerException e){
             System.out.println("There are no weapons goddamn");
         }
-
-
-
-        sr.end();
         spriteBatch.end();
         stage.draw();
-
     }
 
     @Override

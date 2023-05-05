@@ -11,6 +11,7 @@ import dk.sdu.se.f23.InVasion.common.events.events.Event;
 import dk.sdu.se.f23.InVasion.common.events.EventListener;
 import dk.sdu.se.f23.InVasion.common.events.events.FireShotEvent;
 import dk.sdu.se.f23.InVasion.common.services.EntityProcessingService;
+import dk.sdu.se.f23.InVasion.commonbullet.Bullet;
 
 public class BulletController implements EntityProcessingService, EventListener {
     private GameData gameData = new GameData();
@@ -56,11 +57,6 @@ public class BulletController implements EntityProcessingService, EventListener 
 
         float shooterPosX = shooterPos.getPos().getX();
         float shooterPosY = shooterPos.getPos().getY();
-        if (shooterPos == null) {
-            System.out.println("ShooterPos is null");
-            shooterPosX = 400;
-            shooterPosY = 600;
-        }
         float radians = shooterPos.getRadians();
         Entity bullet = new Bullet();
 
@@ -68,7 +64,7 @@ public class BulletController implements EntityProcessingService, EventListener 
         bullet.add(new MovingPart(direction, 100, 100));
         bullet.add(new LifePart(1));
         bullet.add(new TimerPart(3));
-        bullet.setTexture(new Texture(Gdx.files.internal("Bullet/src/main/resources/star2.png")));
+        bullet.setTexture(new Texture(Gdx.files.internal("Bullet/src/main/resources/antibody.png")));
         return bullet;
     }
 

@@ -7,14 +7,17 @@ import dk.sdu.se.f23.InVasion.common.data.entityparts.PositionPart;
 import dk.sdu.se.f23.InVasion.common.events.events.BuyTowerEvent;
 import dk.sdu.se.f23.InVasion.common.events.EventDistributor;
 import dk.sdu.se.f23.InVasion.common.events.events.TargetEvent;
+import dk.sdu.se.f23.InVasion.common.data.GameData;
+import dk.sdu.se.f23.InVasion.common.data.World;
 import dk.sdu.se.f23.InVasion.common.services.PluginService;
 import dk.sdu.se.f23.InVasion.commonweapon.Weapon;
 
 import java.util.ArrayList;
 
+
 public class WeaponPlugin implements PluginService {
-    private String weaponName = "Steven";
-    private Texture texture = new Texture(Gdx.files.internal("Weapon/src/main/resources/tower1.png"));
+    private final String weaponName = "Tower1";
+    private Texture texture = new Texture(Gdx.files.internal("Weapon/src/main/resources/TOWER.png"));
     private int cost = 200;
 
 
@@ -37,7 +40,7 @@ public class WeaponPlugin implements PluginService {
     private Entity createWeapon(Point position) {
         Entity weapon = new Weapon();
         weapon.add(new PositionPart(new Point(position.getX(), position.getY()), 90));
-        weapon.setTexture(new Texture(Gdx.files.internal("Weapon/src/main/resources/tower1.png")));
+        weapon.setTexture(new Texture(Gdx.files.internal("Weapon/src/main/resources/vac.png")));
         return weapon;
     }
 

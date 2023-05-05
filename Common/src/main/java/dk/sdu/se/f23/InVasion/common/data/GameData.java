@@ -15,10 +15,22 @@ public class GameData {
     private int displayWidth;
     private int displayHeight;
     private SpriteBatch spriteBatch;
-    private InputMultiplexer inputMultiplexer = new InputMultiplexer();
+    private InputMultiplexer multiplexer;
 
     //private final GameKeys keys = new GameKeys();
     private List<Event> events = new CopyOnWriteArrayList<>();
+
+    public void setMultiplexer(InputMultiplexer inputMultiplexer){
+        this.multiplexer = inputMultiplexer;
+    }
+
+    public void addProcessor(InputProcessor p){
+        multiplexer.addProcessor(p);
+    }
+
+    public void removeProcessor(InputProcessor p){
+        multiplexer.removeProcessor(p);
+    }
 
     public SpriteBatch getSpriteBatch() {
         return spriteBatch;
@@ -26,15 +38,6 @@ public class GameData {
 
     public void setSpriteBatch(SpriteBatch spriteBatch) {
         this.spriteBatch = spriteBatch;
-    }
-
-    public InputMultiplexer getInputMultiplexer(){
-        return inputMultiplexer;
-    }
-
-    public void addInputProcessor(InputProcessor inputProcessor){
-        this.inputMultiplexer.addProcessor(inputProcessor);
-        System.out.println(inputProcessor);
     }
 
     public void addEvent(Event e) {
