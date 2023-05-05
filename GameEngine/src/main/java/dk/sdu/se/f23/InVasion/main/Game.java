@@ -40,8 +40,9 @@ public class Game implements ApplicationListener {
         cam = new OrthographicCamera(gameData.getDisplayWidth(), gameData.getDisplayHeight());
         cam.translate(gameData.getDisplayWidth() / 2, gameData.getDisplayHeight() / 2);
         cam.update();
-        System.out.println(world);
-        gsm = new GameStateManager(gameData,world);
+
+
+        gsm = new GameStateManager(gameData, world);
 
         for (PluginService plugin : getPluginServices()) {
             plugin.onEnable(gameData, world);

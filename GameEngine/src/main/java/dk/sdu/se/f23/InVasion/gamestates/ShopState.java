@@ -2,7 +2,9 @@ package dk.sdu.se.f23.InVasion.gamestates;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -16,13 +18,14 @@ import dk.sdu.se.f23.InVasion.managers.GameStateManager;
 import dk.sdu.se.f23.InVasion.map.MapPlugin;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class ShopState extends GameState {
 
     private ShapeRenderer sr;
     private Stage stage;
 
-    private ArrayList<String> weapons;
+    private ArrayList<ArrayList<Object>> weapons;
     private TextButton button;
     private TextButton button1;
     private TextButton.TextButtonStyle textButtonStyle;
@@ -62,7 +65,7 @@ public class ShopState extends GameState {
 
         button1 = new TextButton(String.format("Current Money: %o",new GameData().getPlayerMoney()),textButtonStyle);
         button1.setPosition(700, 800);
-        draw();
+        draw(gsm.getGameData());
         stage.addActor(button);
         stage.addActor(button1);
 
@@ -74,22 +77,32 @@ public class ShopState extends GameState {
     }
 
     @Override
-    public void draw() {
+    public void draw(GameData gameData) {
         sr.begin(ShapeRenderer.ShapeType.Filled);
         sr.setColor(Color.YELLOW);
         int shopWidth= 200;
         sr.rect(1920-shopWidth,0,200,1080);
         sr.end();
-        sr.begin(ShapeRenderer.ShapeType.Filled);
-        sr.setColor(Color.GRAY);
+
+
+        SpriteBatch spriteBatch = gameData.getSpriteBatch();
+        spriteBatch.begin();
         try {
         for(int i = 0; i< weapons.size();i++) {
-            sr.rect(1920 - (shopWidth), 800-(i*200), 100, 100);
+
+            Texture t = (Texture) weapons.get(i).get(1);
+
+            spriteBatch.draw(t, 1920 - (shopWidth), 800-(i*200));
+
         }}
         catch (NullPointerException e){
             System.out.println("There are no weapons goddamn");
         }
-        sr.end();
+
+
+
+
+        spriteBatch.end();
         stage.draw();
     }
 

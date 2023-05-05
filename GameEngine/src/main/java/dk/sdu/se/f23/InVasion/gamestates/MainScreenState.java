@@ -1,5 +1,6 @@
 package dk.sdu.se.f23.InVasion.gamestates;
 
+import dk.sdu.se.f23.InVasion.common.data.GameData;
 import dk.sdu.se.f23.InVasion.common.data.buttonSkin;
 import dk.sdu.se.f23.InVasion.managers.GameStateManager;
 
@@ -27,7 +28,8 @@ public class MainScreenState extends GameState{
     @Override
     public void init() {
         stage = new Stage();
-        Gdx.input.setInputProcessor(stage);
+        gsm.getGameData().addInputProcessor(stage);
+        //Gdx.input.setInputProcessor(stage);
 
         BitmapFont font = new BitmapFont();
         font.getData().setScale(4);
@@ -71,7 +73,7 @@ public class MainScreenState extends GameState{
     }
 
     @Override
-    public void draw() {
+    public void draw(GameData gameData) {
         stage.draw();
         MapPlugin n = new MapPlugin();
 

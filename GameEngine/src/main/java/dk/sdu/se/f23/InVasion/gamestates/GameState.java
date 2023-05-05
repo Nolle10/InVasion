@@ -1,6 +1,7 @@
 package dk.sdu.se.f23.InVasion.gamestates;
 
 import com.badlogic.gdx.InputAdapter;
+import dk.sdu.se.f23.InVasion.common.data.GameData;
 import dk.sdu.se.f23.InVasion.managers.GameStateManager;
 
 public abstract class GameState extends InputAdapter {
@@ -14,7 +15,7 @@ public abstract class GameState extends InputAdapter {
 
     public abstract void init();
     public abstract void update(float dt);
-    public abstract void draw();
+    public abstract void draw(GameData gameData);
     public abstract void handleInput();
     public abstract void dispose();
 

@@ -5,13 +5,13 @@ import dk.sdu.se.f23.InVasion.common.data.GameData;
 import dk.sdu.se.f23.InVasion.common.data.Point;
 
 public class PositionPart implements EntityPart{
-    private Point pos;
     private float x;
     private float y;
     private float radians;
 
     public PositionPart(Point pos, float radians) {
-        this.pos = pos;
+        setPos(pos);
+        this.radians = radians;
     }
 
     public float getX() {
@@ -52,7 +52,8 @@ public class PositionPart implements EntityPart{
     }
 
     public void setPos(Point pos) {
-        this.pos = pos;
+        this.x = pos.getX();
+        this.y = pos.getY();
     }
 
 }

@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
+import dk.sdu.se.f23.InVasion.common.data.GameData;
 import dk.sdu.se.f23.InVasion.managers.GameStateManager;
 import dk.sdu.se.f23.InVasion.common.data.buttonSkin;
 
@@ -71,7 +72,7 @@ public class PauseState extends GameState{
     }
 
     @Override
-    public void draw() {
+    public void draw(GameData gameData) {
         stage.draw();
     }
 

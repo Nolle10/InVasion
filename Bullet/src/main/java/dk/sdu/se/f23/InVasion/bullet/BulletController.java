@@ -11,6 +11,7 @@ import dk.sdu.se.f23.InVasion.common.events.events.Event;
 import dk.sdu.se.f23.InVasion.common.events.EventListener;
 import dk.sdu.se.f23.InVasion.common.events.events.FireShotEvent;
 import dk.sdu.se.f23.InVasion.common.services.EntityProcessingService;
+import dk.sdu.se.f23.InVasion.commonbullet.Bullet;
 
 public class BulletController implements EntityProcessingService, EventListener {
     private GameData gameData = new GameData();
@@ -54,16 +55,17 @@ public class BulletController implements EntityProcessingService, EventListener 
     public Entity createBullet(Entity shooter, Point direction) {
         PositionPart shooterPos = shooter.getPart(PositionPart.class);
 
-        float shooterPosX = shooterPos.getX();
-        float shooterPosY = shooterPos.getY();
+        float shooterPosX = shooterPos.getPos().getX();
+        float shooterPosY = shooterPos.getPos().getY();
         if (shooterPos == null) {
+            System.out.println("ShooterPos is null");
             shooterPosX = 400;
             shooterPosY = 600;
         }
         float radians = shooterPos.getRadians();
         Entity bullet = new Bullet();
 
-        bullet.add(new PositionPart(new Point((int) shooterPosX + direction.getX(), (int) shooterPosY + direction.getY()), radians));
+        bullet.add(new PositionPart(new Point((int) shooterPosX, (int) shooterPosY), radians));
         bullet.add(new MovingPart(direction, 100, 100));
         bullet.add(new LifePart(1));
         bullet.add(new TimerPart(3));
