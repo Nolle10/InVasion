@@ -23,9 +23,9 @@ public class WeaponControlSystem implements EntityProcessingService, EventListen
     @Override
     public void process(GameData data, World world, ProcessAt processTime) {
         for (Entity weapon : world.getEntities(Weapon.class)) {
-            Point direction = findNearestNeighbor(world);
-            lastShot += data.getDelta() * 50;
-            if (lastShot >= 0.5) {
+            if (((Weapon)weapon).shouldShoot(data.getDelta())) {
+                Point direction = findNearestNeighbor(world);
+
                 if (direction != null) {
                     EventDistributor.sendEvent(new FireShotEvent(weapon, direction), world);
                     lastShot = 0;

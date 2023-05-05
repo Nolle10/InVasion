@@ -57,11 +57,6 @@ public class BulletController implements EntityProcessingService, EventListener 
 
         float shooterPosX = shooterPos.getPos().getX();
         float shooterPosY = shooterPos.getPos().getY();
-        if (shooterPos == null) {
-            System.out.println("ShooterPos is null");
-            shooterPosX = 400;
-            shooterPosY = 600;
-        }
         float radians = shooterPos.getRadians();
         Entity bullet = new Bullet();
 
