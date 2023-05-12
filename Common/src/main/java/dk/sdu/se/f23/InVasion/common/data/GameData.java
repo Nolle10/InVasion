@@ -3,7 +3,7 @@ package dk.sdu.se.f23.InVasion.common.data;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import dk.sdu.se.f23.InVasion.common.events.events.Event;
+import dk.sdu.se.f23.InVasion.common.events.abstracts.Event;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -84,7 +84,7 @@ public class GameData {
     public <E extends Event> List<Event> getEvents(Class<E> type, String sourceID) {
         List<Event> r = new ArrayList();
         for (Event event : events) {
-            if (event.getClass().equals(type) && event.getSource().getID().equals(sourceID)) {
+            if (event.getClass().equals(type)) {
                 r.add(event);
             }
         }

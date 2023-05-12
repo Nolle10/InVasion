@@ -5,6 +5,7 @@ import dk.sdu.se.f23.InVasion.common.data.GameData;
 import dk.sdu.se.f23.InVasion.common.data.World;
 import dk.sdu.se.f23.InVasion.common.events.EventDistributor;
 import dk.sdu.se.f23.InVasion.common.events.events.FireShotEvent;
+import dk.sdu.se.f23.InVasion.common.events.events.StateChangeEvent;
 import dk.sdu.se.f23.InVasion.common.services.PluginService;
 import dk.sdu.se.f23.InVasion.commonbullet.Bullet;
 
@@ -14,6 +15,7 @@ public class BulletPlugin implements PluginService{
     @Override
     public void onEnable(GameData data, World world) {
         EventDistributor.addListener(FireShotEvent.class, bulletController);
+        EventDistributor.addListener(StateChangeEvent.class, bulletController);
     }
 
     @Override
