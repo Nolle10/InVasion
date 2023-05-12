@@ -14,50 +14,37 @@ public class CollisionDetector implements EntityProcessingService {
 
     @Override
     public void process(GameData data, World world, ProcessAt processTime) {
-        for (Entity entity : world.getEntities(Enemy.class)) {
-            for (Entity otherEntity : world.getEntities(Bullet.class)) {
-                LifePart entityLife = entity.getPart(LifePart.class);
-
-                // if the two entities are identical, skip the iteration
-                if (entity.getID().equals(otherEntity.getID())) {
-                    continue;
-                }
+        for (Entity enemy : world.getEntities(Enemy.class)) {
+            for (Entity bullet : world.getEntities(Bullet.class)) {
+                LifePart entityLife = enemy.getPart(LifePart.class);
 
                 // CollisionDetection
-                if (this.collides(entity, otherEntity) && entity.getPart(LifePart.class) != null) {
+                if (this.collides(enemy, bullet) && enemy.getPart(LifePart.class) != null) {
                     // if entity has been hit, it's life should be reduced
                     if (entityLife.getLife() > 0) {
                         entityLife.setLife(entityLife.getLife() - 1);
-                        entityLife.setHit(true);
+                        //entityLife.setHit(true);
                         // if entity is out of life - remove
                         if (entityLife.getLife() <= 0) {
-                            world.removeEntity(entity);
+                            world.removeEntity(enemy);
                         }
-                    }else {
-                        continue;
                     }
                 }
             }
         }
     }
 
-    public Boolean collides(Entity entity, Entity otherEntity) {
-            PositionPart entMov = entity.getPart(PositionPart.class);
-            PositionPart entMov2 = otherEntity.getPart(PositionPart.class);
-            float dx = entMov.getX() - entMov2.getX();
-            float dy = entMov.getY() - entMov2.getY();
-            float distance = (float) Math.sqrt(dx * dx + dy * dy);
+    public boolean collides(Entity entity, Entity entity2) {
+        PositionPart entMov = entity.getPart(PositionPart.class);
+        PositionPart entMov2 = entity2.getPart(PositionPart.class);
 
-            int entityHeigth = entity.getTexture().getHeight();
-            int entityWidth = entity.getTexture().getWidth();
-            int otherEntityHeigth = otherEntity.getTexture().getHeight();
-            int otherEntityWidth = otherEntity.getTexture().getWidth();
-            float hitSquareEntity = entityHeigth*entityWidth; //(xt,yt - xt,yb) * (xt,yb - xb,yb) = area/hit square
-            float hitSquareOtherEntity = otherEntityHeigth*otherEntityWidth;
-            if (distance < (hitSquareEntity + hitSquareOtherEntity)){
-                return true;
-            }
+        int entityHeight = entity.getTexture().getHeight();
+        int entityWidth = entity.getTexture().getWidth();
+        int otherEntityHeight = entity2.getTexture().getHeight();
+        int otherEntityWidth = entity2.getTexture().getWidth();
 
-            return false;
+        return (entMov.getX() < (entMov2.getX() + otherEntityWidth) && (entMov.getX() + entityWidth) > entMov2.getX() &&
+                entMov.getY() < (entMov2.getY() + otherEntityHeight) && (entMov.getY() + entityHeight) > entMov2.getY());
+
     }
 }
