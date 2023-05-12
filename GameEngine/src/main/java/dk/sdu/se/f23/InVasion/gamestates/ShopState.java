@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import dk.sdu.se.f23.InVasion.common.data.GameData;
 import dk.sdu.se.f23.InVasion.common.data.World;
+import dk.sdu.se.f23.InVasion.common.events.enums.GameStateEnum;
 import dk.sdu.se.f23.InVasion.main.Game;
 import dk.sdu.se.f23.InVasion.managers.GameStateManager;
 
@@ -49,7 +50,7 @@ public class ShopState extends GameState {
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button){
                 gsm.getGameData().removeProcessor(stage);
-                gsm.setState(2);
+                gsm.setState(GameStateEnum.PlayState);
                 return true;
             }
         });

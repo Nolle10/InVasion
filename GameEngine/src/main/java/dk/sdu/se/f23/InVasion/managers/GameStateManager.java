@@ -12,45 +12,46 @@ import dk.sdu.se.f23.InVasion.gamestates.*;
 
 public class GameStateManager {
 
-    // current game state
     private GameState gameState;
-
     private GameData gameData;
-    public static final int MENU = 0;
-    public static final int SHOP = 1;
-    public static final int PLAY = 2;
-    public static final int PAUSE = 3;
     private World world;
-    private int currentState = 0;
+
     private int waveCount = 1;
 
     public GameStateManager(GameData data, World world) {
         this.world = world;
         this.gameData = data;
-        setState(MENU);
+        setState(GameStateEnum.MainScreen);
     }
 
-    public void setState(int state) {
+    public void setState(GameStateEnum state) {
         if(gameState != null) gameState.dispose();
-        if(state == MENU) {
+        if(state == GameStateEnum.MainScreen) {
             EventDistributor.sendEvent(new StateChangeEvent(GameStateEnum.MainScreen), world);
             gameState = new MainScreenState(this);
         }
-        if(state == PLAY) {
+        if(state == GameStateEnum.PlayState) {
             EventDistributor.sendEvent(new StateChangeEvent(GameStateEnum.PlayState), world);
             gameState = new PlayState(this);
             EventDistributor.sendEvent(new SpawnEnemysEvent(waveCount), world);
             waveCount++;
         }
-        if(state == SHOP) {
+        if(state == GameStateEnum.ShopState) {
             EventDistributor.sendEvent(new StateChangeEvent(GameStateEnum.ShopState), world);
             gameState = new ShopState(this);
         }
-        if(state == PAUSE) {
+        if(state == GameStateEnum.PauseState) {
             EventDistributor.sendEvent(new StateChangeEvent(GameStateEnum.PauseState), world);
             gameState = new PauseState(this);
         }
-        currentState = state;
+        if(state == GameStateEnum.WinState) {
+            gameState = new EndState(this, 1);
+        }
+        if(state == GameStateEnum.LossState){
+            gameState = new EndState(this, 0);
+        }
+
+        gameData.setCurrentState(state);
     }
 
     public void update(float dt) {
@@ -67,10 +68,5 @@ public class GameStateManager {
     public GameData getGameData(){
         return  gameData;
     }
-    public GameState getGameState() {
-        return gameState; // i just put this here
-    }
-    public int getCurrentState(){
-        return currentState;
-    }
+
 }

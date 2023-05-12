@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import dk.sdu.se.f23.InVasion.common.data.GameData;
 import dk.sdu.se.f23.InVasion.common.data.World;
+import dk.sdu.se.f23.InVasion.common.events.enums.GameStateEnum;
 import dk.sdu.se.f23.InVasion.managers.GameStateManager;
 
 public class PlayState extends GameState {
@@ -20,9 +21,6 @@ public class PlayState extends GameState {
     private TextButton button;
     private TextButton button1;
     private TextButton.TextButtonStyle textButtonStyle;
-
-    private GameData gameData = new GameData();
-    private World world = new World();
 
     public PlayState(GameStateManager gsm) {
         super(gsm);
@@ -40,7 +38,7 @@ public class PlayState extends GameState {
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button){
                 gsm.getGameData().removeProcessor(stage);
-                gsm.setState(1);
+                gsm.setState(GameStateEnum.ShopState);
                 return true;
             }
         });
@@ -50,26 +48,23 @@ public class PlayState extends GameState {
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button){
                 gsm.getGameData().removeProcessor(stage);
-                gsm.setState(3);
+                gsm.setState(GameStateEnum.PauseState);
                 return true;
             }
         });
+
         stage.addActor(button);
         stage.addActor(button1);
         gsm.getGameData().addProcessor(stage);
-
 
         sr = new ShapeRenderer();
     }
 
     public void update(float dt) {
-
         handleInput();
-
     }
 
     public void draw(GameData gameData) {
-
         stage.draw();
     }
 
