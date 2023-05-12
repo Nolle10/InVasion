@@ -21,14 +21,36 @@ import java.util.*;
 import static java.util.stream.Collectors.toList;
 
 public class EnemyControlSystem implements EntityProcessingService, EventListener {
-
+    private static int enemiesToSpawn;
+    private float timeSinceLastSpawn;
     private MoveToAction movingAction = new MoveToAction();
+    private ActionService actionService;
 
     public EnemyControlSystem() {
+        for (ActionService service : getActionServices()) {
+            if (service.getAiType() == AIType.A_STAR){
+                actionService = service;
+            }
+        }
     }
 
     @Override
     public void process(GameData data, World world, ProcessAt processTime) {
+        timeSinceLastSpawn += data.getDelta();
+        if (enemiesToSpawn > 0 && timeSinceLastSpawn > 1) {
+            timeSinceLastSpawn = 0;
+            enemiesToSpawn--;
+            List<Point> route = actionService.calculate(world);
+            Enemy enemy = new Enemy(route);
+            enemy.add(new PositionPart(route.get(0), 0));
+            enemy.add(new LifePart(2));
+            enemy.add(new MoneyPart(2));
+            enemy.setTexture(new Texture(Gdx.files.internal("Enemy/src/main/resources/dk/sdu/se/f23/InVasion/enemyresources/textures/enemy2.png")));
+            System.out.println("New Enemy is spawned " + world.addEntity(enemy) + ", we now have: " + world.getEntities(Enemy.class).size());
+            System.out.println(Arrays.toString(world.getEntities(Enemy.class).toArray()));
+        }
+
+
         for (Entity enemy : world.getEntities(Enemy.class)) {
             MoneyPart moneyPart = enemy.getPart(MoneyPart.class);
             LifePart lifePart = enemy.getPart(LifePart.class);
@@ -55,38 +77,10 @@ public class EnemyControlSystem implements EntityProcessingService, EventListene
         return ServiceLoader.load(ActionService.class).stream().map(ServiceLoader.Provider::get).collect(toList());
     }
 
-    public void moveTo(Entity enemy, Point location) {
-        movingAction.setPosition(location.getX(), location.getY());
-        movingAction.setDuration(((Enemy) enemy).getSpeed());
-        enemy.addAction(movingAction);
-    }
-
-
-
-
     @Override
     public void processEvent(Event event, World world) {
         SpawnEnemysEvent spawnEnemiesEvent = (SpawnEnemysEvent) event;
-        for (ActionService actionService : getActionServices()) {
-            if (actionService.getAiType() != AIType.A_STAR) {
-                continue;
-            }
-            spawnEnemys(world, spawnEnemiesEvent, actionService);
-        }
-    }
-
-    private static void spawnEnemys(World world, SpawnEnemysEvent spawnEnemiesEvent, ActionService actionService) {
-
-        int amountToSpawn = spawnEnemiesEvent.getWaveLevel() * 2;
-        for (int i = 0; i < amountToSpawn; i++) {
-            List<Point> route = actionService.calculate(world);
-            Enemy enemy = new Enemy(route);
-            enemy.add(new PositionPart(route.get(0),0));
-            enemy.add(new LifePart(spawnEnemiesEvent.getWaveLevel()*2));
-            enemy.add(new MoneyPart(spawnEnemiesEvent.getWaveLevel()*2));
-            enemy.setTexture(new Texture(Gdx.files.internal("Enemy/src/main/resources/dk/sdu/se/f23/InVasion/enemyresources/textures/enemy2.png")));
-            world.addEntity(enemy);
-        }
-
+        enemiesToSpawn = spawnEnemiesEvent.getWaveLevel() * 2;
     }
 }
+

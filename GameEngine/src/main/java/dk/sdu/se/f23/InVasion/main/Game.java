@@ -14,12 +14,14 @@ import dk.sdu.se.f23.InVasion.common.services.PluginService;
 import dk.sdu.se.f23.InVasion.managers.GameStateManager;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.ServiceLoader;
 
 import static java.util.stream.Collectors.toList;
 
 
 public class Game implements ApplicationListener {
+    private Collection<? extends EntityProcessingService> entityProcessingServices;
     public static int WIDTH;
     public static int HEIGHT;
 
@@ -97,6 +99,9 @@ public class Game implements ApplicationListener {
         return ServiceLoader.load(PluginService.class).stream().map(ServiceLoader.Provider::get).collect(toList());
     }
     private Collection<? extends EntityProcessingService> getEntityProcessingServices() {
-        return ServiceLoader.load(EntityProcessingService.class).stream().map(ServiceLoader.Provider::get).collect(toList());
+        if (entityProcessingServices == null){
+            entityProcessingServices = ServiceLoader.load(EntityProcessingService.class).stream().map(ServiceLoader.Provider::get).collect(toList());
+        }
+        return entityProcessingServices;
     }
 }
