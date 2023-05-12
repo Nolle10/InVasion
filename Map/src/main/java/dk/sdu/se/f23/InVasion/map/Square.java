@@ -35,4 +35,20 @@ public class Square {
         return color;
     }
 
+    public void setIsOccupied(boolean val){
+        this.isOccupied = val;
+
+    }
+
+    public boolean isOccupied() {
+        return isOccupied;
+    }
+
+    public void toggleIsOccupied(){
+        isOccupied = !isOccupied;
+    }
+
+
+
+
 }

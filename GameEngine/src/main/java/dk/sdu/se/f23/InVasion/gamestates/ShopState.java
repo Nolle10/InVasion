@@ -13,8 +13,10 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import dk.sdu.se.f23.InVasion.common.data.GameData;
 import dk.sdu.se.f23.InVasion.common.data.World;
+import dk.sdu.se.f23.InVasion.common.services.PluginService;
 import dk.sdu.se.f23.InVasion.main.Game;
 import dk.sdu.se.f23.InVasion.managers.GameStateManager;
+import dk.sdu.se.f23.InVasion.map.MapPlugin;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -28,18 +30,27 @@ public class ShopState extends GameState {
     private TextButton button;
     private TextButton button1;
     private TextButton.TextButtonStyle textButtonStyle;
+    private World world ;
+    private GameData gameData;
+
+    private MapPlugin map;
+
 
     public ShopState(GameStateManager gsm) {
         super(gsm);
-        weapons = new ArrayList<>();
-        weapons.addAll(gsm.getWorld().getWeapons());
     }
 
     @Override
     public void init() {
+        weapons = new ArrayList<>();
+        weapons.addAll(gsm.getWorld().getWeapons());
+        world = gsm.getWorld();
+        gameData = gsm.getGameData();
         stage = new Stage();
 
         sr = new ShapeRenderer();
+         map = new MapPlugin();
+         map.onEnable(gameData,world);
         textButtonStyle = new TextButton.TextButtonStyle();
         textButtonStyle.font = new BitmapFont();
         textButtonStyle.fontColor = Color.RED;
@@ -54,7 +65,7 @@ public class ShopState extends GameState {
             }
         });
 
-        button1 = new TextButton(String.format("Current Money: %o",new GameData().getPlayerMoney()),textButtonStyle);
+        button1 = new TextButton(String.format("Current Money: %o",gameData.getPlayerMoney()),textButtonStyle);
         button1.setPosition(700, 800);
         stage.addActor(button);
         stage.addActor(button1);
@@ -68,11 +79,16 @@ public class ShopState extends GameState {
 
     @Override
     public void draw(GameData gameData) {
+        long start = System.currentTimeMillis();
         sr.begin(ShapeRenderer.ShapeType.Filled);
         sr.setColor(Color.YELLOW);
         int shopWidth= 200;
         sr.rect(1920-shopWidth,0,200,1080);
         sr.end();
+
+        map.draw(gameData);
+
+
 
         SpriteBatch spriteBatch = gameData.getSpriteBatch();
         spriteBatch.begin();
@@ -87,6 +103,8 @@ public class ShopState extends GameState {
         }
         spriteBatch.end();
         stage.draw();
+        long end = System.currentTimeMillis();
+        System.out.println("time: "+(end-start));
     }
 
     @Override
