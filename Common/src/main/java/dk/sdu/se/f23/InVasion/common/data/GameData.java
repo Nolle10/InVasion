@@ -12,7 +12,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 public class GameData {
     private int playerMoney;
-    private int waveCount = 1;
+    private int waveCount = 0;
     private float delta;
     private int displayWidth;
     private int displayHeight;

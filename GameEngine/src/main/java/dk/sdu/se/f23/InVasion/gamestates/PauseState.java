@@ -36,10 +36,6 @@ public class PauseState extends GameState{
         titleLabel = new Label("Game is paused", style);
         titleLabel.setPosition(750, 800);
 
-        titleLabel1 = new Label(String.format("Wave: %d", gsm.getGameData().getWaveCount()), style);
-        titleLabel1.setPosition(750, 1000);
-
-
         button = new TextButton("Resume game", buttonSkin.getSkin());
         button.getLabel().setFontScale(2,2);
         button.setPosition(760,500);
@@ -65,11 +61,9 @@ public class PauseState extends GameState{
         });
 
 
-
         stage.addActor(button);
         stage.addActor(button1);
         stage.addActor(titleLabel);
-        stage.addActor(titleLabel1);
         gsm.getGameData().addProcessor(stage);
     }
 

@@ -16,8 +16,6 @@ public class GameStateManager {
     private GameData gameData;
     private World world;
 
-    private int waveCount = 1;
-
     public GameStateManager(GameData data, World world) {
         this.world = world;
         this.gameData = data;
@@ -31,10 +29,14 @@ public class GameStateManager {
             gameState = new MainScreenState(this);
         }
         if(state == GameStateEnum.PlayState) {
-            EventDistributor.sendEvent(new StateChangeEvent(GameStateEnum.PlayState), world);
-            gameState = new PlayState(this);
             gameData.setWaveCount(gameData.getWaveCount() + 1);
-            EventDistributor.sendEvent(new SpawnEnemysEvent(gameData.getWaveCount()), world);
+            if (gameData.getWaveCount() > 5){
+                state = GameStateEnum.WinState;
+            } else {
+                EventDistributor.sendEvent(new StateChangeEvent(GameStateEnum.PlayState), world);
+                gameState = new PlayState(this);
+                EventDistributor.sendEvent(new SpawnEnemysEvent(gameData.getWaveCount()), world);
+            }
         }
         if(state == GameStateEnum.ShopState) {
             EventDistributor.sendEvent(new StateChangeEvent(GameStateEnum.ShopState), world);
@@ -45,9 +47,12 @@ public class GameStateManager {
             gameState = new PauseState(this);
         }
         if(state == GameStateEnum.WinState) {
+            EventDistributor.sendEvent(new StateChangeEvent(GameStateEnum.WinState), world);
             gameState = new EndState(this, 1);
+            System.out.println("here ");
         }
         if(state == GameStateEnum.LossState){
+            EventDistributor.sendEvent(new StateChangeEvent(GameStateEnum.LossState), world);
             gameState = new EndState(this, 0);
         }
 

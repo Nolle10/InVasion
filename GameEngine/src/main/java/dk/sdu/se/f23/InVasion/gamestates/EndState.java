@@ -15,11 +15,13 @@ public class EndState extends GameState{
     public static final int WIN = 1;
     public static final int LOSS = 0;
 
-    private int condition;
+    public int condition;
 
     public EndState(GameStateManager gsm, int c) {
         super(gsm);
+        System.out.println("c"+c);
         this.condition = c;
+        System.out.println("condition"+this.condition);
     }
 
     @Override
@@ -29,9 +31,11 @@ public class EndState extends GameState{
         String text = "";
         if (condition == WIN){
             text = "You Won";
+            System.out.println("there"+this.condition);
         }
         if (condition == LOSS){
             text = "You Lost";
+            System.out.printf("here too"+this.condition);
         }
 
         BitmapFont font = new BitmapFont();
