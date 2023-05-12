@@ -19,7 +19,7 @@ public class CollisionDetector implements EntityProcessingService {
                 LifePart entityLife = enemy.getPart(LifePart.class);
 
                 // CollisionDetection
-                if (this.collidesV2(enemy, bullet) && enemy.getPart(LifePart.class) != null) {
+                if (this.collides(enemy, bullet) && enemy.getPart(LifePart.class) != null) {
                     // if entity has been hit, it's life should be reduced
                     if (entityLife.getLife() > 0) {
                         entityLife.setLife(entityLife.getLife() - 1);
@@ -34,27 +34,7 @@ public class CollisionDetector implements EntityProcessingService {
         }
     }
 
-    public Boolean collides(Entity entity, Entity otherEntity) {
-            PositionPart entMov = entity.getPart(PositionPart.class);
-            PositionPart entMov2 = otherEntity.getPart(PositionPart.class);
-            float dx = entMov.getX() - entMov2.getX();
-            float dy = entMov.getY() - entMov2.getY();
-            float distance = (float) Math.sqrt(dx * dx + dy * dy);
-
-            int entityHeigth = entity.getTexture().getHeight();
-            int entityWidth = entity.getTexture().getWidth();
-            int otherEntityHeigth = otherEntity.getTexture().getHeight();
-            int otherEntityWidth = otherEntity.getTexture().getWidth();
-            float hitSquareEntity = entityHeigth*entityWidth; //(xt,yt - xt,yb) * (xt,yb - xb,yb) = area/hit square
-            float hitSquareOtherEntity = otherEntityHeigth*otherEntityWidth;
-            if (distance < (hitSquareEntity + hitSquareOtherEntity)){
-                return true;
-            }
-
-            return false;
-    }
-
-    public boolean collidesV2(Entity entity, Entity entity2){
+    public boolean collides(Entity entity, Entity entity2){
         PositionPart entMov = entity.getPart(PositionPart.class);
         PositionPart entMov2 = entity2.getPart(PositionPart.class);
 
