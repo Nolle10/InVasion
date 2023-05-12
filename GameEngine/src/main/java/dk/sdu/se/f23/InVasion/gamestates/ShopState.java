@@ -56,7 +56,7 @@ public class ShopState extends GameState {
         });
 
         button1 = new TextButton(String.format("Current Money: %o", gsm.getGameData().getPlayerMoney()),textButtonStyle);
-        button1.setPosition(700, 800);
+        button1.setPosition(250, 850);
         stage.addActor(button);
         stage.addActor(button1);
         gsm.getGameData().addProcessor(stage);

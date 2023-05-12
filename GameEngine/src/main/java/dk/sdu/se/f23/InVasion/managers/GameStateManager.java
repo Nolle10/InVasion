@@ -33,8 +33,8 @@ public class GameStateManager {
         if(state == GameStateEnum.PlayState) {
             EventDistributor.sendEvent(new StateChangeEvent(GameStateEnum.PlayState), world);
             gameState = new PlayState(this);
-            EventDistributor.sendEvent(new SpawnEnemysEvent(waveCount), world);
-            waveCount++;
+            gameData.setWaveCount(gameData.getWaveCount() + 1);
+            EventDistributor.sendEvent(new SpawnEnemysEvent(gameData.getWaveCount()), world);
         }
         if(state == GameStateEnum.ShopState) {
             EventDistributor.sendEvent(new StateChangeEvent(GameStateEnum.ShopState), world);

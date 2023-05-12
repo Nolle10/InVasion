@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import dk.sdu.se.f23.InVasion.common.data.GameData;
 import dk.sdu.se.f23.InVasion.common.data.World;
@@ -20,6 +21,7 @@ public class PlayState extends GameState {
 
     private TextButton button;
     private TextButton button1;
+    private Label titleLabel;
     private TextButton.TextButtonStyle textButtonStyle;
 
     public PlayState(GameStateManager gsm) {
@@ -53,8 +55,15 @@ public class PlayState extends GameState {
             }
         });
 
+        BitmapFont font = new BitmapFont();
+        font.getData().setScale(4);
+        Label.LabelStyle style = new Label.LabelStyle(font, Color.WHITE);
+        titleLabel = new Label(String.format("Wave: %d", gsm.getGameData().getWaveCount()), style);
+        titleLabel.setPosition(250, 850);
+
         stage.addActor(button);
         stage.addActor(button1);
+        stage.addActor(titleLabel);
         gsm.getGameData().addProcessor(stage);
 
         sr = new ShapeRenderer();
