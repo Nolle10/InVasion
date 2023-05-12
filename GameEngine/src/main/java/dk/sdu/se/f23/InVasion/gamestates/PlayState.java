@@ -13,6 +13,8 @@ import dk.sdu.se.f23.InVasion.common.data.World;
 import dk.sdu.se.f23.InVasion.managers.GameStateManager;
 import dk.sdu.se.f23.InVasion.map.MapPlugin;
 
+import java.util.Map;
+
 public class PlayState extends GameState {
 
     private ShapeRenderer sr;
@@ -22,9 +24,9 @@ public class PlayState extends GameState {
     private TextButton button1;
     private TextButton.TextButtonStyle textButtonStyle;
 
-    private GameData gameData = new GameData();
-    private World world = new World();
 
+    private World world = new World();
+    private MapPlugin map;
     public PlayState(GameStateManager gsm) {
         super(gsm);
     }
@@ -32,7 +34,9 @@ public class PlayState extends GameState {
     public void init() {
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
+        map = new MapPlugin();
 
+        map.onEnable(gsm.getGameData(), gsm.getWorld());
         textButtonStyle = new TextButton.TextButtonStyle();
         textButtonStyle.font = new BitmapFont();
         textButtonStyle.fontColor = Color.YELLOW;
@@ -71,7 +75,7 @@ public class PlayState extends GameState {
     }
 
     public void draw(GameData gameData) {
-
+        map.draw(gameData);
         stage.draw();
     }
 

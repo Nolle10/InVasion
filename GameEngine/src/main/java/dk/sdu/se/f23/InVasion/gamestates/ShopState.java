@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import dk.sdu.se.f23.InVasion.common.data.GameData;
 import dk.sdu.se.f23.InVasion.common.data.World;
+import dk.sdu.se.f23.InVasion.common.services.PluginService;
 import dk.sdu.se.f23.InVasion.main.Game;
 import dk.sdu.se.f23.InVasion.managers.GameStateManager;
 import dk.sdu.se.f23.InVasion.map.MapPlugin;
@@ -32,6 +33,7 @@ public class ShopState extends GameState {
     private World world ;
     private GameData gameData;
 
+    private MapPlugin map;
 
 
     public ShopState(GameStateManager gsm) {
@@ -47,6 +49,8 @@ public class ShopState extends GameState {
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
         sr = new ShapeRenderer();
+         map = new MapPlugin();
+         map.onEnable(gameData,world);
         textButtonStyle = new TextButton.TextButtonStyle();
         textButtonStyle.font = new BitmapFont();
         textButtonStyle.fontColor = Color.RED;
@@ -73,11 +77,16 @@ public class ShopState extends GameState {
 
     @Override
     public void draw(GameData gameData) {
+        long start = System.currentTimeMillis();
         sr.begin(ShapeRenderer.ShapeType.Filled);
         sr.setColor(Color.YELLOW);
         int shopWidth= 200;
         sr.rect(1920-shopWidth,0,200,1080);
         sr.end();
+
+        map.draw(gameData);
+
+
 
         SpriteBatch spriteBatch = gameData.getSpriteBatch();
         spriteBatch.begin();
@@ -92,6 +101,8 @@ public class ShopState extends GameState {
         }
         spriteBatch.end();
         stage.draw();
+        long end = System.currentTimeMillis();
+        System.out.println("time: "+(end-start));
     }
 
     @Override

@@ -29,9 +29,9 @@ import java.util.NoSuchElementException;
 public class MapPlugin implements PluginService {
 
 
-    private int height = 720;
-    private int width = 1280;
-    private int tilesSize = 24;
+    private int height = 1080;
+    private int width = 1720;
+    private int tilesSize = 36;
     private ArrayList<ArrayList<Square>> mapFields;
     private ArrayList<Texture> tiles;
     private  ArrayList<ArrayList<Integer>> mask;
@@ -52,7 +52,7 @@ public class MapPlugin implements PluginService {
         world.loadWorldMask(generateMask());
         world.setInitState(new Point(0, 0));
         world.setGoalState(new Point(width, height));
-
+        mask = generateMask();
 
 
        //draw();
@@ -113,13 +113,13 @@ public class MapPlugin implements PluginService {
     }
 
     public void draw(GameData gameData) {
-        System.out.println("HELLO");
-        generateMask();
+
+       // generateMask();
         HashMap<Integer,Integer> occurenceMap= new HashMap<>();
         gameData.getSpriteBatch().begin();
+        ArrayList<Square> lines = new ArrayList<>();
         for (int i = 0; i < height; i++) {
-            ArrayList<Square> lines = new ArrayList<>();
-          //  System.out.println("IM SAD");
+           lines.clear();
             for (int j = 0; j < width; j++) {
                 int switcher = mask.get(j).get(i);
                 switch (switcher) {
@@ -128,17 +128,16 @@ public class MapPlugin implements PluginService {
                         s.setIsOccupied(false);
                         lines.add(s);
                     }
-                    // System.out.println("White");
                     case 1 -> {
                         Square square = new Square(Color.SCARLET);
                         square.setIsOccupied(true);
-                        // System.out.println("Black");
+
                         lines.add(square);
                     }
                     case 2 -> {
                         Square sq = new Square(Color.SALMON);
                         sq.setIsOccupied(true);
-                        //  System.out.println("Grey");
+
                         lines.add(sq);
                     }
                     default -> {
@@ -146,10 +145,10 @@ public class MapPlugin implements PluginService {
                         throw new NoSuchElementException();
                     }
                 }
-              //  System.out.println(height+" :  "+width);
+
                 if(i%tilesSize == 0 && j%tilesSize==0){
                     int max = 0;
-                    System.out.println("DRAW BITCH");
+
                     int maxId = 0;
                     for(Map.Entry<Integer,Integer> numberId : occurenceMap.entrySet()){
                         if( numberId.getValue()>max){
@@ -159,7 +158,7 @@ public class MapPlugin implements PluginService {
                     }
 
                     gameData.getSpriteBatch().draw(tiles.get(maxId),j,i,tilesSize,tilesSize);
-
+                    occurenceMap.clear();
                 }
                 else {
                     Integer key = mask.get(j).get(i);
@@ -168,6 +167,7 @@ public class MapPlugin implements PluginService {
                     }
                     else {
                         occurenceMap.put(key,1);
+
                     }
                 }
 
@@ -179,6 +179,7 @@ public class MapPlugin implements PluginService {
 
         }
         gameData.getSpriteBatch().end();
+
 
     }
 

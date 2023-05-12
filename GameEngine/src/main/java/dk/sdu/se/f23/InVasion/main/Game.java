@@ -62,8 +62,6 @@ public class Game implements ApplicationListener {
         gameData.getSpriteBatch().begin();
         update(ProcessAt.Tick);
         gameData.getSpriteBatch().end();
-        MapPlugin m = new MapPlugin();
-        m.draw(gameData);
     }
 
     //Update method for EntityProcessingServices: How to do it with ProcessAt.Tick and ProcessAt values?
