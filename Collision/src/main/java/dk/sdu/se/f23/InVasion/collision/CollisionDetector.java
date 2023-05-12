@@ -34,17 +34,16 @@ public class CollisionDetector implements EntityProcessingService {
         }
     }
 
-    public boolean collides(Entity entity, Entity entity2) {
-        PositionPart entMov = entity.getPart(PositionPart.class);
-        PositionPart entMov2 = entity2.getPart(PositionPart.class);
+    public boolean collides(Entity entity, Entity otherEntity) {
+        PositionPart entityPart = entity.getPart(PositionPart.class);
+        PositionPart otherEntityPart = otherEntity.getPart(PositionPart.class);
 
         int entityHeight = entity.getTexture().getHeight();
         int entityWidth = entity.getTexture().getWidth();
-        int otherEntityHeight = entity2.getTexture().getHeight();
-        int otherEntityWidth = entity2.getTexture().getWidth();
+        int otherEntityHeight = otherEntity.getTexture().getHeight();
+        int otherEntityWidth = otherEntity.getTexture().getWidth();
 
-        return (entMov.getX() < (entMov2.getX() + otherEntityWidth) && (entMov.getX() + entityWidth) > entMov2.getX() &&
-                entMov.getY() < (entMov2.getY() + otherEntityHeight) && (entMov.getY() + entityHeight) > entMov2.getY());
-
+        return (entityPart.getX() < (otherEntityPart.getX() + otherEntityWidth) && (entityPart.getX() + entityWidth) > otherEntityPart.getX() &&
+                entityPart.getY() < (otherEntityPart.getY() + otherEntityHeight) && (entityPart.getY() + entityHeight) > otherEntityPart.getY());
     }
 }
