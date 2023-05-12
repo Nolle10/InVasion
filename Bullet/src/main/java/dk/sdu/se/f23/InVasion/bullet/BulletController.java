@@ -67,7 +67,7 @@ public class BulletController implements EntityProcessingService, EventListener 
         bullet.add(new MovingPart(direction, 100, 100));
         bullet.add(new LifePart(1));
         bullet.add(new TimerPart(3));
-        bullet.setTexture(new Texture(Gdx.files.internal("Bullet/src/main/resources/antibody.png")));
+        bullet.setTexture(new Texture(Gdx.files.internal("Bullet/src/main/resources/antibodyCut.png")));
         return bullet;
     }
 
