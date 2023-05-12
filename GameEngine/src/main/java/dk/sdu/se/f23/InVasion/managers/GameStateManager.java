@@ -22,7 +22,6 @@ public class GameStateManager {
     public static final int PAUSE = 3;
     private World world;
     private int currentState = 0;
-    private int waveCount = 1;
 
     public GameStateManager(GameData data, World world) {
         this.world = world;
@@ -39,8 +38,8 @@ public class GameStateManager {
         if(state == PLAY) {
             EventDistributor.sendEvent(new StateChangeEvent(GameStateEnum.PlayState), world);
             gameState = new PlayState(this);
-            EventDistributor.sendEvent(new SpawnEnemysEvent(waveCount), world);
-            waveCount++;
+            gameData.setWaveCount(gameData.getWaveCount() + 1);
+            EventDistributor.sendEvent(new SpawnEnemysEvent(gameData.getWaveCount()), world);
         }
         if(state == SHOP) {
             EventDistributor.sendEvent(new StateChangeEvent(GameStateEnum.ShopState), world);
