@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 
 public class WeaponPlugin implements PluginService {
-    private final String weaponName = "Tower1";
+    private final String weaponName = "Medicine";
     private Texture texture = new Texture(Gdx.files.internal("Weapon/src/main/resources/TOWER.png"));
     private int cost = 200;
 

@@ -57,7 +57,7 @@ public class ShopState extends GameState {
         selected = -1;
         weapons = new ArrayList<>();
         weapons.addAll(gsm.getWorld().getWeapons());
-
+        System.out.println(weapons);
         world = gsm.getWorld();
         gameData = gsm.getGameData();
         stage = new Stage();
