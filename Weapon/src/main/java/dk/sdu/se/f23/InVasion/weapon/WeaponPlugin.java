@@ -6,6 +6,7 @@ import dk.sdu.se.f23.InVasion.common.data.*;
 import dk.sdu.se.f23.InVasion.common.data.entityparts.PositionPart;
 import dk.sdu.se.f23.InVasion.common.events.events.BuyTowerEvent;
 import dk.sdu.se.f23.InVasion.common.events.EventDistributor;
+import dk.sdu.se.f23.InVasion.common.events.events.StateChangeEvent;
 import dk.sdu.se.f23.InVasion.common.events.events.TargetEvent;
 import dk.sdu.se.f23.InVasion.common.data.GameData;
 import dk.sdu.se.f23.InVasion.common.data.World;
@@ -40,7 +41,7 @@ public class WeaponPlugin implements PluginService {
     private Entity createWeapon(Point position) {
         Entity weapon = new Weapon();
         weapon.add(new PositionPart(new Point(position.getX(), position.getY()), 90));
-        weapon.setTexture(new Texture(Gdx.files.internal("Weapon/src/main/resources/tower1.png")));
+        weapon.setTexture(new Texture(Gdx.files.internal("Weapon/src/main/resources/vac.png")));
         return weapon;
     }
 

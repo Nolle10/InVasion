@@ -33,8 +33,8 @@ public class PlayState extends GameState {
 
     public void init() {
         stage = new Stage();
-        Gdx.input.setInputProcessor(stage);
         map = new MapPlugin();
+
 
         map.onEnable(gsm.getGameData(), gsm.getWorld());
         textButtonStyle = new TextButton.TextButtonStyle();
@@ -45,7 +45,7 @@ public class PlayState extends GameState {
         button.addListener( new InputListener(){
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button){
-                System.out.println("Shop button clicked!");
+                gsm.getGameData().removeProcessor(stage);
                 gsm.setState(1);
                 return true;
             }
@@ -55,15 +55,14 @@ public class PlayState extends GameState {
         button1.addListener( new InputListener(){
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button){
-                System.out.println("Pause button clicked!");
+                gsm.getGameData().removeProcessor(stage);
                 gsm.setState(3);
                 return true;
             }
         });
         stage.addActor(button);
         stage.addActor(button1);
-
-
+        gsm.getGameData().addProcessor(stage);
 
         sr = new ShapeRenderer();
     }

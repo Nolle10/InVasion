@@ -4,8 +4,9 @@ package dk.sdu.se.f23.InVasion.managers;
 import dk.sdu.se.f23.InVasion.common.data.GameData;
 import dk.sdu.se.f23.InVasion.common.data.World;
 import dk.sdu.se.f23.InVasion.common.events.EventDistributor;
-import dk.sdu.se.f23.InVasion.common.events.events.Event;
+import dk.sdu.se.f23.InVasion.common.events.enums.GameStateEnum;
 import dk.sdu.se.f23.InVasion.common.events.events.SpawnEnemysEvent;
+import dk.sdu.se.f23.InVasion.common.events.events.StateChangeEvent;
 import dk.sdu.se.f23.InVasion.gamestates.*;
 
 
@@ -31,17 +32,22 @@ public class GameStateManager {
     public void setState(int state) {
         if(gameState != null) gameState.dispose();
         if(state == MENU) {
+            EventDistributor.sendEvent(new StateChangeEvent(GameStateEnum.MainScreen), world);
             gameState = new MainScreenState(this);
         }
         if(state == PLAY) {
+            EventDistributor.sendEvent(new StateChangeEvent(GameStateEnum.PlayState), world);
             gameState = new PlayState(this);
             EventDistributor.sendEvent(new SpawnEnemysEvent(1), world);
         }
         if(state == SHOP) {
-            //System.out.println("IM FUCKING HERE");
+
+            EventDistributor.sendEvent(new StateChangeEvent(GameStateEnum.ShopState), world);
+
             gameState = new ShopState(this);
         }
         if(state == PAUSE) {
+            EventDistributor.sendEvent(new StateChangeEvent(GameStateEnum.PauseState), world);
             gameState = new PauseState(this);
         }
         currentState = state;

@@ -8,10 +8,8 @@ import dk.sdu.se.f23.InVasion.common.data.*;
 import dk.sdu.se.f23.InVasion.common.data.entityparts.LifePart;
 import dk.sdu.se.f23.InVasion.common.data.entityparts.MoneyPart;
 import dk.sdu.se.f23.InVasion.common.data.entityparts.PositionPart;
-import dk.sdu.se.f23.InVasion.common.events.EventDistributor;
-import dk.sdu.se.f23.InVasion.common.events.events.TargetEvent;
 import dk.sdu.se.f23.InVasion.common.events.EventListener;
-import dk.sdu.se.f23.InVasion.common.events.events.Event;
+import dk.sdu.se.f23.InVasion.common.events.abstracts.Event;
 import dk.sdu.se.f23.InVasion.common.events.events.SpawnEnemysEvent;
 import dk.sdu.se.f23.InVasion.common.services.EntityProcessingService;
 import dk.sdu.se.f23.InVasion.commonenemy.Enemy;
@@ -86,7 +84,7 @@ public class EnemyControlSystem implements EntityProcessingService, EventListene
             enemy.add(new PositionPart(route.get(0),0));
             enemy.add(new LifePart(spawnEnemiesEvent.getWaveLevel()*2));
             enemy.add(new MoneyPart(spawnEnemiesEvent.getWaveLevel()*2));
-            enemy.setTexture(new Texture(Gdx.files.internal("Enemy/src/main/resources/dk/sdu/se/f23/InVasion/enemyresources/textures/enemytest.png")));
+            enemy.setTexture(new Texture(Gdx.files.internal("Enemy/src/main/resources/dk/sdu/se/f23/InVasion/enemyresources/textures/enemy2.png")));
             world.addEntity(enemy);
         }
 

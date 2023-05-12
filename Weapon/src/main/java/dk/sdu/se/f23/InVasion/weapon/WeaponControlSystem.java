@@ -6,9 +6,10 @@ import dk.sdu.se.f23.InVasion.common.data.*;
 import dk.sdu.se.f23.InVasion.common.data.entityparts.LifePart;
 import dk.sdu.se.f23.InVasion.common.data.entityparts.PositionPart;
 import dk.sdu.se.f23.InVasion.common.events.*;
-import dk.sdu.se.f23.InVasion.common.events.events.Event;
+import dk.sdu.se.f23.InVasion.common.events.abstracts.Event;
+import dk.sdu.se.f23.InVasion.common.events.enums.GameStateEnum;
 import dk.sdu.se.f23.InVasion.common.events.events.FireShotEvent;
-import dk.sdu.se.f23.InVasion.common.events.events.TargetEvent;
+import dk.sdu.se.f23.InVasion.common.events.events.StateChangeEvent;
 import dk.sdu.se.f23.InVasion.common.services.EntityProcessingService;
 import dk.sdu.se.f23.InVasion.commonenemy.Enemy;
 import dk.sdu.se.f23.InVasion.commonweapon.Weapon;
@@ -23,9 +24,9 @@ public class WeaponControlSystem implements EntityProcessingService, EventListen
     @Override
     public void process(GameData data, World world, ProcessAt processTime) {
         for (Entity weapon : world.getEntities(Weapon.class)) {
-            Point direction = findNearestNeighbor(world);
-            lastShot += data.getDelta() * 50;
-            if (lastShot >= 0.5) {
+            if (((Weapon)weapon).shouldShoot(data.getDelta())) {
+                Point direction = findNearestNeighbor(world);
+
                 if (direction != null) {
                     EventDistributor.sendEvent(new FireShotEvent(weapon, direction), world);
                     lastShot = 0;
@@ -42,7 +43,7 @@ public class WeaponControlSystem implements EntityProcessingService, EventListen
     private Entity createWeapon(Point position) {
         Entity weapon = new Weapon();
         weapon.add(new PositionPart(new Point(position.getX(), position.getY()), 0));
-        weapon.setTexture(new Texture(Gdx.files.internal("Weapon/src/main/resources/TOWER.png")));
+        weapon.setTexture(new Texture(Gdx.files.internal("Weapon/src/main/resources/tower1.png")));
         return weapon;
     }
 

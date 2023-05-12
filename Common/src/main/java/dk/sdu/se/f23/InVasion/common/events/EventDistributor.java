@@ -2,12 +2,9 @@ package dk.sdu.se.f23.InVasion.common.events;
 
 
 import dk.sdu.se.f23.InVasion.common.data.World;
-import dk.sdu.se.f23.InVasion.common.events.events.Event;
+import dk.sdu.se.f23.InVasion.common.events.abstracts.Event;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class EventDistributor {
     private static final Map<Class<?>, List<EventListener>> eventActivatorMap = new HashMap<>();
@@ -23,13 +20,15 @@ public class EventDistributor {
     }
 
     public static void sendEvent(Event event, World world){
-        if (eventActivatorMap.containsKey(event.getClass())) {
-            for (EventListener eventListener : eventActivatorMap.get(event.getClass())) {
-                eventListener.processEvent(event, world);
-            }
-        } else {
+        if (!eventActivatorMap.containsKey(event.getClass())) {
             System.out.println("No listeners for event: " + event.getClass().getName());
+            return;
         }
+
+        for (EventListener eventListener : eventActivatorMap.get(event.getClass())) {
+            eventListener.processEvent(event, world);
+        }
+
     }
 
     public static Map<Class<?>, List<EventListener>> getEventActivatorMap() {
