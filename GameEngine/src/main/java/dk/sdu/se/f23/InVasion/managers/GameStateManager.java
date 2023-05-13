@@ -41,7 +41,9 @@ public class GameStateManager {
             EventDistributor.sendEvent(new SpawnEnemysEvent(1), world);
         }
         if(state == SHOP) {
+
             EventDistributor.sendEvent(new StateChangeEvent(GameStateEnum.ShopState), world);
+
             gameState = new ShopState(this);
         }
         if(state == PAUSE) {
@@ -62,9 +64,12 @@ public class GameStateManager {
         return world;
     }
 
-    public GameData getGameData(){
-        return  gameData;
+
+    public GameData getGameData() {
+        return gameData;
     }
+
+
     public GameState getGameState() {
         return gameState; // i just put this here
     }
