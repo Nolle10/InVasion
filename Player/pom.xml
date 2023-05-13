@@ -10,14 +10,6 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
     <artifactId>Player</artifactId>
-    <!--
-
-<properties>
-    <maven.compiler.source>16</maven.compiler.source>
-    <maven.compiler.target>16</maven.compiler.target>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-</properties>
--->
 
     <dependencies>
         <dependency>
@@ -26,6 +18,12 @@
             <version>1.0-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>5.3.1</version>
+        </dependency>
+
     </dependencies>
 
 </project>
