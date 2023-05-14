@@ -23,7 +23,7 @@ public class VaccineControlSystem implements EntityProcessingService, EventListe
 
     @Override
     public void process(GameData data, World world, ProcessAt processTime) {
-        System.out.println("Proccessing");
+
         for (Entity weapon : world.getEntities(Weapon.class)) {
             if (((Weapon)weapon).shouldShoot(data.getDelta())) {
                 Point direction = findNearestNeighbor(world);
@@ -44,7 +44,7 @@ public class VaccineControlSystem implements EntityProcessingService, EventListe
     private Entity createWeapon(Point position) {
         Entity weapon = new Weapon();
         weapon.add(new PositionPart(new Point(position.getX(), position.getY()), 0));
-        weapon.setTexture(new Texture(Gdx.files.internal("Weapon/src/main/resources/tower1.png")));
+        weapon.setTexture(new Texture(Gdx.files.internal("Vaccine/src/main/resources/vac.png")));
         return weapon;
     }
 

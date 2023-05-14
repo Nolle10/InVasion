@@ -56,7 +56,12 @@ public class ShopState extends GameState {
     public void init() {
         selected = -1;
         weapons = new ArrayList<>();
-        weapons.addAll(gsm.getWorld().getWeapons());
+        for(ArrayList<Object> list: gsm.getWorld().getWeapons()){
+            if(checkForValidData(list)){
+                weapons.add(list);
+            }
+        }
+        //weapons.addAll(gsm.getWorld().getWeapons());
         System.out.println(weapons);
         world = gsm.getWorld();
         gameData = gsm.getGameData();
@@ -87,7 +92,6 @@ public class ShopState extends GameState {
         button1.setPosition(700, 800);
         stage.addActor(button);
         stage.addActor(button1);
-        gsm.getGameData().addProcessor(stage);
 
 
         int shopWidth = 200;
@@ -109,7 +113,6 @@ public class ShopState extends GameState {
                         } else {
                             selected = newSelected;
                         }
-                        System.out.println("CLICKED");
                     }
                 });
 
@@ -128,13 +131,19 @@ public class ShopState extends GameState {
         } catch (NullPointerException e) {
             System.out.println("There are no weapons goddamn");
         }
+        gsm.getGameData().addProcessor(stage);
 
     }
 
-    public void redrawShopBackground() {
+    private boolean checkForValidData(ArrayList<Object> data){
+        for (Object o: data){
+            if (o == null){
+                return false;
+            }
 
+        }
+        return true;
     }
-
     @Override
     public void update(float dt) {
         if (selected == -1) {
