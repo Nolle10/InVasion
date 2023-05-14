@@ -3,7 +3,7 @@ package dk.sdu.se.f23.InVasion.managers;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
 
 class GameStateManagerTest {
 
