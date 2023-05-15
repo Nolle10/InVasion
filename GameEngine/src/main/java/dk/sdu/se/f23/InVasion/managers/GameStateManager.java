@@ -9,6 +9,8 @@ import dk.sdu.se.f23.InVasion.common.events.events.SpawnEnemysEvent;
 import dk.sdu.se.f23.InVasion.common.events.events.StateChangeEvent;
 import dk.sdu.se.f23.InVasion.gamestates.*;
 
+import static dk.sdu.se.f23.InVasion.common.events.enums.GameStateEnum.WinState;
+
 
 public class GameStateManager {
 
@@ -30,8 +32,8 @@ public class GameStateManager {
         }
         if(state == GameStateEnum.PlayState) {
             gameData.setWaveCount(gameData.getWaveCount() + 1);
-            if (gameData.getWaveCount() > 5){
-                state = GameStateEnum.WinState;
+            if (gameData.getWaveCount() > 2){
+                state = WinState;
             } else {
                 EventDistributor.sendEvent(new StateChangeEvent(GameStateEnum.PlayState), world);
                 gameState = new PlayState(this);
@@ -46,14 +48,13 @@ public class GameStateManager {
             EventDistributor.sendEvent(new StateChangeEvent(GameStateEnum.PauseState), world);
             gameState = new PauseState(this);
         }
-        if(state == GameStateEnum.WinState) {
-            EventDistributor.sendEvent(new StateChangeEvent(GameStateEnum.WinState), world);
-            gameState = new EndState(this, 1);
-            System.out.println("here ");
+        if(state == WinState) {
+            EventDistributor.sendEvent(new StateChangeEvent(WinState), world);
+            gameState = new WinState(this);
         }
         if(state == GameStateEnum.LossState){
             EventDistributor.sendEvent(new StateChangeEvent(GameStateEnum.LossState), world);
-            gameState = new EndState(this, 0);
+            gameState = new LossState(this);
         }
 
         gameData.setCurrentState(state);
