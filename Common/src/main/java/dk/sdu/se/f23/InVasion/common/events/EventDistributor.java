@@ -7,14 +7,14 @@ import dk.sdu.se.f23.InVasion.common.events.abstracts.Event;
 import java.util.*;
 
 public class EventDistributor {
-    private static final Map<Class<?>, List<EventListener>> eventActivatorMap = new HashMap<>();
+    private static Map<Class<?>, List<EventListener>> eventActivatorMap = new HashMap<>();
 
     public static void addListener(Class<?> eventClass, EventListener listener){
         eventActivatorMap.computeIfAbsent(eventClass, k -> new ArrayList<>());
         eventActivatorMap.get(eventClass).add(listener);
     }
 
-    public static boolean removeListener(Class<?> eventClass, EventListener eventListener){
+    public static boolean removeListener(Class<? extends Event> eventClass, EventListener eventListener){
         return eventActivatorMap.get(eventClass).remove(eventListener);
 
     }
@@ -28,10 +28,11 @@ public class EventDistributor {
         for (EventListener eventListener : eventActivatorMap.get(event.getClass())) {
             eventListener.processEvent(event, world);
         }
-
     }
 
     public static Map<Class<?>, List<EventListener>> getEventActivatorMap() {
         return eventActivatorMap;
     }
+
+
 }

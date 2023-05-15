@@ -68,7 +68,7 @@ class BulletPluginTest {
         verify(this.world, never()).removeEntity(notBullet1);
     }
 
-    private static boolean checkIfEventListenerIsRegistered(Class event) {
+    private static boolean checkIfEventListenerIsRegistered(Class<? extends Event> event) {
         for (EventListener eventListener2 : EventDistributor.getEventActivatorMap().get(event)) {
             if (eventListener2 instanceof BulletController) {
                 return true;

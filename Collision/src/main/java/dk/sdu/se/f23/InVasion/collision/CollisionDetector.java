@@ -28,8 +28,8 @@ public class CollisionDetector implements EntityProcessingService {
                         // if entity is out of life - remove
                         if (entityLife.getLife() <= 0) {
                             world.removeEntity(enemy);
-                            world.removeEntity(bullet);
                         }
+                        world.removeEntity(bullet);
                     }
                 }
             }
