@@ -1,7 +1,5 @@
 package dk.sdu.se.f23.InVasion.gamestates;
 
-import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import dk.sdu.se.f23.InVasion.common.data.GameData;
 import dk.sdu.se.f23.InVasion.common.data.buttonSkin;
 import dk.sdu.se.f23.InVasion.common.events.enums.GameStateEnum;

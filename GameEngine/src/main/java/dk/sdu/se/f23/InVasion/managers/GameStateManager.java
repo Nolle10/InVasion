@@ -31,30 +31,32 @@ public class GameStateManager {
             gameState = new MainScreenState(this);
         }
         if(state == GameStateEnum.PlayState) {
+            EventDistributor.sendEvent(new StateChangeEvent(GameStateEnum.PlayState), world);
             gameData.setWaveCount(gameData.getWaveCount() + 1);
-            if (gameData.getWaveCount() > 2){
-                state = WinState;
-            } else {
-                EventDistributor.sendEvent(new StateChangeEvent(GameStateEnum.PlayState), world);
-                gameState = new PlayState(this);
-                EventDistributor.sendEvent(new SpawnEnemysEvent(gameData.getWaveCount()), world);
-            }
+            gameState = new PlayState(this);
+            EventDistributor.sendEvent(new SpawnEnemysEvent(gameData.getWaveCount()), world);
         }
         if(state == GameStateEnum.ShopState) {
-            EventDistributor.sendEvent(new StateChangeEvent(GameStateEnum.ShopState), world);
-            gameState = new ShopState(this);
+            if (gameData.getWaveCount() > 4){
+                state = GameStateEnum.WinState;
+            } else {
+                EventDistributor.sendEvent(new StateChangeEvent(GameStateEnum.ShopState), world);
+                gameState = new ShopState(this);
+            }
         }
         if(state == GameStateEnum.PauseState) {
             EventDistributor.sendEvent(new StateChangeEvent(GameStateEnum.PauseState), world);
             gameState = new PauseState(this);
         }
-        if(state == WinState) {
-            EventDistributor.sendEvent(new StateChangeEvent(WinState), world);
+        if(state == GameStateEnum.WinState) {
+            EventDistributor.sendEvent(new StateChangeEvent(GameStateEnum.WinState), world);
             gameState = new WinState(this);
+            gameData.setWaveCount(0);
         }
         if(state == GameStateEnum.LossState){
             EventDistributor.sendEvent(new StateChangeEvent(GameStateEnum.LossState), world);
             gameState = new LossState(this);
+            gameData.setWaveCount(0);
         }
 
         gameData.setCurrentState(state);
