@@ -153,7 +153,7 @@ public class MapPlugin implements PluginService {
                         public void clicked(InputEvent event, float x, float y) {
                             isClicked = true;
                             ClickedField = event.getListenerActor();
-                            System.out.println("Clicked");
+
                         }
                     });
                     stage.addActor(but);
