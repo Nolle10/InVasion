@@ -23,7 +23,6 @@ import static java.util.stream.Collectors.toList;
 public class EnemyControlSystem implements EntityProcessingService, EventListener {
     private static int enemiesToSpawn;
     private float timeSinceLastSpawn;
-    private MoveToAction movingAction = new MoveToAction();
     private ActionService actionService;
 
     public EnemyControlSystem() {
@@ -34,6 +33,7 @@ public class EnemyControlSystem implements EntityProcessingService, EventListene
         }
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public void process(GameData data, World world, ProcessAt processTime) {
         timeSinceLastSpawn += data.getDelta();
@@ -46,8 +46,6 @@ public class EnemyControlSystem implements EntityProcessingService, EventListene
             enemy.add(new LifePart(2));
             enemy.add(new MoneyPart(2));
             enemy.setTexture(new Texture(Gdx.files.internal("Enemy/src/main/resources/dk/sdu/se/f23/InVasion/enemyresources/textures/enemy2.png")));
-            System.out.println("New Enemy is spawned " + world.addEntity(enemy) + ", we now have: " + world.getEntities(Enemy.class).size());
-            System.out.println(Arrays.toString(world.getEntities(Enemy.class).toArray()));
         }
 
 
