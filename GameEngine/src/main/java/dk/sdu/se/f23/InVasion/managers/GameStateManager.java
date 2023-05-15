@@ -9,8 +9,6 @@ import dk.sdu.se.f23.InVasion.common.events.events.SpawnEnemysEvent;
 import dk.sdu.se.f23.InVasion.common.events.events.StateChangeEvent;
 import dk.sdu.se.f23.InVasion.gamestates.*;
 
-import static dk.sdu.se.f23.InVasion.common.events.enums.GameStateEnum.WinState;
-
 
 public class GameStateManager {
 
@@ -69,12 +67,12 @@ public class GameStateManager {
     public void draw() {
         gameState.draw(gameData);
     }
+
     public World getWorld(){
         return world;
     }
 
-    public GameData getGameData(){
-        return  gameData;
+    public GameData getGameData() {
+        return gameData;
     }
-
 }

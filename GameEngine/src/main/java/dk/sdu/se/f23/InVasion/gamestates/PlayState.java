@@ -13,6 +13,9 @@ import dk.sdu.se.f23.InVasion.common.data.GameData;
 import dk.sdu.se.f23.InVasion.common.data.World;
 import dk.sdu.se.f23.InVasion.common.events.enums.GameStateEnum;
 import dk.sdu.se.f23.InVasion.managers.GameStateManager;
+import dk.sdu.se.f23.InVasion.map.MapPlugin;
+
+import java.util.Map;
 
 public class PlayState extends GameState {
 
@@ -21,8 +24,10 @@ public class PlayState extends GameState {
 
     private TextButton button;
     private TextButton button1;
-    private Label titleLabel;
+    private Label labelWave;
     private TextButton.TextButtonStyle textButtonStyle;
+
+    private MapPlugin map;
 
     public PlayState(GameStateManager gsm) {
         super(gsm);
@@ -30,7 +35,10 @@ public class PlayState extends GameState {
 
     public void init() {
         stage = new Stage();
+        map = new MapPlugin();
 
+
+        map.onEnable(gsm.getGameData(), gsm.getWorld());
         textButtonStyle = new TextButton.TextButtonStyle();
         textButtonStyle.font = new BitmapFont();
         textButtonStyle.fontColor = Color.YELLOW;
@@ -56,14 +64,14 @@ public class PlayState extends GameState {
         });
 
         BitmapFont font = new BitmapFont();
-        font.getData().setScale(4);
+        font.getData().setScale(3);
         Label.LabelStyle style = new Label.LabelStyle(font, Color.WHITE);
-        titleLabel = new Label(String.format("Wave: %d", gsm.getGameData().getWaveCount()), style);
-        titleLabel.setPosition(250, 850);
+        labelWave = new Label(String.format("Wave: %d", gsm.getGameData().getWaveCount()), style);
+        labelWave.setPosition(100, 950);
 
         stage.addActor(button);
         stage.addActor(button1);
-        stage.addActor(titleLabel);
+        stage.addActor(labelWave);
         gsm.getGameData().addProcessor(stage);
 
         sr = new ShapeRenderer();
@@ -74,6 +82,7 @@ public class PlayState extends GameState {
     }
 
     public void draw(GameData gameData) {
+        map.draw(gameData);
         stage.draw();
     }
 

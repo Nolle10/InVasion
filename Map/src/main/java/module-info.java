@@ -1,4 +1,5 @@
 module Map {
+    exports dk.sdu.se.f23.InVasion.map;
     requires Common;
     requires java.desktop;
     requires shadedlibgdx;

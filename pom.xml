@@ -21,6 +21,7 @@
         <module>CommonWeapon</module>
         <module>CommonBullet</module>
         <module>CommonEnemy</module>
+        <module>Vaccine</module>
     </modules>
 
     <properties>

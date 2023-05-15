@@ -232,6 +232,7 @@ public class AStarAction implements ActionService  {
         List<Point> pathPoints = new ArrayList<>();
 
         for(Node node : path){
+
             pathPoints.add(new Point(node.getRow(), node.getCol()));
         }
 
