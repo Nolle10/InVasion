@@ -21,6 +21,7 @@ public class BulletPlugin implements PluginService{
     @Override
     public void onDisable(GameData data, World world) {
         EventDistributor.removeListener(FireShotEvent.class, bulletController);
+        EventDistributor.removeListener(StateChangeEvent.class, bulletController);
         for (Entity e : world.getEntities()) {
             if (e.getClass() == Bullet.class) {
                 world.removeEntity(e);

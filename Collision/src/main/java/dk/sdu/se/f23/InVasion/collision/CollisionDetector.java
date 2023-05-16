@@ -12,6 +12,7 @@ import dk.sdu.se.f23.InVasion.commonenemy.Enemy;
 
 public class CollisionDetector implements EntityProcessingService {
 
+    @SuppressWarnings("unchecked")
     @Override
     public void process(GameData data, World world, ProcessAt processTime) {
         for (Entity enemy : world.getEntities(Enemy.class)) {
@@ -28,6 +29,7 @@ public class CollisionDetector implements EntityProcessingService {
                         if (entityLife.getLife() <= 0) {
                             world.removeEntity(enemy);
                         }
+                        world.removeEntity(bullet);
                     }
                 }
             }

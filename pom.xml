@@ -27,8 +27,12 @@
     <properties>
         <java>java</java>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>16</maven.compiler.source>
-        <maven.compiler.target>16</maven.compiler.target>
+        <maven.compiler.source>19</maven.compiler.source>
+        <maven.compiler.target>19</maven.compiler.target>
+        <surefire.version>3.0.0</surefire.version>
+        <junit.jupiter.version>5.9.1</junit.jupiter.version>
+        <junit.platform.version>1.9.1</junit.platform.version>
+        <mockito.core.version>5.3.1</mockito.core.version>
     </properties>
 
     <dependencyManagement>
@@ -40,8 +44,10 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+
     <build>
         <plugins>
+            <!--
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -49,6 +55,17 @@
                 <configuration>
                     <source>16</source>
                     <target>16</target>
+                    <fork>true</fork>
+                </configuration>
+            </plugin> -->
+            <plugin>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>3.2.0</version>
+            </plugin>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.10.1</version>
+                <configuration>
                     <fork>true</fork>
                 </configuration>
             </plugin>
@@ -124,7 +141,7 @@
                 <plugins>
                     <plugin>
                         <artifactId>maven-dependency-plugin</artifactId>
-                        <version>3.3.0</version>
+                        <version>3.0.2</version>
                         <executions>
                             <execution>
                                 <id>copy-installed</id>
