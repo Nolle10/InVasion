@@ -52,7 +52,7 @@ public class BulletController implements EntityProcessingService, EventListener 
         float y = bulletPos.getY();
 
 
-        data.getSpriteBatch().draw(bullet.getTexture(), x, y);
+        data.getSpriteBatch().draw(bullet.getTexture(), x, y,Gdx.graphics.getWidth()/50, Gdx.graphics.getHeight()/28);
     }
 
     public Entity createBullet(Entity shooter, Point direction) {
