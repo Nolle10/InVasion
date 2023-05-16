@@ -32,20 +32,10 @@ public class VaccinePlugin implements PluginService {
         weaponVariables.add(texture);
         weaponVariables.add(cost);
         world.addWeapon(weaponVariables);
-        //Temp add weapon (for testing purposes)
-        world.addEntity(createWeapon(new Point(1000, 600)));
         //Adding WeaponControlSystem as an EventListener for TargetEvent and BuyTowerEvent
         VaccineControlSystem vaccineControlSystem = new VaccineControlSystem();
         EventDistributor.addListener(TargetEvent.class, vaccineControlSystem);
         EventDistributor.addListener(BuyTowerEvent.class, vaccineControlSystem);
-    }
-
-    //Can be deleted when Event firing from shop is implemented
-    private Entity createWeapon(Point position) {
-        Entity weapon = new Weapon();
-        weapon.add(new PositionPart(new Point(position.getX(), position.getY()), 90));
-        weapon.setTexture(new Texture(Gdx.files.internal("Weapon/src/main/resources/vac.png")));
-        return weapon;
     }
 
 

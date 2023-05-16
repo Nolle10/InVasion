@@ -46,6 +46,7 @@ public class EnemyControlSystem implements EntityProcessingService, EventListene
             enemy.add(new LifePart(2));
             enemy.add(new MoneyPart(2));
             enemy.setTexture(new Texture(Gdx.files.internal("Enemy/src/main/resources/dk/sdu/se/f23/InVasion/enemyresources/textures/enemy2.png")));
+            world.addEntity(enemy);
         }
 
 
