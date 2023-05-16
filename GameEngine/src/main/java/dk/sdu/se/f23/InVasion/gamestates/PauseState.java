@@ -1,6 +1,5 @@
 package dk.sdu.se.f23.InVasion.gamestates;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -10,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
 import dk.sdu.se.f23.InVasion.common.data.GameData;
+import dk.sdu.se.f23.InVasion.common.events.enums.GameStateEnum;
 import dk.sdu.se.f23.InVasion.managers.GameStateManager;
 import dk.sdu.se.f23.InVasion.common.data.buttonSkin;
 
@@ -20,6 +20,7 @@ public class PauseState extends GameState{
     private TextButton button;
     private TextButton button1;
     private Label titleLabel;
+    private Label titleLabel1;
 
     public PauseState(GameStateManager gsm) {
         super(gsm);
@@ -35,7 +36,6 @@ public class PauseState extends GameState{
         titleLabel = new Label("Game is paused", style);
         titleLabel.setPosition(750, 800);
 
-
         button = new TextButton("Resume game", buttonSkin.getSkin());
         button.getLabel().setFontScale(2,2);
         button.setPosition(760,500);
@@ -43,7 +43,7 @@ public class PauseState extends GameState{
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button){
                 gsm.getGameData().removeProcessor(stage);
-                gsm.setState(2);
+                gsm.setState(GameStateEnum.PlayState);
                 return true;
             }
         });
@@ -55,10 +55,11 @@ public class PauseState extends GameState{
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button){
                 gsm.getGameData().removeProcessor(stage);
-                gsm.setState(0);
+                gsm.setState(GameStateEnum.MainScreen);
                 return true;
             }
         });
+
 
         stage.addActor(button);
         stage.addActor(button1);
