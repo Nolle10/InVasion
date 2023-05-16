@@ -83,6 +83,6 @@ public class PauseState extends GameState{
 
     @Override
     public void dispose() {
-
+gsm.getGameData().removeProcessor(stage);
     }
 }

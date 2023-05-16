@@ -106,9 +106,16 @@ public class MapPlugin implements PluginService {
     }
 
     public void onDisable(GameData gameData, World world) {
+        gameData.removeProcessor(stage);
+        stage.clear();
+        mapFields.clear();
+
+    }
+    public void clearStuff (GameData gameData, World world) {
+        gameData.removeAllProccessors();
+        stage.clear();
         mapFields.clear();
     }
-
     public int getHeight() {
         return height;
     }
@@ -148,14 +155,15 @@ public class MapPlugin implements PluginService {
                     ImageButton but = new ImageButton((weaponImage));
                     but.setSize(tilesSize,tilesSize);
                     but.setPosition(j, i);
-                    but.addListener(new ClickListener() {
-                        @Override
-                        public void clicked(InputEvent event, float x, float y) {
-                            isClicked = true;
-                            ClickedField = event.getListenerActor();
-
-                        }
-                    });
+                    if(maxId==2) {
+                        but.addListener(new ClickListener() {
+                            @Override
+                            public void clicked(InputEvent event, float x, float y) {
+                                isClicked = true;
+                                ClickedField = event.getListenerActor();
+                            }
+                        });
+                    }
                     stage.addActor(but);
                     occurenceMap.clear();
 
@@ -182,7 +190,8 @@ public class MapPlugin implements PluginService {
             isClicked = false;
         }
     stage.draw();
-        gameData.addProcessor(stage);
+        gameData.removeProcessor(stage);
+         gameData.addProcessor(stage);
 
     }
 

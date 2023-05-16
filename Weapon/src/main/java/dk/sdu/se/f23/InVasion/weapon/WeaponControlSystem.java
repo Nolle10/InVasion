@@ -45,6 +45,7 @@ public class WeaponControlSystem implements EntityProcessingService, EventListen
         Entity weapon = new Weapon();
         weapon.add(new PositionPart(new Point(position.getX(), position.getY()), 0));
         weapon.setTexture(new Texture(Gdx.files.internal("Weapon/src/main/resources/TOWER.png")));
+
         return weapon;
     }
 
