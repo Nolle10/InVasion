@@ -8,9 +8,17 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import dk.sdu.se.f23.InVasion.common.data.GameData;
 import dk.sdu.se.f23.InVasion.common.data.Point;
 import dk.sdu.se.f23.InVasion.common.data.World;
+import dk.sdu.se.f23.InVasion.common.events.EventDistributor;
+import dk.sdu.se.f23.InVasion.common.events.events.BuyTowerEvent;
 import dk.sdu.se.f23.InVasion.common.services.PluginService;
 
 import javax.imageio.ImageIO;
@@ -35,8 +43,12 @@ public class MapPlugin implements PluginService {
     private ArrayList<ArrayList<Square>> mapFields;
     private ArrayList<Texture> tiles;
     private  ArrayList<ArrayList<Integer>> mask;
-
+    private Stage stage;
+    private World world;
+    private boolean isClicked =  false;
+    private Actor ClickedField= null;
     public MapPlugin() {
+        stage = new Stage();
         mapFields = new ArrayList<>();
         tiles = new ArrayList<>();
         Texture texture1 = new Texture(Gdx.files.internal("Map/src/main/resources/dk/sdu/se/f23/InVasion/mapresources/textures/pixil-frame-1.png"));
@@ -53,7 +65,8 @@ public class MapPlugin implements PluginService {
         world.setInitState(new Point(0, 0));
         world.setGoalState(new Point(width, height));
         mask = generateMask();
-
+        this.world = world;
+        generateClickableMap();
 
        //draw();
     }
@@ -93,9 +106,16 @@ public class MapPlugin implements PluginService {
     }
 
     public void onDisable(GameData gameData, World world) {
+        gameData.removeProcessor(stage);
+        stage.clear();
+        mapFields.clear();
+
+    }
+    public void clearStuff (GameData gameData, World world) {
+        gameData.removeAllProccessors();
+        stage.clear();
         mapFields.clear();
     }
-
     public int getHeight() {
         return height;
     }
@@ -112,39 +132,13 @@ public class MapPlugin implements PluginService {
         width = w;
     }
 
-    public void draw(GameData gameData) {
-
-       // generateMask();
+    public void generateClickableMap(){
         HashMap<Integer,Integer> occurenceMap= new HashMap<>();
-        gameData.getSpriteBatch().begin();
-        ArrayList<Square> lines = new ArrayList<>();
+
+
         for (int i = 0; i < height; i++) {
-           lines.clear();
+
             for (int j = 0; j < width; j++) {
-                int switcher = mask.get(j).get(i);
-                switch (switcher) {
-                    case 0 -> {
-                        Square s = new Square(Color.RED);
-                        s.setIsOccupied(false);
-                        lines.add(s);
-                    }
-                    case 1 -> {
-                        Square square = new Square(Color.SCARLET);
-                        square.setIsOccupied(true);
-
-                        lines.add(square);
-                    }
-                    case 2 -> {
-                        Square sq = new Square(Color.SALMON);
-                        sq.setIsOccupied(true);
-
-                        lines.add(sq);
-                    }
-                    default -> {
-                        System.out.println("SOMETHING WENT WRONG ");
-                        throw new NoSuchElementException();
-                    }
-                }
 
                 if(i%tilesSize == 0 && j%tilesSize==0){
                     int max = 0;
@@ -156,9 +150,23 @@ public class MapPlugin implements PluginService {
                             maxId = numberId.getKey();
                         }
                     }
-
-                    gameData.getSpriteBatch().draw(tiles.get(maxId),j,i,tilesSize,tilesSize);
+                    Texture t = tiles.get(maxId);
+                    TextureRegionDrawable weaponImage = new TextureRegionDrawable(t);
+                    ImageButton but = new ImageButton((weaponImage));
+                    but.setSize(tilesSize,tilesSize);
+                    but.setPosition(j, i);
+                    if(maxId==2) {
+                        but.addListener(new ClickListener() {
+                            @Override
+                            public void clicked(InputEvent event, float x, float y) {
+                                isClicked = true;
+                                ClickedField = event.getListenerActor();
+                            }
+                        });
+                    }
+                    stage.addActor(but);
                     occurenceMap.clear();
+
                 }
                 else {
                     Integer key = mask.get(j).get(i);
@@ -170,16 +178,20 @@ public class MapPlugin implements PluginService {
 
                     }
                 }
-
-
             }
 
-            mapFields.add(lines);
-
-
         }
-        gameData.getSpriteBatch().end();
 
+    }
+
+    public void draw(GameData gameData) {
+        if(isClicked) {
+            EventDistributor.sendEvent(new BuyTowerEvent(new Point((int)ClickedField.getX(),(int)ClickedField.getY())), world);
+            isClicked = false;
+        }
+    stage.draw();
+        gameData.removeProcessor(stage);
+         gameData.addProcessor(stage);
 
     }
 
