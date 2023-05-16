@@ -23,7 +23,6 @@ import static java.util.stream.Collectors.toList;
 public class EnemyControlSystem implements EntityProcessingService, EventListener {
     private static int enemiesToSpawn;
     private float timeSinceLastSpawn;
-    private MoveToAction movingAction = new MoveToAction();
     private ActionService actionService;
 
     public EnemyControlSystem() {
