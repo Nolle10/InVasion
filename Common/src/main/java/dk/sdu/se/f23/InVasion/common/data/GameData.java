@@ -4,6 +4,7 @@ import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import dk.sdu.se.f23.InVasion.common.events.abstracts.Event;
+import dk.sdu.se.f23.InVasion.common.events.enums.GameStateEnum;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,13 +12,14 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 public class GameData {
     private int playerMoney;
+    private int waveCount = 0;
     private float delta;
     private int displayWidth;
     private int displayHeight;
     private SpriteBatch spriteBatch;
     private InputMultiplexer multiplexer;
 
-    //private final GameKeys keys = new GameKeys();
+    private GameStateEnum currentState;
 
     public void setMultiplexer(InputMultiplexer inputMultiplexer){
         this.multiplexer = inputMultiplexer;
@@ -39,10 +41,7 @@ public class GameData {
         this.spriteBatch = spriteBatch;
     }
 
-    /*TODO: Create custom game keys for our specific game
-    public GameKeys getKeys() {
-        return keys;
-    }*/
+    public void setCurrentState(GameStateEnum state){ this.currentState = state;}
 
     public void setDelta(float delta) {
         this.delta = delta;
@@ -74,5 +73,14 @@ public class GameData {
 
     public void setPlayerMoney(int playerMoney) {
         this.playerMoney = playerMoney;
+    }
+
+
+    public int getWaveCount() {
+        return waveCount;
+    }
+
+    public void setWaveCount(int waveCount) {
+        this.waveCount = waveCount;
     }
 }

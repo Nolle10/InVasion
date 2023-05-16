@@ -1,9 +1,8 @@
 package dk.sdu.se.f23.InVasion.gamestates;
 
-import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import dk.sdu.se.f23.InVasion.common.data.GameData;
 import dk.sdu.se.f23.InVasion.common.data.buttonSkin;
+import dk.sdu.se.f23.InVasion.common.events.enums.GameStateEnum;
 import dk.sdu.se.f23.InVasion.managers.GameStateManager;
 
 import com.badlogic.gdx.Gdx;
@@ -44,7 +43,7 @@ public class MainScreenState extends GameState{
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button){
                 gsm.getGameData().removeProcessor(stage);
-                gsm.setState(1);
+                gsm.setState(GameStateEnum.ShopState);
                 return true;
             }
         });
