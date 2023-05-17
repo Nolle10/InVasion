@@ -8,6 +8,7 @@ import dk.sdu.se.f23.InVasion.common.data.entityparts.PositionPart;
 import dk.sdu.se.f23.InVasion.common.events.*;
 import dk.sdu.se.f23.InVasion.common.events.abstracts.Event;
 import dk.sdu.se.f23.InVasion.common.events.enums.GameStateEnum;
+import dk.sdu.se.f23.InVasion.common.events.events.BuyTowerEvent;
 import dk.sdu.se.f23.InVasion.common.events.events.FireShotEvent;
 import dk.sdu.se.f23.InVasion.common.events.events.StateChangeEvent;
 import dk.sdu.se.f23.InVasion.common.services.EntityProcessingService;
@@ -52,9 +53,9 @@ public class VaccineControlSystem implements EntityProcessingService, EventListe
     @Override
     public void processEvent(Event event, World world) {
         //Needed when Event firing from shop is implemented
-        /*if (event instanceof BuyTowerEvent) {
+       if (event instanceof BuyTowerEvent) {
             world.addEntity(createWeapon(((BuyTowerEvent) event).getPosition()));
-        }*/
+        }
     }
 
 

@@ -33,7 +33,6 @@ public class EnemyControlSystem implements EntityProcessingService, EventListene
         }
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public void process(GameData data, World world, ProcessAt processTime) {
         timeSinceLastSpawn += data.getDelta();

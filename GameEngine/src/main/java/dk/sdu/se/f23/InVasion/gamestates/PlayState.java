@@ -19,7 +19,7 @@ import java.util.Map;
 
 public class PlayState extends GameState {
 
-    private ShapeRenderer sr;
+
     private Stage stage;
 
     private TextButton button;
@@ -53,7 +53,7 @@ public class PlayState extends GameState {
             }
         });
         button1 = new TextButton("pause button", textButtonStyle);
-        button1.setPosition(1500,900);
+        button1.setPosition(1750,900);
         button1.addListener( new InputListener(){
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button){
@@ -74,7 +74,6 @@ public class PlayState extends GameState {
         stage.addActor(labelWave);
         gsm.getGameData().addProcessor(stage);
 
-        sr = new ShapeRenderer();
     }
 
     public void update(float dt) {
@@ -82,13 +81,17 @@ public class PlayState extends GameState {
     }
 
     public void draw(GameData gameData) {
-        map.draw(gameData);
         stage.draw();
+        map.draw(gameData);
+
     }
 
     public void handleInput() {
+
     }
 
     public void dispose() {
+        gsm.getGameData().removeProcessor(stage);
+        map.clearStuff(gsm.getGameData(), gsm.getWorld());
     }
 }
