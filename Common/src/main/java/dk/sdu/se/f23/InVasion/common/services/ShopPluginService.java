@@ -4,7 +4,6 @@ import com.badlogic.gdx.graphics.Texture;
 import dk.sdu.se.f23.InVasion.common.data.GameData;
 import dk.sdu.se.f23.InVasion.common.data.World;
 
-import java.util.ArrayList;
 
 public interface ShopPluginService {
 

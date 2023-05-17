@@ -63,14 +63,6 @@ public class ShopState extends GameState {
     @Override
     public void init() {
         selected = -1;
-        //weapons = new ArrayList<>();
-        /*for(ArrayList<Object> list: gsm.getWorld().getWeapons()){
-            if(checkForValidData(list)){
-                weapons.add(list);
-            }
-        }*/
-        //weapons.addAll(gsm.getWorld().getWeapons());
-        //System.out.println(weapons);
         world = gsm.getWorld();
         gameData = gsm.getGameData();
         stage = new Stage();
@@ -84,7 +76,7 @@ public class ShopState extends GameState {
         stage.addActor(placingLabel);
         stage.addActor(notEnoughMoneyLabel);
         sr = new ShapeRenderer();
-        map = new MapPlugin(); //TODO: map
+        map = new MapPlugin();
         map.onEnable(gameData, world);
         textButtonStyle = new TextButton.TextButtonStyle();
         textButtonStyle.font = new BitmapFont();
@@ -142,59 +134,13 @@ public class ShopState extends GameState {
         } catch (NullPointerException e) {
             System.out.println("There are no weapons goddamn");
         }
-        /*
-            for (int i = 0; i < weapons.size(); i++) {
-                Texture t = (Texture) weapons.get(i).get(1);
-                TextureRegionDrawable weaponImage = new TextureRegionDrawable(t);
-                ImageButton but = new ImageButton((weaponImage));
-                but.setPosition(1920 - (shopWidth), 800 - (i * 200));
-                but.setName(String.valueOf(i));
-
-                but.addListener(new ClickListener() {
-                    @Override
-                    public void clicked(InputEvent event, float x, float y) {
-                        //  EventDistributor.sendEvent(new BuyTowerEvent(new Point()),world);
-                        int newSelected = Integer.parseInt(but.getName());
-
-                        if (newSelected == selected) {
-                            selected = -1;
-                        } else {
-                            selected = newSelected;
-                        }
-                    }
-                });
-
-                int cost = (int) weapons.get(i).get(2);
-                Label costLabel = new Label("Cost: " + cost, labelStyle);
-                costLabel.setPosition(but.getX() + 20, but.getY() - costLabel.getHeight() - 10);
-                stage.addActor(costLabel);
-                String name  = (String) weapons.get(i).get(0);
-
-                Label nameLabel = new Label( name, labelStyle);
-                nameLabel.setPosition(but.getX() + 30, but.getY() - nameLabel.getHeight() + 10);
-                stage.addActor(nameLabel);
-                //  spriteBatch.draw(t, 1920 - (shopWidth), 800-(i*200));
-                stage.addActor(but);
-            }
-        } catch (NullPointerException e) {
-            System.out.println("There are no weapons goddamn");
-        }*/
         gsm.getGameData().addProcessor(stage);
 
     }
 
-    /*private boolean checkForValidData(ArrayList<Object> data) {
-        for (Object o : data) {
-            if (o == null) {
-                return false;
-            }
-
-        }
-        return true;
-    }
-*/
     @Override
     public void update(float dt) {
+        for (ShopPluginService shopPlugin : getShopPluginServices()){
         if (selected == -1) {
             if (sel != null) {
                 sel.remove();
@@ -202,11 +148,10 @@ public class ShopState extends GameState {
                 notEnoughMoneyLabel.setVisible(false);
                 sel = null;
             }//TODO: Send some kind of event with selected image? Need shop to actually contain WeaponPlugins not just textures
-        } else if (Integer.parseInt(weapons.get(selected).get(2).toString())> gameData.getPlayerMoney()) {
+        } else if (shopPlugin.getCost() > gameData.getPlayerMoney()) {
             notEnoughMoneyLabel.setVisible(true);
             notEnoughMoneyLabel.setPosition(1920 - (200), 80);
         } else {
-            for (ShopPluginService shopPlugin : getShopPluginServices()){
                 TextureRegionDrawable weaponImage = new TextureRegionDrawable(shopPlugin.getTexture());
                 if (sel == null) {
 
@@ -222,26 +167,7 @@ public class ShopState extends GameState {
                 } else {
                     sel.getStyle().imageUp = weaponImage;
                 }
-
             }
-            //Texture t = (Texture) weapons.get(selected).get(1);
-            //TextureRegionDrawable weaponImage = new TextureRegionDrawable(t);
-
-            /*if (sel == null) {
-
-                placingLabel.setPosition(1920 - (200), 80);
-                placingLabel.setVisible(true);
-                notEnoughMoneyLabel.setVisible(false);
-                sel = new ImageButton((weaponImage));
-                textButtonStyle.fontColor = Color.RED;
-
-                sel.setPosition(1920 - (200), 100);
-
-                stage.addActor(sel);
-
-            } else {
-                sel.getStyle().imageUp = weaponImage;
-            }*/
         }
     }
 
@@ -258,15 +184,6 @@ public class ShopState extends GameState {
         sr.end();
 
         map.draw(gameData);
-
-
-        //    SpriteBatch spriteBatch = gameData.getSpriteBatch();
-        // spriteBatch.begin();
-
-
-        //System.out.println(selected);
-        //  spriteBatch.end();
-        //  stage.draw();
         stage.draw();
 
     }

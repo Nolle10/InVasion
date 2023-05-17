@@ -54,9 +54,7 @@ public class WeaponControlSystem implements EntityProcessingService, EventListen
     public void processEvent(Event event, World world) {
         //Needed when Event firing from shop is implemented
         if (event instanceof BuyTowerEvent) {
-            if (((BuyTowerEvent) event).getSender() instanceof Weapon) {
-                world.addEntity(createWeapon(((BuyTowerEvent) event).getPosition()));
-            }
+            world.addEntity(createWeapon(((BuyTowerEvent) event).getPosition()));
         }
     }
 

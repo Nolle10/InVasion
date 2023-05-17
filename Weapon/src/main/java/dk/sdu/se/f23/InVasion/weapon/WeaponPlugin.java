@@ -22,11 +22,6 @@ public class WeaponPlugin implements ShopPluginService {
 
     @Override
     public void onEnable(GameData data, World world) {
-        /*ArrayList<Object> weaponVariables = new ArrayList<>();
-        weaponVariables.add(weaponName);
-        weaponVariables.add(texture);
-        weaponVariables.add(cost);
-        world.addWeapon(weaponVariables);*/
         //Adding WeaponControlSystem as an EventListener for TargetEvent and BuyTowerEvent
         WeaponControlSystem weaponControlSystem = new WeaponControlSystem();
         EventDistributor.addListener(TargetEvent.class, weaponControlSystem);

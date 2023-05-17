@@ -186,8 +186,7 @@ public class MapPlugin implements PluginService {
 
     public void draw(GameData gameData) {
         if(isClicked) {
-            //TODO: FIX
-            //EventDistributor.sendEvent(new BuyTowerEvent(new Point((int)ClickedField.getX(),(int)ClickedField.getY())), world);
+            EventDistributor.sendEvent(new BuyTowerEvent(new Point((int)ClickedField.getX(),(int)ClickedField.getY())), world);
             isClicked = false;
         }
     stage.draw();
