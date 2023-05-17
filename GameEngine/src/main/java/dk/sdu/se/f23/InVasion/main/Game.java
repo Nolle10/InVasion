@@ -56,6 +56,7 @@ public class Game implements ApplicationListener {
             plugin.onEnable(gameData, world);
             System.out.println(plugin.getClass().getName() + " loaded");
         }
+        gameData.setPlayerMoney(5000);
     }
 
     public void render() {

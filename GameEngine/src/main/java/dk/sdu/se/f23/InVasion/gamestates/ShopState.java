@@ -40,7 +40,7 @@ public class ShopState extends GameState {
     private ShapeRenderer sr;
     private Stage stage;
 
-    private ArrayList<ArrayList<Object>> weapons;
+    //private ArrayList<ArrayList<Object>> weapons;
     private TextButton button;
     private TextButton button1;
     private TextButton.TextButtonStyle textButtonStyle;
@@ -53,8 +53,9 @@ public class ShopState extends GameState {
 
     private int selected = -1;
     private TextButton cost;
-    private Label placingLabel;
 
+    private Label placingLabel ;
+    private Label notEnoughMoneyLabel;
     public ShopState(GameStateManager gsm) {
         super(gsm);
     }
@@ -75,9 +76,13 @@ public class ShopState extends GameState {
         stage = new Stage();
         Label.LabelStyle labelStyle = new Label.LabelStyle();
         labelStyle.font = new BitmapFont();
+        labelStyle.fontColor = Color.RED;
+        notEnoughMoneyLabel = new Label("Not Enough Money",labelStyle);
         labelStyle.fontColor = Color.BLACK;
         placingLabel = new Label("Now Placing", labelStyle);
+
         stage.addActor(placingLabel);
+        stage.addActor(notEnoughMoneyLabel);
         sr = new ShapeRenderer();
         map = new MapPlugin(); //TODO: map
         map.onEnable(gameData, world);
@@ -96,7 +101,7 @@ public class ShopState extends GameState {
         });
 
         button1 = new TextButton(String.format("Current Money: %d", gameData.getPlayerMoney()), textButtonStyle);
-        button1.setPosition(700, 800);
+        button1.setPosition(1700, 100);
         stage.addActor(button);
         stage.addActor(button1);
 
@@ -150,6 +155,7 @@ public class ShopState extends GameState {
                     public void clicked(InputEvent event, float x, float y) {
                         //  EventDistributor.sendEvent(new BuyTowerEvent(new Point()),world);
                         int newSelected = Integer.parseInt(but.getName());
+
                         if (newSelected == selected) {
                             selected = -1;
                         } else {
@@ -193,8 +199,12 @@ public class ShopState extends GameState {
             if (sel != null) {
                 sel.remove();
                 placingLabel.setVisible(false);
+                notEnoughMoneyLabel.setVisible(false);
                 sel = null;
-            }
+            }//TODO: Send some kind of event with selected image? Need shop to actually contain WeaponPlugins not just textures
+        } else if (Integer.parseInt(weapons.get(selected).get(2).toString())> gameData.getPlayerMoney()) {
+            notEnoughMoneyLabel.setVisible(true);
+            notEnoughMoneyLabel.setPosition(1920 - (200), 80);
         } else {
             for (ShopPluginService shopPlugin : getShopPluginServices()){
                 TextureRegionDrawable weaponImage = new TextureRegionDrawable(shopPlugin.getTexture());
@@ -221,6 +231,7 @@ public class ShopState extends GameState {
 
                 placingLabel.setPosition(1920 - (200), 80);
                 placingLabel.setVisible(true);
+                notEnoughMoneyLabel.setVisible(false);
                 sel = new ImageButton((weaponImage));
                 textButtonStyle.fontColor = Color.RED;
 
@@ -267,7 +278,7 @@ public class ShopState extends GameState {
 
     @Override
     public void dispose() {
-
+        gameData.removeProcessor(stage);
     }
 
     private Collection<? extends ShopPluginService> getShopPluginServices() {
