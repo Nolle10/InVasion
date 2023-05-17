@@ -40,7 +40,6 @@ public class LossState extends GameState{
         buttonBack.addListener( new InputListener(){
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button){
-                gsm.getGameData().removeProcessor(stage);
                 gsm.setState(GameStateEnum.MainScreen);
                 return true;
             }
@@ -68,6 +67,6 @@ public class LossState extends GameState{
 
     @Override
     public void dispose() {
-
+        gsm.getGameData().removeProcessor(stage);
     }
 }

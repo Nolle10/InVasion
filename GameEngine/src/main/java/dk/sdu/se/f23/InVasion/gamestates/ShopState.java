@@ -86,7 +86,6 @@ public class ShopState extends GameState {
         button.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                gsm.getGameData().removeProcessor(stage);
                 gsm.setState(GameStateEnum.PlayState);
                 return true;
             }

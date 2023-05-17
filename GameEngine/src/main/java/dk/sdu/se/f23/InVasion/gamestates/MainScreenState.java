@@ -42,7 +42,6 @@ public class MainScreenState extends GameState{
         button.addListener(new InputListener(){
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button){
-                gsm.getGameData().removeProcessor(stage);
                 gsm.setState(GameStateEnum.ShopState);
                 return true;
             }
@@ -80,5 +79,7 @@ public class MainScreenState extends GameState{
     public void handleInput() {}
 
     @Override
-    public void dispose() {}
+    public void dispose() {
+        gsm.getGameData().removeProcessor(stage);
+    }
 }
