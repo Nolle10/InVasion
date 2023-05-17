@@ -4,6 +4,9 @@ import dk.sdu.se.f23.InVasion.common.services.PluginService;
 module GameEngine {
     requires jdk.unsupported;
     requires Common;
+    requires CommonEnemy;
+    requires CommonWeapon;
+    requires CommonBullet;
     requires java.desktop;
     requires shadedlibgdx;
     requires Map;

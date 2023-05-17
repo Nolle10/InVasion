@@ -28,4 +28,8 @@ public class Player extends Entity {
     public void setLastKnownGameState(GameStateEnum lastKnownGameState) {
         this.lastKnownGameState = lastKnownGameState;
     }
+
+    public GameStateEnum getLastKnownGameState() {
+        return this.lastKnownGameState;
+    }
 }
