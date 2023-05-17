@@ -34,7 +34,7 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 
 
-public class MapPlugin implements PluginService {
+public class MapPlugin /*implements PluginService*/ {
 
 
     private int height = 1080;

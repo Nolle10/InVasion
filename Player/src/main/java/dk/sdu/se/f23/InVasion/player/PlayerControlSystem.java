@@ -16,17 +16,19 @@ public class PlayerControlSystem implements EntityProcessingService, EventListen
     @Override
     public void process(GameData data, World world, ProcessAt processTime) {
         for (Entity player : world.getEntities(Player.class)) {
-            if (((Player)player).shouldShoot(data.getDelta())){
-                EventDistributor.sendEvent(new FireShotEvent(player, shotDirection(data)), world);
-            }
+            if (((Player) player).getLastKnownGameState() == GameStateEnum.PlayState
+                    || ((Player) player).getLastKnownGameState() == GameStateEnum.ShopState) {
+                if (((Player) player).shouldShoot(data.getDelta())) {
+                    EventDistributor.sendEvent(new FireShotEvent(player, shotDirection(data)), world);
+                }
 
-            PositionPart part = player.getPart(PositionPart.class);
-            data.getSpriteBatch().draw(player.getTexture(), part.getX(), part.getY());
+                PositionPart part = player.getPart(PositionPart.class);
+                data.getSpriteBatch().draw(player.getTexture(), part.getX(), part.getY(), Gdx.graphics.getWidth() / 15, Gdx.graphics.getHeight() / 15);
+            }
         }
     }
 
     private Point shotDirection(GameData data) {
-        //Gdx.input.setInputProcessor(MouseProcessor.getInstance());
         int mouseX = MouseProcessor.getInstance().getMousePositionX();
         int mouseY = Gdx.graphics.getHeight() - MouseProcessor.getInstance().getMousePositionY();
         return new Point(mouseX, mouseY);
@@ -36,7 +38,7 @@ public class PlayerControlSystem implements EntityProcessingService, EventListen
     public void processEvent(Event event, World world) {
         if (event instanceof StateChangeEvent) {
             for (Entity player : world.getEntities(Player.class)) {
-                ((Player) player).setLastKnownGameState(((StateChangeEvent)event).getNewState());
+                ((Player) player).setLastKnownGameState(((StateChangeEvent) event).getNewState());
             }
         }
     }
