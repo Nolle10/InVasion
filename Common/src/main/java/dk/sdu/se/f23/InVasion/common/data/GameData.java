@@ -3,6 +3,7 @@ package dk.sdu.se.f23.InVasion.common.data;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.SnapshotArray;
 import dk.sdu.se.f23.InVasion.common.events.abstracts.Event;
 import dk.sdu.se.f23.InVasion.common.events.enums.GameStateEnum;
 
@@ -32,7 +33,14 @@ public class GameData {
     public void removeProcessor(InputProcessor p){
         multiplexer.removeProcessor(p);
     }
-
+    public void removeAllProccessors(){
+        for (int i = 0; i<multiplexer.getProcessors().size;i++){
+            multiplexer.removeProcessor(0);
+        }
+    }
+    public SnapshotArray<InputProcessor> getProccessor(){
+        return multiplexer.getProcessors();
+    }
     public SpriteBatch getSpriteBatch() {
         return spriteBatch;
     }

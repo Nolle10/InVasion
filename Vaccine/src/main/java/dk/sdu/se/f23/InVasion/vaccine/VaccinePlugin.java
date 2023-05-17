@@ -27,7 +27,6 @@ public class VaccinePlugin implements PluginService {
     @Override
     public void onEnable(GameData data, World world) {
         ArrayList<Object> weaponVariables = new ArrayList<>();
-        System.out.println("AHHHH");
         weaponVariables.add(weaponName);
         weaponVariables.add(texture);
         weaponVariables.add(cost);
