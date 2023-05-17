@@ -6,16 +6,13 @@ import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import dk.sdu.se.f23.InVasion.common.data.GameData;
-import dk.sdu.se.f23.InVasion.common.data.MouseProcessor;
 import dk.sdu.se.f23.InVasion.common.data.ProcessAt;
 import dk.sdu.se.f23.InVasion.common.data.World;
 import dk.sdu.se.f23.InVasion.common.services.EntityProcessingService;
 import dk.sdu.se.f23.InVasion.common.services.PluginService;
 import dk.sdu.se.f23.InVasion.managers.GameStateManager;
-import dk.sdu.se.f23.InVasion.map.MapPlugin;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.ServiceLoader;
 
 import static java.util.stream.Collectors.toList;
@@ -44,7 +41,6 @@ public class Game implements ApplicationListener {
         InputMultiplexer inputHandler = new InputMultiplexer();
         gameData.setMultiplexer(inputHandler);
         Gdx.input.setInputProcessor(inputHandler);
-        gameData.addProcessor(MouseProcessor.getInstance());
 
         cam = new OrthographicCamera(gameData.getDisplayWidth(), gameData.getDisplayHeight());
         cam.translate(gameData.getDisplayWidth() / 2, gameData.getDisplayHeight() / 2);

@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import dk.sdu.se.f23.InVasion.common.data.GameData;
+import dk.sdu.se.f23.InVasion.common.data.MouseProcessor;
 import dk.sdu.se.f23.InVasion.common.events.enums.GameStateEnum;
 import dk.sdu.se.f23.InVasion.managers.GameStateManager;
 import dk.sdu.se.f23.InVasion.map.MapPlugin;
@@ -66,6 +67,7 @@ public class PlayState extends GameState {
         stage.addActor(pauseButton);
         stage.addActor(labelWave);
         gsm.getGameData().addProcessor(stage);
+        gsm.getGameData().addProcessor(MouseProcessor.getInstance());
 
     }
 
