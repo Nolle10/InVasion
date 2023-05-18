@@ -26,8 +26,8 @@ public class ShopState extends GameState {
     private Stage stage;
 
     //private ArrayList<ArrayList<Object>> weapons;
-    private TextButton button;
-    private TextButton button1;
+    private TextButton startWave;
+    private TextButton playerMoney;
     private TextButton.TextButtonStyle textButtonStyle;
     private TextButton.TextButtonStyle textButtonStyle2;
     private World world;
@@ -38,7 +38,6 @@ public class ShopState extends GameState {
     private MapPlugin map;
 
     private String selected = null;
-    private TextButton cost;
 
     private Label placingLabel;
     private Label notEnoughMoneyLabel;
@@ -70,9 +69,9 @@ public class ShopState extends GameState {
         textButtonStyle = new TextButton.TextButtonStyle();
         textButtonStyle.font = new BitmapFont();
         textButtonStyle.fontColor = Color.WHITE;
-        button = new TextButton("Start wave button", textButtonStyle);
-        button.setPosition(830, 900);
-        button.addListener(new InputListener() {
+        startWave = new TextButton("Start wave button", textButtonStyle);
+        startWave.setPosition(830, 900);
+        startWave.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 gsm.setState(GameStateEnum.PlayState);
@@ -84,10 +83,10 @@ public class ShopState extends GameState {
         textButtonStyle2.font = new BitmapFont();
         textButtonStyle2.fontColor = Color.BLACK;
 
-        button1 = new TextButton(String.format("Current Money: %d", gameData.getPlayerMoney()), textButtonStyle2);
-        button1.setPosition(1920 - 165, 950);
-        stage.addActor(button);
-        stage.addActor(button1);
+        playerMoney = new TextButton(String.format("Current Money: %d", gameData.getPlayerMoney()), textButtonStyle2);
+        playerMoney.setPosition(1920 - 165, 950);
+        stage.addActor(startWave);
+        stage.addActor(playerMoney);
 
         int iterator = 0;
         for (Buyable buyable : BuyableManager.getAllBuyables()) {
@@ -143,6 +142,8 @@ public class ShopState extends GameState {
             if (buyable.getPrice() > gameData.getPlayerMoney()) {
                 notEnoughMoneyLabel.setVisible(true);
                 notEnoughMoneyLabel.setPosition(1920 - (180), 70);
+                selected = null;
+                map.setSelected(null);
                 return;
             }
 
@@ -176,6 +177,7 @@ public class ShopState extends GameState {
         sr.end();
 
         map.draw(gameData);
+        playerMoney.setText(String.format("Current Money: %d", gameData.getPlayerMoney()));
         stage.draw();
 
     }

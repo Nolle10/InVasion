@@ -35,12 +35,13 @@ public class MapPlugin /*implements PluginService*/ {
     private int tilesSize = 36;
     private ArrayList<ArrayList<Square>> mapFields;
     private ArrayList<Texture> tiles;
-    private  ArrayList<ArrayList<Integer>> mask;
+    private ArrayList<ArrayList<Integer>> mask;
     private Stage stage;
     private World world;
-    private boolean isClicked =  false;
+    private boolean isClicked = false;
     private Actor clickedField = null;
-    private String selectedShopItem = null;
+    private Buyable selectedShopItem = null;
+
     public MapPlugin() {
         stage = new Stage();
         mapFields = new ArrayList<>();
@@ -62,7 +63,7 @@ public class MapPlugin /*implements PluginService*/ {
         this.world = world;
         generateClickableMap();
 
-       //draw();
+        //draw();
     }
 
     public ArrayList<ArrayList<Integer>> generateMask() {
@@ -105,45 +106,30 @@ public class MapPlugin /*implements PluginService*/ {
         mapFields.clear();
     }
 
-    public void clearStuff (GameData gameData, World world) {
+    public void clearStuff(GameData gameData, World world) {
         gameData.removeAllProccessors();
         stage.clear();
         mapFields.clear();
     }
-    public int getHeight() {
-        return height;
-    }
-
-    public void setHeight(int h) {
-        height = h;
-    }
-
-    public int getWidth() {
-        return width;
-    }
-
-    public void setWidth(int w) {
-        width = w;
-    }
 
     public void setSelected(Buyable selected) {
-        this.selectedShopItem = selected.getName();
+        this.selectedShopItem = selected;
     }
 
-    public void generateClickableMap(){
-        HashMap<Integer,Integer> occurenceMap= new HashMap<>();
+    public void generateClickableMap() {
+        HashMap<Integer, Integer> occurenceMap = new HashMap<>();
 
 
         for (int i = 0; i < height; i++) {
 
             for (int j = 0; j < width; j++) {
 
-                if(i%tilesSize == 0 && j%tilesSize==0){
+                if (i % tilesSize == 0 && j % tilesSize == 0) {
                     int max = 0;
 
                     int maxId = 0;
-                    for(Map.Entry<Integer,Integer> numberId : occurenceMap.entrySet()){
-                        if( numberId.getValue()>max){
+                    for (Map.Entry<Integer, Integer> numberId : occurenceMap.entrySet()) {
+                        if (numberId.getValue() > max) {
                             max = numberId.getValue();
                             maxId = numberId.getKey();
                         }
@@ -151,9 +137,9 @@ public class MapPlugin /*implements PluginService*/ {
                     Texture t = tiles.get(maxId);
                     TextureRegionDrawable weaponImage = new TextureRegionDrawable(t);
                     ImageButton but = new ImageButton((weaponImage));
-                    but.setSize(tilesSize,tilesSize);
+                    but.setSize(tilesSize, tilesSize);
                     but.setPosition(j, i);
-                    if(maxId==2) {
+                    if (maxId == 2) {
                         but.addListener(new ClickListener() {
                             @Override
                             public void clicked(InputEvent event, float x, float y) {
@@ -165,36 +151,30 @@ public class MapPlugin /*implements PluginService*/ {
                     stage.addActor(but);
                     occurenceMap.clear();
 
-                }
-                else {
+                } else {
                     Integer key = mask.get(j).get(i);
-                    if (occurenceMap.containsKey(key)){
-                        occurenceMap.put(key,occurenceMap.get(key)+1);
-                    }
-                    else {
-                        occurenceMap.put(key,1);
+                    if (occurenceMap.containsKey(key)) {
+                        occurenceMap.put(key, occurenceMap.get(key) + 1);
+                    } else {
+                        occurenceMap.put(key, 1);
 
                     }
                 }
             }
 
         }
-
     }
 
     public void draw(GameData gameData) {
-        if(isClicked) {
-            System.out.println("MapPlugin draw: " +selectedShopItem);
-            EventDistributor.sendEvent(new BuyTowerEvent(new Point((int) clickedField.getX(),(int) clickedField.getY()),selectedShopItem), world);
-            isClicked = false;
+        if (isClicked && selectedShopItem != null) {
+            System.out.println("MapPlugin draw: " + selectedShopItem);
+            EventDistributor.sendEvent(new BuyTowerEvent(new Point((int) clickedField.getX(), (int) clickedField.getY()), selectedShopItem.getName()), world);
+            gameData.setPlayerMoney(gameData.getPlayerMoney() - selectedShopItem.getPrice());
         }
-    stage.draw();
+        isClicked = false;
+        stage.draw();
         gameData.removeProcessor(stage);
-         gameData.addProcessor(stage);
+        gameData.addProcessor(stage);
 
-    }
-
-    private Color getSquareColor(int x, int y) {
-        return mapFields.get(x).get(y).getColor();
     }
 }
