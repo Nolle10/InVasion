@@ -100,8 +100,10 @@ public class VaccineControlSystem implements EntityProcessingService, EventListe
     @Override
     public void processEvent(Event event, World world) {
         //Place weapon
-        if (event instanceof BuyTowerEvent) {
-            world.addEntity(createWeapon(((BuyTowerEvent) event).getPosition()));
+        if (event instanceof BuyTowerEvent buyTowerEvent) {
+            if (buyTowerEvent.getName().equals("Vaccine")){
+                world.addEntity(createWeapon(buyTowerEvent.getPosition()));
+            }
         } else if (event instanceof StateChangeEvent stateChangeEvent) {
             this.lastKnownState = stateChangeEvent.getNewState();
         }

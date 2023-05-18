@@ -1,13 +1,9 @@
 package dk.sdu.se.f23.InVasion.map;
 
 
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -17,17 +13,14 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import dk.sdu.se.f23.InVasion.common.data.GameData;
 import dk.sdu.se.f23.InVasion.common.data.Point;
 import dk.sdu.se.f23.InVasion.common.data.World;
+import dk.sdu.se.f23.InVasion.common.data.shop.Buyable;
 import dk.sdu.se.f23.InVasion.common.events.EventDistributor;
 import dk.sdu.se.f23.InVasion.common.events.events.BuyTowerEvent;
-import dk.sdu.se.f23.InVasion.common.services.PluginService;
 
 import javax.imageio.ImageIO;
-import java.awt.image.AreaAveragingScaleFilter;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.text.AttributedCharacterIterator;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -42,11 +35,13 @@ public class MapPlugin /*implements PluginService*/ {
     private int tilesSize = 36;
     private ArrayList<ArrayList<Square>> mapFields;
     private ArrayList<Texture> tiles;
-    private  ArrayList<ArrayList<Integer>> mask;
+    private ArrayList<ArrayList<Integer>> mask;
     private Stage stage;
     private World world;
-    private boolean isClicked =  false;
-    private Actor ClickedField= null;
+    private boolean isClicked = false;
+    private Actor clickedField = null;
+    private Buyable selectedShopItem = null;
+
     public MapPlugin() {
         stage = new Stage();
         mapFields = new ArrayList<>();
@@ -68,7 +63,7 @@ public class MapPlugin /*implements PluginService*/ {
         this.world = world;
         generateClickableMap();
 
-       //draw();
+        //draw();
     }
 
     public ArrayList<ArrayList<Integer>> generateMask() {
@@ -111,41 +106,30 @@ public class MapPlugin /*implements PluginService*/ {
         mapFields.clear();
     }
 
-    public void clearStuff (GameData gameData, World world) {
+    public void clearStuff(GameData gameData, World world) {
         gameData.removeAllProccessors();
         stage.clear();
         mapFields.clear();
     }
-    public int getHeight() {
-        return height;
+
+    public void setSelected(Buyable selected) {
+        this.selectedShopItem = selected;
     }
 
-    public void setHeight(int h) {
-        height = h;
-    }
-
-    public int getWidth() {
-        return width;
-    }
-
-    public void setWidth(int w) {
-        width = w;
-    }
-
-    public void generateClickableMap(){
-        HashMap<Integer,Integer> occurenceMap= new HashMap<>();
+    public void generateClickableMap() {
+        HashMap<Integer, Integer> occurenceMap = new HashMap<>();
 
 
         for (int i = 0; i < height; i++) {
 
             for (int j = 0; j < width; j++) {
 
-                if(i%tilesSize == 0 && j%tilesSize==0){
+                if (i % tilesSize == 0 && j % tilesSize == 0) {
                     int max = 0;
 
                     int maxId = 0;
-                    for(Map.Entry<Integer,Integer> numberId : occurenceMap.entrySet()){
-                        if( numberId.getValue()>max){
+                    for (Map.Entry<Integer, Integer> numberId : occurenceMap.entrySet()) {
+                        if (numberId.getValue() > max) {
                             max = numberId.getValue();
                             maxId = numberId.getKey();
                         }
@@ -153,49 +137,44 @@ public class MapPlugin /*implements PluginService*/ {
                     Texture t = tiles.get(maxId);
                     TextureRegionDrawable weaponImage = new TextureRegionDrawable(t);
                     ImageButton but = new ImageButton((weaponImage));
-                    but.setSize(tilesSize,tilesSize);
+                    but.setSize(tilesSize, tilesSize);
                     but.setPosition(j, i);
-                    if(maxId==2) {
+                    if (maxId == 2) {
                         but.addListener(new ClickListener() {
                             @Override
                             public void clicked(InputEvent event, float x, float y) {
                                 isClicked = true;
-                                ClickedField = event.getListenerActor();
+                                clickedField = event.getListenerActor();
                             }
                         });
                     }
                     stage.addActor(but);
                     occurenceMap.clear();
 
-                }
-                else {
+                } else {
                     Integer key = mask.get(j).get(i);
-                    if (occurenceMap.containsKey(key)){
-                        occurenceMap.put(key,occurenceMap.get(key)+1);
-                    }
-                    else {
-                        occurenceMap.put(key,1);
+                    if (occurenceMap.containsKey(key)) {
+                        occurenceMap.put(key, occurenceMap.get(key) + 1);
+                    } else {
+                        occurenceMap.put(key, 1);
 
                     }
                 }
             }
 
         }
-
     }
 
     public void draw(GameData gameData) {
-        if(isClicked) {
-            EventDistributor.sendEvent(new BuyTowerEvent(new Point((int)ClickedField.getX(),(int)ClickedField.getY())), world);
-            isClicked = false;
+        if (isClicked && selectedShopItem != null) {
+            System.out.println("MapPlugin draw: " + selectedShopItem);
+            EventDistributor.sendEvent(new BuyTowerEvent(new Point((int) clickedField.getX(), (int) clickedField.getY()), selectedShopItem.getName()), world);
+            gameData.setPlayerMoney(gameData.getPlayerMoney() - selectedShopItem.getPrice());
         }
-    stage.draw();
+        isClicked = false;
+        stage.draw();
         gameData.removeProcessor(stage);
-         gameData.addProcessor(stage);
+        gameData.addProcessor(stage);
 
-    }
-
-    private Color getSquareColor(int x, int y) {
-        return mapFields.get(x).get(y).getColor();
     }
 }

@@ -97,18 +97,20 @@ public class WeaponControlSystem implements EntityProcessingService, EventListen
         targets.removeIf(e -> ((LifePart) e.getPart(LifePart.class)).isDead());
     }
 
+    private double dist(Point p1, Point p2) {
+        return Math.sqrt(Math.pow((p2.getY() - p1.getY()), 2) + Math.pow((p2.getX() - p1.getX()), 2));
+    }
+
     @Override
     public void processEvent(Event event, World world) {
         //Needed when Event firing from shop is implemented
         if (event instanceof BuyTowerEvent buyTowerEvent) {
-            world.addEntity(createWeapon(buyTowerEvent.getPosition()));
+            if (buyTowerEvent.getName().equals("Medicine")){
+                world.addEntity(createWeapon(buyTowerEvent.getPosition()));
+            }
         } else if (event instanceof StateChangeEvent stateChangeEvent) {
             this.lastKnownState = stateChangeEvent.getNewState();
         }
-    }
-
-    private double dist(Point p1, Point p2) {
-        return Math.sqrt(Math.pow((p2.getY() - p1.getY()), 2) + Math.pow((p2.getX() - p1.getX()), 2));
     }
 }
 
