@@ -7,9 +7,12 @@ import dk.sdu.se.f23.InVasion.common.data.*;
 import dk.sdu.se.f23.InVasion.common.data.entityparts.LifePart;
 import dk.sdu.se.f23.InVasion.common.data.entityparts.MoneyPart;
 import dk.sdu.se.f23.InVasion.common.data.entityparts.PositionPart;
+import dk.sdu.se.f23.InVasion.common.events.EventDistributor;
 import dk.sdu.se.f23.InVasion.common.events.EventListener;
 import dk.sdu.se.f23.InVasion.common.events.abstracts.Event;
+import dk.sdu.se.f23.InVasion.common.events.enums.GameStateEnum;
 import dk.sdu.se.f23.InVasion.common.events.events.SpawnEnemysEvent;
+import dk.sdu.se.f23.InVasion.common.events.events.StateChangeEvent;
 import dk.sdu.se.f23.InVasion.common.services.EntityProcessingService;
 import dk.sdu.se.f23.InVasion.commonenemy.Enemy;
 import dk.sdu.se.f23.InVasion.enemy.services.ActionService;
@@ -24,8 +27,12 @@ public class EnemyControlSystem implements EntityProcessingService, EventListene
     private static int enemiesToSpawn;
     private float timeSinceLastSpawn;
     private ActionService actionService;
+    private GameStateEnum lastKnownState;
+
 
     public EnemyControlSystem() {
+        EventDistributor.addListener(StateChangeEvent.class, this);
+
         for (ActionService service : getActionServices()) {
             if (service.getAiType() == AIType.A_STAR){
                 actionService = service;
@@ -36,6 +43,9 @@ public class EnemyControlSystem implements EntityProcessingService, EventListene
     @SuppressWarnings("unchecked")
     @Override
     public void process(GameData data, World world, ProcessAt processTime) {
+        if (lastKnownState != GameStateEnum.PlayState){
+            return;
+        }
         timeSinceLastSpawn += data.getDelta();
         if (enemiesToSpawn > 0 && timeSinceLastSpawn > 1) {
             timeSinceLastSpawn = 0;
@@ -78,8 +88,11 @@ public class EnemyControlSystem implements EntityProcessingService, EventListene
 
     @Override
     public void processEvent(Event event, World world) {
-        SpawnEnemysEvent spawnEnemiesEvent = (SpawnEnemysEvent) event;
-        enemiesToSpawn = spawnEnemiesEvent.getWaveLevel() * 2;
+        if (event instanceof StateChangeEvent stateChangeEvent){
+            this.lastKnownState = stateChangeEvent.getNewState();
+        } else if (event instanceof SpawnEnemysEvent spawnEnemiesEvent) {
+            enemiesToSpawn = spawnEnemiesEvent.getWaveLevel() * 2;
+        }
     }
 }
 

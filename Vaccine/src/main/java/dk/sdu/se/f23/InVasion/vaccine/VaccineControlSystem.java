@@ -5,7 +5,8 @@ import com.badlogic.gdx.graphics.Texture;
 import dk.sdu.se.f23.InVasion.common.data.*;
 import dk.sdu.se.f23.InVasion.common.data.entityparts.LifePart;
 import dk.sdu.se.f23.InVasion.common.data.entityparts.PositionPart;
-import dk.sdu.se.f23.InVasion.common.events.*;
+import dk.sdu.se.f23.InVasion.common.events.EventDistributor;
+import dk.sdu.se.f23.InVasion.common.events.EventListener;
 import dk.sdu.se.f23.InVasion.common.events.abstracts.Event;
 import dk.sdu.se.f23.InVasion.common.events.enums.GameStateEnum;
 import dk.sdu.se.f23.InVasion.common.events.events.BuyTowerEvent;
@@ -21,11 +22,26 @@ import java.util.List;
 public class VaccineControlSystem implements EntityProcessingService, EventListener {
     private long lastShot = 0;
     private List<Entity> targets = new ArrayList<>();
+    private GameStateEnum lastKnownState;
+
+    public VaccineControlSystem() {
+        EventDistributor.addListener(StateChangeEvent.class, this);
+    }
 
     @Override
     public void process(GameData data, World world, ProcessAt processTime) {
+        if (lastKnownState != GameStateEnum.ShopState && lastKnownState != GameStateEnum.PlayState){
+            return;
+        }
 
         for (Entity weapon : world.getEntities(Weapon.class)) {
+
+            PositionPart part = weapon.getPart(PositionPart.class);
+            data.getSpriteBatch().draw(weapon.getTexture(), part.getX(), part.getY());
+            if (lastKnownState != GameStateEnum.PlayState){
+                continue;
+            }
+
             if (((Weapon)weapon).shouldShoot(data.getDelta())) {
                 Point direction = findNearestNeighbor(world);
 
@@ -36,8 +52,6 @@ public class VaccineControlSystem implements EntityProcessingService, EventListe
                     System.out.println("No target");
                 }
             }
-            PositionPart part = weapon.getPart(PositionPart.class);
-            data.getSpriteBatch().draw(weapon.getTexture(), part.getX(), part.getY());
         }
     }
 
@@ -47,15 +61,6 @@ public class VaccineControlSystem implements EntityProcessingService, EventListe
         weapon.add(new PositionPart(new Point(position.getX(), position.getY()), 0));
         weapon.setTexture(new Texture(Gdx.files.internal("Vaccine/src/main/resources/vac.png")));
         return weapon;
-    }
-
-
-    @Override
-    public void processEvent(Event event, World world) {
-        //Place weapon
-       if (event instanceof BuyTowerEvent) {
-            world.addEntity(createWeapon(((BuyTowerEvent) event).getPosition()));
-        }
     }
 
 
@@ -94,6 +99,16 @@ public class VaccineControlSystem implements EntityProcessingService, EventListe
 
     private void cleanEnemies() {
         targets.removeIf(e -> ((LifePart) e.getPart(LifePart.class)).isDead());
+    }
+
+    @Override
+    public void processEvent(Event event, World world) {
+        //Place weapon
+        if (event instanceof BuyTowerEvent) {
+            world.addEntity(createWeapon(((BuyTowerEvent) event).getPosition()));
+        } else if (event instanceof StateChangeEvent stateChangeEvent) {
+            this.lastKnownState = stateChangeEvent.getNewState();
+        }
     }
 }
 

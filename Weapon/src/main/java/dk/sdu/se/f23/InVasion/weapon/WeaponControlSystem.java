@@ -5,7 +5,8 @@ import com.badlogic.gdx.graphics.Texture;
 import dk.sdu.se.f23.InVasion.common.data.*;
 import dk.sdu.se.f23.InVasion.common.data.entityparts.LifePart;
 import dk.sdu.se.f23.InVasion.common.data.entityparts.PositionPart;
-import dk.sdu.se.f23.InVasion.common.events.*;
+import dk.sdu.se.f23.InVasion.common.events.EventDistributor;
+import dk.sdu.se.f23.InVasion.common.events.EventListener;
 import dk.sdu.se.f23.InVasion.common.events.abstracts.Event;
 import dk.sdu.se.f23.InVasion.common.events.enums.GameStateEnum;
 import dk.sdu.se.f23.InVasion.common.events.events.BuyTowerEvent;
@@ -21,9 +22,19 @@ import java.util.List;
 public class WeaponControlSystem implements EntityProcessingService, EventListener {
     private long lastShot = 0;
     private List<Entity> targets = new ArrayList<>();
+    private GameStateEnum lastKnownState;
 
+
+    public WeaponControlSystem() {
+        EventDistributor.addListener(StateChangeEvent.class, this);
+    }
+
+    @SuppressWarnings("unchecked")
     @Override
     public void process(GameData data, World world, ProcessAt processTime) {
+        if (lastKnownState != GameStateEnum.PlayState){
+            return;
+        }
         for (Entity weapon : world.getEntities(Weapon.class)) {
             if (((Weapon)weapon).shouldShoot(data.getDelta())) {
                 Point direction = findNearestNeighbor(world);
@@ -47,15 +58,6 @@ public class WeaponControlSystem implements EntityProcessingService, EventListen
         weapon.setTexture(new Texture(Gdx.files.internal("Weapon/src/main/resources/TOWER.png")));
 
         return weapon;
-    }
-
-
-    @Override
-    public void processEvent(Event event, World world) {
-        //Needed when Event firing from shop is implemented
-        if (event instanceof BuyTowerEvent) {
-            world.addEntity(createWeapon(((BuyTowerEvent) event).getPosition()));
-        }
     }
 
 
@@ -94,6 +96,16 @@ public class WeaponControlSystem implements EntityProcessingService, EventListen
 
     private void cleanEnemies() {
         targets.removeIf(e -> ((LifePart) e.getPart(LifePart.class)).isDead());
+    }
+
+    @Override
+    public void processEvent(Event event, World world) {
+        //Needed when Event firing from shop is implemented
+        if (event instanceof BuyTowerEvent buyTowerEvent) {
+            world.addEntity(createWeapon(buyTowerEvent.getPosition()));
+        } else if (event instanceof StateChangeEvent stateChangeEvent) {
+            this.lastKnownState = stateChangeEvent.getNewState();
+        }
     }
 }
 
