@@ -36,17 +36,16 @@ public class WeaponControlSystem implements EntityProcessingService, EventListen
             return;
         }
         for (Entity weapon : world.getEntities(Weapon.class)) {
+            PositionPart part = weapon.getPart(PositionPart.class);
             if (((Weapon)weapon).shouldShoot(data.getDelta())) {
                 Point direction = findNearestNeighbor(world);
-
-                if (direction != null) {
+                if (direction != null && dist(part.getPos(), direction) < 600) {
                     EventDistributor.sendEvent(new FireShotEvent(weapon, direction), world);
                     lastShot = 0;
                 } else {
                     System.out.println("No target");
                 }
             }
-            PositionPart part = weapon.getPart(PositionPart.class);
             data.getSpriteBatch().draw(weapon.getTexture(), part.getX(), part.getY());
         }
     }
@@ -85,8 +84,6 @@ public class WeaponControlSystem implements EntityProcessingService, EventListen
                 float closestX = ((PositionPart) closestTarget.getPart(PositionPart.class)).getPos().getX();
                 float closestY = ((PositionPart) closestTarget.getPart(PositionPart.class)).getPos().getY();
                 enemyPosition = new Point((int) closestX, (int) closestY);
-            } else {
-                enemyPosition = new Point(0, 0);
             }
         }
         cleanEnemies();
@@ -106,6 +103,10 @@ public class WeaponControlSystem implements EntityProcessingService, EventListen
         } else if (event instanceof StateChangeEvent stateChangeEvent) {
             this.lastKnownState = stateChangeEvent.getNewState();
         }
+    }
+
+    private double dist(Point p1, Point p2){
+        return Math.sqrt(Math.pow((p2.getY()-p1.getY()),2) + Math.pow((p2.getX()-p1.getX()),2));
     }
 }
 
