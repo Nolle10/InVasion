@@ -43,20 +43,4 @@ public class VaccinePlugin implements PluginService {
         }
         BuyableManager.removeBuyable(vaccine);
     }
-/*
-    @Override
-    public Texture getTexture() {
-        return texture;
-    }
-
-    @Override
-    public String getWeaponName() {
-        return weaponName;
-    }
-
-    @Override
-    public int getCost() {
-        return cost;
-    }*/
-
 }

@@ -158,6 +158,8 @@ public class ShopState extends GameState {
             } else {
                 sel.getStyle().imageUp = weaponImage;
             }
+            map.setSelected(buyable);
+
         }
     }
 

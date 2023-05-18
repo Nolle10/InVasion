@@ -42,16 +42,4 @@ public class WeaponPlugin implements PluginService {
         }
         BuyableManager.removeBuyable(medicine);
     }
-/*
-    public Texture getTexture() {
-        return texture;
-    }
-
-    public String getWeaponName() {
-        return weaponName;
-    }
-
-    public int getCost() {
-        return cost;
-    }*/
 }

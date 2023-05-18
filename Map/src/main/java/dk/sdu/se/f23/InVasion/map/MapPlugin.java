@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import dk.sdu.se.f23.InVasion.common.data.GameData;
 import dk.sdu.se.f23.InVasion.common.data.Point;
 import dk.sdu.se.f23.InVasion.common.data.World;
+import dk.sdu.se.f23.InVasion.common.data.shop.Buyable;
 import dk.sdu.se.f23.InVasion.common.events.EventDistributor;
 import dk.sdu.se.f23.InVasion.common.events.events.BuyTowerEvent;
 
@@ -39,6 +40,7 @@ public class MapPlugin /*implements PluginService*/ {
     private World world;
     private boolean isClicked =  false;
     private Actor clickedField = null;
+    private String selectedShopItem = null;
     public MapPlugin() {
         stage = new Stage();
         mapFields = new ArrayList<>();
@@ -124,6 +126,10 @@ public class MapPlugin /*implements PluginService*/ {
         width = w;
     }
 
+    public void setSelected(Buyable selected) {
+        this.selectedShopItem = selected.getName();
+    }
+
     public void generateClickableMap(){
         HashMap<Integer,Integer> occurenceMap= new HashMap<>();
 
@@ -178,7 +184,8 @@ public class MapPlugin /*implements PluginService*/ {
 
     public void draw(GameData gameData) {
         if(isClicked) {
-            EventDistributor.sendEvent(new BuyTowerEvent(new Point((int) clickedField.getX(),(int) clickedField.getY())), world);
+            System.out.println("MapPlugin draw: " +selectedShopItem);
+            EventDistributor.sendEvent(new BuyTowerEvent(new Point((int) clickedField.getX(),(int) clickedField.getY()),selectedShopItem), world);
             isClicked = false;
         }
     stage.draw();
