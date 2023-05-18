@@ -78,14 +78,4 @@ public class World {
     public Entity getEntity(String ID) {
         return entityMap.get(ID);
     }
-
-    public ArrayList<ArrayList<Object>> getWeapons(){
-
-        return weapons;
-    }
-
-    public void addWeapon(ArrayList<Object> list){
-
-        weapons.add(list);
-    }
 }
