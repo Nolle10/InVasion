@@ -36,7 +36,7 @@ public class PlayState extends GameState {
         
         textButtonStyle = new TextButton.TextButtonStyle();
         textButtonStyle.font = new BitmapFont();
-        textButtonStyle.fontColor = Color.YELLOW;
+        textButtonStyle.fontColor = Color.WHITE;
         backToShopButton = new TextButton("go back to shop button", textButtonStyle);
         backToShopButton.setPosition(1750,800);
         backToShopButton.addListener(new InputListener(){
