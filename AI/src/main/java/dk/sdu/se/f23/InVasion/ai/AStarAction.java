@@ -5,7 +5,9 @@ import dk.sdu.se.f23.InVasion.common.data.World;
 import dk.sdu.se.f23.InVasion.enemy.AIType;
 import dk.sdu.se.f23.InVasion.enemy.services.ActionService;
 
+import java.lang.reflect.Array;
 import java.util.*;
+import java.util.stream.IntStream;
 
 public class AStarAction implements ActionService  {
     AIType aiType = AIType.A_STAR;
@@ -223,18 +225,25 @@ public class AStarAction implements ActionService  {
 
     @Override
     public List<Point> calculate(World world) {
+
         Node initialNode = new Node(10,10);
-        Node finalNode = new Node(100,240);
+        Node finalNode = new Node(1500,500);
+
+
+        System.out.println(world.getWorldMaskRows());
 
         AStarAction aStarAction = new AStarAction(world.getWorldMaskRows(), world.getWorldMaskColumns(), initialNode, finalNode);
 
-        List<Node> path = aStarAction.findPath();
+        List<Node> path = aStarAction.findPath().stream()
+                .filter(s -> s.getCol() % 5 == 0)
+                .toList();
+
+        path.stream().filter(p -> p.getCol() % 5 == 0).toList();
+
         List<Point> pathPoints = new ArrayList<>();
 
-        for(Node node : path){
+        path.forEach(s-> pathPoints.add(new Point(s.getRow(), s.getCol())));
 
-            pathPoints.add(new Point(node.getRow(), node.getCol()));
-        }
 
         return pathPoints;
     }
