@@ -20,8 +20,8 @@ import dk.sdu.se.f23.InVasion.map.MapPlugin;
 public class MainScreenState extends GameState{
 
     private Stage stage;
-    private TextButton startGame;
-    private TextButton exitGame;
+    private TextButton startGameButton;
+    private TextButton exitGameButton;
     private Label titleLabel;
 
     public MainScreenState(GameStateManager gsm) {
@@ -38,10 +38,10 @@ public class MainScreenState extends GameState{
         titleLabel = new Label("InVasion", style);
         titleLabel.setPosition(860, 800);
 
-        startGame = new TextButton("Start game", buttonSkin.getSkin());
-        startGame.getLabel().setFontScale(2,2);
-        startGame.setPosition(760,500);
-        startGame.addListener(new InputListener(){
+        startGameButton = new TextButton("Start game", buttonSkin.getSkin());
+        startGameButton.getLabel().setFontScale(2,2);
+        startGameButton.setPosition(760,500);
+        startGameButton.addListener(new InputListener(){
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button){
                 gsm.setState(GameStateEnum.ShopState);
@@ -49,10 +49,10 @@ public class MainScreenState extends GameState{
             }
         });
 
-        exitGame = new TextButton("Exit game", buttonSkin.getSkin());
-        exitGame.getLabel().setFontScale(2,2);
-        exitGame.setPosition(760,350);
-        exitGame.addListener(new InputListener(){
+        exitGameButton = new TextButton("Exit game", buttonSkin.getSkin());
+        exitGameButton.getLabel().setFontScale(2,2);
+        exitGameButton.setPosition(760,350);
+        exitGameButton.addListener(new InputListener(){
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button){
                 Gdx.app.exit();
@@ -62,8 +62,8 @@ public class MainScreenState extends GameState{
 
         // Add actors to the stage
         stage.addActor(titleLabel);
-        stage.addActor(startGame);
-        stage.addActor(exitGame);
+        stage.addActor(startGameButton);
+        stage.addActor(exitGameButton);
         gsm.getGameData().addProcessor(stage);
     }
 
