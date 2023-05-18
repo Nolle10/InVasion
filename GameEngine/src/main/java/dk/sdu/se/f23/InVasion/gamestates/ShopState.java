@@ -14,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import dk.sdu.se.f23.InVasion.common.data.GameData;
 import dk.sdu.se.f23.InVasion.common.data.World;
+import dk.sdu.se.f23.InVasion.common.data.buttonSkin;
 import dk.sdu.se.f23.InVasion.common.data.shop.Buyable;
 import dk.sdu.se.f23.InVasion.common.data.shop.BuyableManager;
 import dk.sdu.se.f23.InVasion.common.events.enums.GameStateEnum;
@@ -69,8 +70,9 @@ public class ShopState extends GameState {
         textButtonStyle = new TextButton.TextButtonStyle();
         textButtonStyle.font = new BitmapFont();
         textButtonStyle.fontColor = Color.WHITE;
-        startWave = new TextButton("Start wave button", textButtonStyle);
-        startWave.setPosition(830, 900);
+        startWave = new TextButton("Start wave", buttonSkin.getSkin());
+        startWave.setSize(160, 60);
+        startWave.setPosition(1920-175, 990);
         startWave.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -84,7 +86,7 @@ public class ShopState extends GameState {
         textButtonStyle2.fontColor = Color.BLACK;
 
         playerMoney = new TextButton(String.format("Current Money: %d", gameData.getPlayerMoney()), textButtonStyle2);
-        playerMoney.setPosition(1920 - 165, 950);
+        playerMoney.setPosition(1920 - 160, 950);
         stage.addActor(startWave);
         stage.addActor(playerMoney);
 
