@@ -44,6 +44,7 @@ public class ShopState extends GameState {
     private TextButton button;
     private TextButton button1;
     private TextButton.TextButtonStyle textButtonStyle;
+    private TextButton.TextButtonStyle textButtonStyle2;
     private World world;
     private GameData gameData;
 
@@ -68,21 +69,24 @@ public class ShopState extends GameState {
         stage = new Stage();
         Label.LabelStyle labelStyle = new Label.LabelStyle();
         labelStyle.font = new BitmapFont();
-        labelStyle.fontColor = Color.RED;
-        notEnoughMoneyLabel = new Label("Not Enough Money",labelStyle);
         labelStyle.fontColor = Color.BLACK;
+        notEnoughMoneyLabel = new Label("Not Enough Money",labelStyle);
+        notEnoughMoneyLabel.setVisible(false);
         placingLabel = new Label("Now Placing", labelStyle);
+        placingLabel.setVisible(false);
 
         stage.addActor(placingLabel);
         stage.addActor(notEnoughMoneyLabel);
+
         sr = new ShapeRenderer();
         map = new MapPlugin();
         map.onEnable(gameData, world);
+
         textButtonStyle = new TextButton.TextButtonStyle();
         textButtonStyle.font = new BitmapFont();
-        textButtonStyle.fontColor = Color.RED;
+        textButtonStyle.fontColor = Color.WHITE;
         button = new TextButton("Start wave button", textButtonStyle);
-        button.setPosition(900, 900);
+        button.setPosition(830, 900);
         button.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -91,13 +95,16 @@ public class ShopState extends GameState {
             }
         });
 
-        button1 = new TextButton(String.format("Current Money: %d", gameData.getPlayerMoney()), textButtonStyle);
-        button1.setPosition(1700, 100);
+        textButtonStyle2 = new TextButton.TextButtonStyle();
+        textButtonStyle2.font = new BitmapFont();
+        textButtonStyle2.fontColor = Color.BLACK;
+
+        button1 = new TextButton(String.format("Current Money: %d", gameData.getPlayerMoney()), textButtonStyle2);
+        button1.setPosition(1920-165, 950);
         stage.addActor(button);
         stage.addActor(button1);
 
 
-        int shopWidth = 200;
         try {
             int iterator = 0;
             for (ShopPluginService shopPlugin : getShopPluginServices()) {
@@ -106,7 +113,8 @@ public class ShopState extends GameState {
                 Texture texture = shopPlugin.getTexture();
                 TextureRegionDrawable weaponImage = new TextureRegionDrawable(texture);
                 ImageButton but = new ImageButton((weaponImage));
-                but.setPosition(1920 - (shopWidth), 800 - (iterator * 200));
+                but.setSize(60,60);
+                but.setPosition(1920 - 130, 800 - (iterator * 200));
                 but.setName(String.valueOf(iterator));
 
                 but.addListener(new ClickListener() {
@@ -122,11 +130,11 @@ public class ShopState extends GameState {
                 });
 
                 Label costLabel = new Label("Cost: " + shopPlugin.getCost(), labelStyle);
-                costLabel.setPosition(but.getX() + 20, but.getY() - costLabel.getHeight() - 10);
+                costLabel.setPosition(but.getX(), but.getY() - costLabel.getHeight() - 30);
                 stage.addActor(costLabel);
 
                 Label nameLabel = new Label(shopPlugin.getWeaponName(), labelStyle);
-                nameLabel.setPosition(but.getX() + 30, but.getY() - nameLabel.getHeight() + 10);
+                nameLabel.setPosition(but.getX(), but.getY() - nameLabel.getHeight() - 5);
                 stage.addActor(nameLabel);
                 stage.addActor(but);
             }
@@ -149,17 +157,15 @@ public class ShopState extends GameState {
             }//TODO: Send some kind of event with selected image? Need shop to actually contain WeaponPlugins not just textures
         } else if (shopPlugin.getCost() > gameData.getPlayerMoney()) {
             notEnoughMoneyLabel.setVisible(true);
-            notEnoughMoneyLabel.setPosition(1920 - (200), 80);
+            notEnoughMoneyLabel.setPosition(1920 - (180), 70);
         } else {
                 TextureRegionDrawable weaponImage = new TextureRegionDrawable(shopPlugin.getTexture());
                 if (sel == null) {
 
-                    placingLabel.setPosition(1920 - (200), 80);
+                    placingLabel.setPosition(1920 - 140, 100);
                     placingLabel.setVisible(true);
                     sel = new ImageButton(weaponImage);
-                    textButtonStyle.fontColor = Color.RED;
-
-                    sel.setPosition(1920 - (200), 100);
+                    sel.setPosition(1920 - 115, 136);
 
                     stage.addActor(sel);
 
@@ -175,11 +181,11 @@ public class ShopState extends GameState {
     public void draw(GameData gameData) {
 
         sr.begin(ShapeRenderer.ShapeType.Filled);
-        sr.setColor(Color.YELLOW);
+        sr.setColor(Color.LIGHT_GRAY);
         int shopWidth = 200;
         sr.rect(1920 - shopWidth, 0, 200, 1080);
         sr.setColor(Color.DARK_GRAY);
-        sr.rect(1920 - (200) + 55, 100 + 25, 50, 50);
+        sr.rect(1920 - shopWidth + 75, 100 + 25, 50, 50);
         sr.end();
 
         map.draw(gameData);
