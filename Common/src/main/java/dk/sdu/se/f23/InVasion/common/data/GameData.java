@@ -21,6 +21,8 @@ public class GameData {
     private GameStateEnum currentState;
     private List<Event> events = new CopyOnWriteArrayList<>();
 
+    private GameStateEnum currentState;
+
     public void setMultiplexer(InputMultiplexer inputMultiplexer){
         this.multiplexer = inputMultiplexer;
     }
@@ -41,7 +43,7 @@ public class GameData {
         this.spriteBatch = spriteBatch;
     }
 
-    public GameStateEnum getCurrentState(){return currentState;}
+    public void setCurrentState(GameStateEnum state){ this.currentState = state;}
 
     public void setCurrentState(GameStateEnum state){ this.currentState = state;}
 
