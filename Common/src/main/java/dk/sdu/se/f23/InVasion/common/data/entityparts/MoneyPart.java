@@ -13,16 +13,15 @@ public class MoneyPart implements EntityPart {
     private int money;
 
     /**
-     * @param money - The amount of money the player gets for killing this enemy
+     * @param money - what amount of money the player gets for killing this enemy
      */
-    public MoneyPart(int money) {
+    public MoneyPart(int money){
         this.money = money;
     }
 
     /**
-     * This method checks if the enemy is dead, if so, money is added to the
+     * This method checks if the enemy is dead and if it is, money is added to the
      * players balance
-     *
      * @param data
      * @param entity
      */
@@ -30,7 +29,7 @@ public class MoneyPart implements EntityPart {
     public void process(GameData data, Entity entity) {
         LifePart enemyLifePart = entity.getPart(LifePart.class);
 
-        if (enemyLifePart.isDead()) {
+        if(enemyLifePart.getLife() <= 0 && !enemyLifePart.isDead()){
             int balance = data.getPlayerMoney() + getMoney();
             data.setPlayerMoney(balance);
         }

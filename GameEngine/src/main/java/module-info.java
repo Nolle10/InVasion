@@ -9,6 +9,4 @@ module GameEngine {
     requires Map;
     uses PluginService;
     uses EntityProcessingService;
-    opens dk.sdu.se.f23.InVasion.managers;
-
 }

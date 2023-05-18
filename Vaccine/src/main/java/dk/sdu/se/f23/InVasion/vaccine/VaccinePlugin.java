@@ -1,4 +1,5 @@
-package dk.sdu.se.f23.InVasion.weapon;
+package dk.sdu.se.f23.InVasion.vaccine;
+
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -16,24 +17,37 @@ import dk.sdu.se.f23.InVasion.commonweapon.Weapon;
 import java.util.ArrayList;
 
 
-public class WeaponPlugin implements PluginService {
-    private final String weaponName = "Medicine";
-    private Texture texture = new Texture(Gdx.files.internal("Weapon/src/main/resources/TOWER.png"));
-    private int cost = 200;
+public class VaccinePlugin implements PluginService {
+
+    private final String weaponName = "Vaccine";
+    private Texture texture = new Texture(Gdx.files.internal("Vaccine/src/main/resources/vac.png"));
+    private int cost = 800;
 
 
     @Override
     public void onEnable(GameData data, World world) {
         ArrayList<Object> weaponVariables = new ArrayList<>();
+        System.out.println("AHHHH");
         weaponVariables.add(weaponName);
         weaponVariables.add(texture);
         weaponVariables.add(cost);
         world.addWeapon(weaponVariables);
+        //Temp add weapon (for testing purposes)
+        world.addEntity(createWeapon(new Point(1000, 600)));
         //Adding WeaponControlSystem as an EventListener for TargetEvent and BuyTowerEvent
-        WeaponControlSystem weaponControlSystem = new WeaponControlSystem();
-        EventDistributor.addListener(TargetEvent.class, weaponControlSystem);
-        EventDistributor.addListener(BuyTowerEvent.class, weaponControlSystem);
+        VaccineControlSystem vaccineControlSystem = new VaccineControlSystem();
+        EventDistributor.addListener(TargetEvent.class, vaccineControlSystem);
+        EventDistributor.addListener(BuyTowerEvent.class, vaccineControlSystem);
     }
+
+    //Can be deleted when Event firing from shop is implemented
+    private Entity createWeapon(Point position) {
+        Entity weapon = new Weapon();
+        weapon.add(new PositionPart(new Point(position.getX(), position.getY()), 90));
+        weapon.setTexture(new Texture(Gdx.files.internal("Weapon/src/main/resources/vac.png")));
+        return weapon;
+    }
+
 
     @Override
     public void onDisable(GameData data, World world) {
@@ -42,5 +56,7 @@ public class WeaponPlugin implements PluginService {
                 world.removeEntity(e);
             }
         }
+
     }
+
 }

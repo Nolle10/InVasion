@@ -12,45 +12,52 @@ import dk.sdu.se.f23.InVasion.gamestates.*;
 
 public class GameStateManager {
 
-    // current game state
     private GameState gameState;
-
     private GameData gameData;
-    public static final int MENU = 0;
-    public static final int SHOP = 1;
-    public static final int PLAY = 2;
-    public static final int PAUSE = 3;
     private World world;
-    private int currentState = 0;
 
     public GameStateManager(GameData data, World world) {
         this.world = world;
         this.gameData = data;
-        setState(MENU);
+        setState(GameStateEnum.MainScreen);
     }
 
-    public void setState(int state) {
+    public void setState(GameStateEnum state) {
         if(gameState != null) gameState.dispose();
-        if(state == MENU) {
+        if(state == GameStateEnum.MainScreen) {
             EventDistributor.sendEvent(new StateChangeEvent(GameStateEnum.MainScreen), world);
             gameState = new MainScreenState(this);
         }
-        if(state == PLAY) {
+        if(state == GameStateEnum.PlayState) {
             EventDistributor.sendEvent(new StateChangeEvent(GameStateEnum.PlayState), world);
+            gameData.setWaveCount(gameData.getWaveCount() + 1);
             gameState = new PlayState(this);
-            EventDistributor.sendEvent(new SpawnEnemysEvent(1), world);
+            EventDistributor.sendEvent(new SpawnEnemysEvent(gameData.getWaveCount()), world);
         }
-        if(state == SHOP) {
-
-            EventDistributor.sendEvent(new StateChangeEvent(GameStateEnum.ShopState), world);
-
-            gameState = new ShopState(this);
+        if(state == GameStateEnum.ShopState) {
+            if (gameData.getWaveCount() > 4){
+                state = GameStateEnum.WinState;
+            } else {
+                EventDistributor.sendEvent(new StateChangeEvent(GameStateEnum.ShopState), world);
+                gameState = new ShopState(this);
+            }
         }
-        if(state == PAUSE) {
+        if(state == GameStateEnum.PauseState) {
             EventDistributor.sendEvent(new StateChangeEvent(GameStateEnum.PauseState), world);
             gameState = new PauseState(this);
         }
-        currentState = state;
+        if(state == GameStateEnum.WinState) {
+            EventDistributor.sendEvent(new StateChangeEvent(GameStateEnum.WinState), world);
+            gameState = new WinState(this);
+            gameData.setWaveCount(0);
+        }
+        if(state == GameStateEnum.LossState){
+            EventDistributor.sendEvent(new StateChangeEvent(GameStateEnum.LossState), world);
+            gameState = new LossState(this);
+            gameData.setWaveCount(0);
+        }
+
+        gameData.setCurrentState(state);
     }
 
     public void update(float dt) {
@@ -60,20 +67,12 @@ public class GameStateManager {
     public void draw() {
         gameState.draw(gameData);
     }
+
     public World getWorld(){
         return world;
     }
 
-
     public GameData getGameData() {
         return gameData;
-    }
-
-
-    public GameState getGameState() {
-        return gameState; // i just put this here
-    }
-    public int getCurrentState(){
-        return currentState;
     }
 }

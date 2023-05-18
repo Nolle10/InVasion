@@ -7,9 +7,11 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import dk.sdu.se.f23.InVasion.common.data.GameData;
 import dk.sdu.se.f23.InVasion.common.data.World;
+import dk.sdu.se.f23.InVasion.common.events.enums.GameStateEnum;
 import dk.sdu.se.f23.InVasion.managers.GameStateManager;
 import dk.sdu.se.f23.InVasion.map.MapPlugin;
 
@@ -22,11 +24,11 @@ public class PlayState extends GameState {
 
     private TextButton button;
     private TextButton button1;
+    private Label labelWave;
     private TextButton.TextButtonStyle textButtonStyle;
 
-
-    private World world = new World();
     private MapPlugin map;
+
     public PlayState(GameStateManager gsm) {
         super(gsm);
     }
@@ -46,7 +48,7 @@ public class PlayState extends GameState {
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button){
                 gsm.getGameData().removeProcessor(stage);
-                gsm.setState(1);
+                gsm.setState(GameStateEnum.ShopState);
                 return true;
             }
         });
@@ -56,21 +58,27 @@ public class PlayState extends GameState {
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button){
                 gsm.getGameData().removeProcessor(stage);
-                gsm.setState(3);
+                gsm.setState(GameStateEnum.PauseState);
                 return true;
             }
         });
+
+        BitmapFont font = new BitmapFont();
+        font.getData().setScale(3);
+        Label.LabelStyle style = new Label.LabelStyle(font, Color.WHITE);
+        labelWave = new Label(String.format("Wave: %d", gsm.getGameData().getWaveCount()), style);
+        labelWave.setPosition(100, 950);
+
         stage.addActor(button);
         stage.addActor(button1);
+        stage.addActor(labelWave);
         gsm.getGameData().addProcessor(stage);
 
         sr = new ShapeRenderer();
     }
 
     public void update(float dt) {
-
         handleInput();
-
     }
 
     public void draw(GameData gameData) {

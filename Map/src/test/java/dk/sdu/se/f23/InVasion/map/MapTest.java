@@ -1,5 +1,6 @@
 package dk.sdu.se.f23.InVasion.map;
 
+import org.junit.Test;
 
 import java.util.ArrayList;
 

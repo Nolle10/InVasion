@@ -9,16 +9,16 @@ public class LifePart implements EntityPart {
     private boolean isDead = false;
 
     public LifePart(int life) {
-        setLife(life);
+        this.life = life;
     }
 
     @Override
     public void process(GameData data, Entity entity) {
-        if (isHit()) {
-            setLife(getLife()-1);
-            setHit(false);
+        if (isHit) {
+            life -= 1;
+            isHit = false;
         }
-        if (getLife() <= 0) {
+        if (life <= 0) {
             isDead = true;
         }
     }
