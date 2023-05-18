@@ -52,7 +52,7 @@ public class VaccineControlSystem implements EntityProcessingService, EventListe
 
     @Override
     public void processEvent(Event event, World world) {
-        //Needed when Event firing from shop is implemented
+        //Place weapon
        if (event instanceof BuyTowerEvent) {
             world.addEntity(createWeapon(((BuyTowerEvent) event).getPosition()));
         }
