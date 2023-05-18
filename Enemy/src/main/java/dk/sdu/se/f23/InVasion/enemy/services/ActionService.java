@@ -10,6 +10,5 @@ import java.util.List;
 
 public interface ActionService {
     List<Point> calculate(World world);
-
     AIType getAiType();
 }

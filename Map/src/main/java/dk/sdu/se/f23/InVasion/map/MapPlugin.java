@@ -29,8 +29,7 @@ public class MapPlugin{
     private final int height = 1080;
     private final int width = 1720;
     private final int tilesSize = 36;
-    private ArrayList<ArrayList<Square>> mapFields;
-    private ArrayList<Texture> tiles;
+    private final ArrayList<Texture> tiles;
     private ArrayList<ArrayList<Integer>> mask;
     private Stage stage;
     private World world;
@@ -40,7 +39,6 @@ public class MapPlugin{
 
     public MapPlugin() {
         stage = new Stage();
-        mapFields = new ArrayList<>();
         tiles = new ArrayList<>();
         addTextures();
     }
@@ -83,7 +81,7 @@ public class MapPlugin{
                     case -8421505 -> // Unknown color please provide right one
                             line.add(2);
                     default -> {
-                        System.out.println("An unexpected color was given: " + maskImage.getRGB(i, j));
+                        System.out.println("An unexpected color was found: " + maskImage.getRGB(i, j));
                         throw new NoSuchElementException();
                     }
                 }
@@ -97,7 +95,6 @@ public class MapPlugin{
     public void clearStuff(GameData gameData) {
         gameData.removeAllProccessors();
         stage.clear();
-        mapFields.clear();
     }
 
     public void setSelected(Buyable selected) {

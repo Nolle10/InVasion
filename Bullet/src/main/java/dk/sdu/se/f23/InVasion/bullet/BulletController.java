@@ -17,7 +17,6 @@ import dk.sdu.se.f23.InVasion.common.services.EntityProcessingService;
 import dk.sdu.se.f23.InVasion.commonbullet.Bullet;
 
 public class BulletController implements EntityProcessingService, EventListener {
-    private GameData gameData = new GameData();
     private GameStateEnum lastKnownState;
 
     public BulletController() {
@@ -62,6 +61,7 @@ public class BulletController implements EntityProcessingService, EventListener 
         addParts(direction, shooterPos, bullet);
 
         bullet.setTexture(new Texture(Gdx.files.internal("Bullet/src/main/resources/antibodyCut.png")));
+
         return bullet;
     }
 

@@ -27,7 +27,6 @@ public class PlayerControlSystem implements EntityProcessingService, EventListen
 
             PositionPart part = player.getPart(PositionPart.class);
             data.getSpriteBatch().draw(player.getTexture(), part.getX(), part.getY(), Gdx.graphics.getWidth() / 15f, Gdx.graphics.getHeight() / 15f);
-
         }
     }
 

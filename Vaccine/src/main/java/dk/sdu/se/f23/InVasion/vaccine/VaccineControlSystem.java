@@ -20,13 +20,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class VaccineControlSystem implements EntityProcessingService, EventListener {
-    private List<Entity> targets = new ArrayList<>();
+    private final List<Entity> targets = new ArrayList<>();
     private GameStateEnum lastKnownState;
 
     public VaccineControlSystem() {
         EventDistributor.addListener(StateChangeEvent.class, this);
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public void process(GameData data, World world, ProcessAt processTime) {
         if (lastKnownState != GameStateEnum.ShopState && lastKnownState != GameStateEnum.PlayState) {
@@ -75,9 +76,11 @@ public class VaccineControlSystem implements EntityProcessingService, EventListe
                 if (((LifePart) target.getPart(LifePart.class)).isDead()) {
                     continue;
                 }
+
                 Point targetPos = ((PositionPart) target.getPart(PositionPart.class)).getPos();
 
-                double distance = Math.sqrt(Math.pow(weaponPos.getX() - targetPos.getX(), 2) + Math.pow(weaponPos.getY() - targetPos.getY(), 2));
+                double distance = dist(weaponPos, targetPos);
+
 
                 if (distance < closestDistance) {
                     closestDistance = distance;
@@ -91,11 +94,14 @@ public class VaccineControlSystem implements EntityProcessingService, EventListe
         }
         cleanEnemies();
         return enemyPosition;
-
     }
 
     private void cleanEnemies() {
         targets.removeIf(e -> ((LifePart) e.getPart(LifePart.class)).isDead());
+    }
+
+    private double dist(Point p1, Point p2) {
+        return Math.sqrt(Math.pow((p2.getY() - p1.getY()), 2) + Math.pow((p2.getX() - p1.getX()), 2));
     }
 
     @Override
@@ -107,10 +113,6 @@ public class VaccineControlSystem implements EntityProcessingService, EventListe
         } else if (event instanceof StateChangeEvent stateChangeEvent) {
             this.lastKnownState = stateChangeEvent.getNewState();
         }
-    }
-
-    private double dist(Point p1, Point p2) {
-        return Math.sqrt(Math.pow((p2.getY() - p1.getY()), 2) + Math.pow((p2.getX() - p1.getX()), 2));
     }
 }
 
