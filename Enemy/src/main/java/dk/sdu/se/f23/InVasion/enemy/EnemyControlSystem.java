@@ -30,7 +30,6 @@ public class EnemyControlSystem implements EntityProcessingService, EventListene
     private float timeSinceLastSpawn;
     private ActionService actionService;
     private GameStateEnum lastKnownState;
-    private boolean waveIsDone = false;
 
 
     public EnemyControlSystem() {
@@ -98,7 +97,6 @@ public class EnemyControlSystem implements EntityProcessingService, EventListene
             this.lastKnownState = stateChangeEvent.getNewState();
         } else if (event instanceof SpawnEnemysEvent spawnEnemiesEvent) {
             enemiesToSpawn = spawnEnemiesEvent.getWaveLevel() * 2;
-            waveIsDone = false;
         }
     }
 }
