@@ -109,8 +109,8 @@ public class MapPlugin /*implements PluginService*/ {
         gameData.removeProcessor(stage);
         stage.clear();
         mapFields.clear();
-
     }
+
     public void clearStuff (GameData gameData, World world) {
         gameData.removeAllProccessors();
         stage.clear();
