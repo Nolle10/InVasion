@@ -34,17 +34,13 @@ public class GameStateManager implements EventListener {
             gameState = new MainScreenState(this);
         }
         if (state == GameStateEnum.PlayState) {
-            if (gameData.getWaveCount() > 4 && world.getEntities(Enemy.class).isEmpty()) {
-                state = GameStateEnum.WinState;
-            } else {
-                EventDistributor.sendEvent(new StateChangeEvent(GameStateEnum.PlayState), world);
-                gameData.setWaveCount(gameData.getWaveCount() + 1);
-                gameState = new PlayState(this);
-                EventDistributor.sendEvent(new SpawnEnemysEvent(gameData.getWaveCount()), world);
-            }
+            EventDistributor.sendEvent(new StateChangeEvent(GameStateEnum.PlayState), world);
+            gameData.setWaveCount(gameData.getWaveCount() + 1);
+            gameState = new PlayState(this);
+            EventDistributor.sendEvent(new SpawnEnemysEvent(gameData.getWaveCount()), world);
         }
-        if (state == GameStateEnum.ShopState) {
 
+        if (state == GameStateEnum.ShopState) {
             EventDistributor.sendEvent(new StateChangeEvent(GameStateEnum.ShopState), world);
             gameState = new ShopState(this);
 
@@ -86,7 +82,11 @@ public class GameStateManager implements EventListener {
     @Override
     public void processEvent(Event event, World world) {
         if (event instanceof WaveIsDoneEvent) {
-            setState(GameStateEnum.ShopState);
+            if (gameData.getWaveCount() > 4) {
+                setState(GameStateEnum.WinState);
+            } else {
+                setState(GameStateEnum.ShopState);
+            }
         }
     }
 }
