@@ -109,9 +109,6 @@ public class VaccineControlSystem implements EntityProcessingService, EventListe
         }
     }
     private double dist(Point p1, Point p2){
-        if (p1 == null || p2 == null){
-            return Double.MAX_VALUE;
-        }
         return Math.sqrt(Math.pow((p2.getY()-p1.getY()),2) + Math.pow((p2.getX()-p1.getX()),2));
     }
 }
