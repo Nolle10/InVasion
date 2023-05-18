@@ -4,20 +4,24 @@ package dk.sdu.se.f23.InVasion.managers;
 import dk.sdu.se.f23.InVasion.common.data.GameData;
 import dk.sdu.se.f23.InVasion.common.data.World;
 import dk.sdu.se.f23.InVasion.common.events.EventDistributor;
+import dk.sdu.se.f23.InVasion.common.events.EventListener;
+import dk.sdu.se.f23.InVasion.common.events.abstracts.Event;
 import dk.sdu.se.f23.InVasion.common.events.enums.GameStateEnum;
 import dk.sdu.se.f23.InVasion.common.events.events.SpawnEnemysEvent;
 import dk.sdu.se.f23.InVasion.common.events.events.StateChangeEvent;
+import dk.sdu.se.f23.InVasion.common.events.events.WaveIsDoneEvent;
 import dk.sdu.se.f23.InVasion.commonenemy.Enemy;
 import dk.sdu.se.f23.InVasion.gamestates.*;
 
 
-public class GameStateManager {
+public class GameStateManager implements EventListener {
 
     private GameState gameState;
     private GameData gameData;
     private World world;
 
     public GameStateManager(GameData data, World world) {
+        EventDistributor.addListener(WaveIsDoneEvent.class, this);
         this.world = world;
         this.gameData = data;
         setState(GameStateEnum.MainScreen);
@@ -77,5 +81,12 @@ public class GameStateManager {
 
     public GameData getGameData() {
         return gameData;
+    }
+
+    @Override
+    public void processEvent(Event event, World world) {
+        if (event instanceof WaveIsDoneEvent) {
+            setState(GameStateEnum.ShopState);
+        }
     }
 }

@@ -11,8 +11,10 @@ import dk.sdu.se.f23.InVasion.common.events.EventDistributor;
 import dk.sdu.se.f23.InVasion.common.events.EventListener;
 import dk.sdu.se.f23.InVasion.common.events.abstracts.Event;
 import dk.sdu.se.f23.InVasion.common.events.enums.GameStateEnum;
+import dk.sdu.se.f23.InVasion.common.events.enums.SystemSender;
 import dk.sdu.se.f23.InVasion.common.events.events.SpawnEnemysEvent;
 import dk.sdu.se.f23.InVasion.common.events.events.StateChangeEvent;
+import dk.sdu.se.f23.InVasion.common.events.events.WaveIsDoneEvent;
 import dk.sdu.se.f23.InVasion.common.services.EntityProcessingService;
 import dk.sdu.se.f23.InVasion.commonenemy.Enemy;
 import dk.sdu.se.f23.InVasion.enemy.services.ActionService;
@@ -28,13 +30,14 @@ public class EnemyControlSystem implements EntityProcessingService, EventListene
     private float timeSinceLastSpawn;
     private ActionService actionService;
     private GameStateEnum lastKnownState;
+    private boolean waveIsDone = false;
 
 
     public EnemyControlSystem() {
         EventDistributor.addListener(StateChangeEvent.class, this);
 
         for (ActionService service : getActionServices()) {
-            if (service.getAiType() == AIType.A_STAR){
+            if (service.getAiType() == AIType.A_STAR) {
                 actionService = service;
             }
         }
@@ -43,7 +46,7 @@ public class EnemyControlSystem implements EntityProcessingService, EventListene
     @SuppressWarnings("unchecked")
     @Override
     public void process(GameData data, World world, ProcessAt processTime) {
-        if (lastKnownState != GameStateEnum.PlayState){
+        if (lastKnownState != GameStateEnum.PlayState) {
             return;
         }
         timeSinceLastSpawn += data.getDelta();
@@ -57,6 +60,9 @@ public class EnemyControlSystem implements EntityProcessingService, EventListene
             enemy.add(new MoneyPart(2));
             enemy.setTexture(new Texture(Gdx.files.internal("Enemy/src/main/resources/dk/sdu/se/f23/InVasion/enemyresources/textures/enemy2.png")));
             world.addEntity(enemy);
+        }
+        if (enemiesToSpawn == 0 && world.getEntities(Enemy.class).isEmpty()){
+            EventDistributor.sendEvent(new WaveIsDoneEvent(SystemSender.Module),world);
         }
 
 
@@ -88,10 +94,11 @@ public class EnemyControlSystem implements EntityProcessingService, EventListene
 
     @Override
     public void processEvent(Event event, World world) {
-        if (event instanceof StateChangeEvent stateChangeEvent){
+        if (event instanceof StateChangeEvent stateChangeEvent) {
             this.lastKnownState = stateChangeEvent.getNewState();
         } else if (event instanceof SpawnEnemysEvent spawnEnemiesEvent) {
             enemiesToSpawn = spawnEnemiesEvent.getWaveLevel() * 2;
+            waveIsDone = false;
         }
     }
 }
