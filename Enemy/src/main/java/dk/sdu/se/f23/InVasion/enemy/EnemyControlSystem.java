@@ -3,7 +3,6 @@ package dk.sdu.se.f23.InVasion.enemy;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import dk.sdu.se.f23.InVasion.common.data.*;
 import dk.sdu.se.f23.InVasion.common.data.entityparts.LifePart;
 import dk.sdu.se.f23.InVasion.common.data.entityparts.MoneyPart;
@@ -15,8 +14,9 @@ import dk.sdu.se.f23.InVasion.common.services.EntityProcessingService;
 import dk.sdu.se.f23.InVasion.commonenemy.Enemy;
 import dk.sdu.se.f23.InVasion.enemy.services.ActionService;
 
-
-import java.util.*;
+import java.util.Collection;
+import java.util.List;
+import java.util.ServiceLoader;
 
 import static java.util.stream.Collectors.toList;
 
@@ -33,6 +33,7 @@ public class EnemyControlSystem implements EntityProcessingService, EventListene
         }
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public void process(GameData data, World world, ProcessAt processTime) {
         timeSinceLastSpawn += data.getDelta();

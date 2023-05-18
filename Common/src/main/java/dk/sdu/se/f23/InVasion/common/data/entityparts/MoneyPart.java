@@ -1,13 +1,8 @@
 package dk.sdu.se.f23.InVasion.common.data.entityparts;
 
-import com.badlogic.gdx.Game;
 import dk.sdu.se.f23.InVasion.common.data.Entity;
 import dk.sdu.se.f23.InVasion.common.data.GameData;
 
-/**
- * @author Freja Madsen (Supervised by Oliver Svendsen)
- * @see dk.sdu.se.f23.InVasion.common.data.entityparts.EntityPart
- */
 public class MoneyPart implements EntityPart {
 
     private int money;

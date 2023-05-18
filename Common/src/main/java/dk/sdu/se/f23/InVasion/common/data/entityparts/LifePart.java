@@ -15,7 +15,7 @@ public class LifePart implements EntityPart {
     @Override
     public void process(GameData data, Entity entity) {
         if (isHit()) {
-            setLife(getLife()-1);
+            setLife(getLife() - 1);
             setHit(false);
         }
         if (getLife() <= 0) {
@@ -28,7 +28,12 @@ public class LifePart implements EntityPart {
     }
 
     public void setLife(int life) {
+        this.isDead = life < 0;
         this.life = life;
+    }
+
+    public void takeDamage(int damage) {
+        setLife(getLife() - damage);
     }
 
     public boolean isHit() {
