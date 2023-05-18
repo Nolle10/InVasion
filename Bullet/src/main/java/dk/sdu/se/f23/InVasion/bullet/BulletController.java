@@ -7,6 +7,7 @@ import dk.sdu.se.f23.InVasion.common.data.entityparts.LifePart;
 import dk.sdu.se.f23.InVasion.common.data.entityparts.MovingPart;
 import dk.sdu.se.f23.InVasion.common.data.entityparts.PositionPart;
 import dk.sdu.se.f23.InVasion.common.data.entityparts.TimerPart;
+import dk.sdu.se.f23.InVasion.common.events.EventDistributor;
 import dk.sdu.se.f23.InVasion.common.events.abstracts.Event;
 import dk.sdu.se.f23.InVasion.common.events.EventListener;
 import dk.sdu.se.f23.InVasion.common.events.enums.GameStateEnum;
@@ -20,6 +21,7 @@ public class BulletController implements EntityProcessingService, EventListener 
     private GameStateEnum lastKnownState;
 
     public BulletController() {
+        EventDistributor.addListener(StateChangeEvent.class, this);
     }
 
     @Override
@@ -71,10 +73,11 @@ public class BulletController implements EntityProcessingService, EventListener 
         return bullet;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public void processEvent(Event event, World world) {
-        if (event instanceof StateChangeEvent){
-            this.lastKnownState = ((StateChangeEvent)event).getNewState();
+        if (event instanceof StateChangeEvent stateChangeEvent){
+            this.lastKnownState = stateChangeEvent.getNewState();
         }
 
         if (lastKnownState != GameStateEnum.PlayState) {
@@ -83,8 +86,8 @@ public class BulletController implements EntityProcessingService, EventListener 
             }
             return;
         }
-        if (event instanceof FireShotEvent) {
-            world.addEntity(createBullet(((FireShotEvent) event).getSource(),((FireShotEvent) event).getDirection()));
+        if (event instanceof FireShotEvent fireShotEvent) {
+            world.addEntity(createBullet(fireShotEvent.getSource(),fireShotEvent.getDirection()));
         }
     }
 }

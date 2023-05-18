@@ -5,6 +5,7 @@ import dk.sdu.se.f23.InVasion.common.data.GameData;
 import dk.sdu.se.f23.InVasion.common.data.ProcessAt;
 import dk.sdu.se.f23.InVasion.common.data.World;
 import dk.sdu.se.f23.InVasion.common.data.entityparts.LifePart;
+import dk.sdu.se.f23.InVasion.common.data.entityparts.MoneyPart;
 import dk.sdu.se.f23.InVasion.common.data.entityparts.PositionPart;
 import dk.sdu.se.f23.InVasion.common.services.EntityProcessingService;
 import dk.sdu.se.f23.InVasion.commonbullet.Bullet;
@@ -19,19 +20,24 @@ public class CollisionDetector implements EntityProcessingService {
             for (Entity bullet : world.getEntities(Bullet.class)) {
                 LifePart entityLife = enemy.getPart(LifePart.class);
 
-                // CollisionDetection
-                if (this.collides(enemy, bullet) && enemy.getPart(LifePart.class) != null) {
-                    // if entity has been hit, it's life should be reduced
-                    if (entityLife.getLife() > 0) {
-                        entityLife.setLife(entityLife.getLife() - 1);
-                        //entityLife.setHit(true);
-                        // if entity is out of life - remove
-                        if (entityLife.getLife() <= 0) {
-                            world.removeEntity(enemy);
-                        }
-                        world.removeEntity(bullet);
-                    }
+                if (!this.collides(enemy, bullet)) {
+                    continue;
                 }
+                if (entityLife == null) {
+                    continue;
+                }
+                if (entityLife.isDead()) {
+                    world.removeEntity(enemy);
+                    continue;
+                }
+
+                entityLife.takeDamage(1);
+
+                if (entityLife.isDead()) {
+                    enemy.getPart(MoneyPart.class).process(data, enemy);
+                    world.removeEntity(enemy);
+                }
+                world.removeEntity(bullet);
             }
         }
     }
