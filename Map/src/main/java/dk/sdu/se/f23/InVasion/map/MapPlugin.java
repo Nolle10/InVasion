@@ -43,14 +43,18 @@ public class MapPlugin /*implements PluginService*/ {
     private ArrayList<ArrayList<Square>> mapFields;
     private ArrayList<Texture> tiles;
     private  ArrayList<ArrayList<Integer>> mask;
+    private  ArrayList<ArrayList<Integer>> path;
     private Stage stage;
     private World world;
     private boolean isClicked =  false;
     private Actor ClickedField= null;
+
+
     public MapPlugin() {
         stage = new Stage();
         mapFields = new ArrayList<>();
         tiles = new ArrayList<>();
+
         Texture texture1 = new Texture(Gdx.files.internal("Map/src/main/resources/dk/sdu/se/f23/InVasion/mapresources/textures/pixil-frame-1.png"));
         Texture texture2 = new Texture(Gdx.files.internal("Map/src/main/resources/dk/sdu/se/f23/InVasion/mapresources/textures/pixil-frame-0.png"));
         Texture texture3 = new Texture(Gdx.files.internal("Map/src/main/resources/dk/sdu/se/f23/InVasion/mapresources/textures/pixil-frame-3.png"));
@@ -73,6 +77,7 @@ public class MapPlugin /*implements PluginService*/ {
 
     public ArrayList<ArrayList<Integer>> generateMask() {
         ArrayList<ArrayList<Integer>> mask = new ArrayList<>();
+        ArrayList<ArrayList<Integer>> path = new ArrayList<>();
         BufferedImage maskImage = null;
         try {
             InputStream maskImageStream = getClass().getResourceAsStream("/dk/sdu/se/f23/InVasion/mapresources/textures/mask.png");
@@ -82,8 +87,10 @@ public class MapPlugin /*implements PluginService*/ {
             System.out.println("Picture not found");
             throw new NoSuchElementException(e);
         }
+
         for (int i = 0; i < width; i++) {
             ArrayList<Integer> line = new ArrayList<>();
+            ArrayList<Integer> lineForPath = new ArrayList<>();
             for (int j = 0; j < height; j++) {
                 int rgb = maskImage.getRGB(i, j);
                 switch (rgb) {
@@ -91,8 +98,10 @@ public class MapPlugin /*implements PluginService*/ {
                             line.add(0);
                     case -16777216 -> // Black
                             line.add(1);
-                    case -8421505 -> // Unknown color please provide right one
-                            line.add(2);
+                    case -8421505 -> {// Unknown color please provide right one
+                        line.add(2);
+                        lineForPath.add(2);
+                    }
                     default -> {
                         System.out.println("I do not know this pixel: " + rgb);
                         throw new NoSuchElementException();
@@ -100,6 +109,7 @@ public class MapPlugin /*implements PluginService*/ {
                 }
             }
             mask.add(line);
+            path.add(lineForPath);
         }
         this.mask = mask;
         return mask;
@@ -155,12 +165,13 @@ public class MapPlugin /*implements PluginService*/ {
                     ImageButton but = new ImageButton((weaponImage));
                     but.setSize(tilesSize,tilesSize);
                     but.setPosition(j, i);
-                    if(maxId==2) {
+                    if(maxId==1) {
                         but.addListener(new ClickListener() {
                             @Override
                             public void clicked(InputEvent event, float x, float y) {
                                 isClicked = true;
                                 ClickedField = event.getListenerActor();
+
                             }
                         });
                     }
@@ -186,7 +197,9 @@ public class MapPlugin /*implements PluginService*/ {
 
     public void draw(GameData gameData) {
         if(isClicked) {
+            int newMoney = gameData.getPlayerMoney()-world.getWeapons().
             EventDistributor.sendEvent(new BuyTowerEvent(new Point((int)ClickedField.getX(),(int)ClickedField.getY())), world);
+
             isClicked = false;
         }
     stage.draw();

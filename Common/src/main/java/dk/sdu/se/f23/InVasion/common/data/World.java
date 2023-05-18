@@ -11,6 +11,7 @@ public class World {
     private Point initState;
     private Point goalState;
     private ArrayList<ArrayList<Integer>> worldMask;
+    private int shopSelected= -1;
     public String addEntity(Entity entity) {
         entityMap.put(entity.getID(), entity);
         return entity.getID();
@@ -88,4 +89,12 @@ public class World {
 
         weapons.add(list);
     }
+
+    public void setShopSelected(int shopSelected) {
+        this.shopSelected = shopSelected;
+    }
+    public int getShopSelected() {
+        return shopSelected;
+    }
+
 }
