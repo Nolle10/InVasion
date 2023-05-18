@@ -3,26 +3,23 @@ package dk.sdu.se.f23.InVasion.vaccine;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import dk.sdu.se.f23.InVasion.common.data.*;
-import dk.sdu.se.f23.InVasion.common.data.entityparts.PositionPart;
-import dk.sdu.se.f23.InVasion.common.events.events.BuyTowerEvent;
-import dk.sdu.se.f23.InVasion.common.events.EventDistributor;
-import dk.sdu.se.f23.InVasion.common.events.events.StateChangeEvent;
-import dk.sdu.se.f23.InVasion.common.events.events.TargetEvent;
+import dk.sdu.se.f23.InVasion.common.data.Entity;
 import dk.sdu.se.f23.InVasion.common.data.GameData;
 import dk.sdu.se.f23.InVasion.common.data.World;
+import dk.sdu.se.f23.InVasion.common.data.shop.BuyableManager;
+import dk.sdu.se.f23.InVasion.common.events.EventDistributor;
+import dk.sdu.se.f23.InVasion.common.events.events.BuyTowerEvent;
+import dk.sdu.se.f23.InVasion.common.events.events.TargetEvent;
 import dk.sdu.se.f23.InVasion.common.services.PluginService;
-import dk.sdu.se.f23.InVasion.common.services.ShopPluginService;
 import dk.sdu.se.f23.InVasion.commonweapon.Weapon;
 
-import java.util.ArrayList;
 
-
-public class VaccinePlugin implements ShopPluginService {
+public class VaccinePlugin implements PluginService {
 
     private final String weaponName = "Vaccine";
     private Texture texture = new Texture(Gdx.files.internal("Vaccine/src/main/resources/vac.png"));
     private int cost = 800;
+    private Vaccine vaccine;
 
 
     @Override
@@ -31,6 +28,9 @@ public class VaccinePlugin implements ShopPluginService {
         VaccineControlSystem vaccineControlSystem = new VaccineControlSystem();
         EventDistributor.addListener(TargetEvent.class, vaccineControlSystem);
         EventDistributor.addListener(BuyTowerEvent.class, vaccineControlSystem);
+
+        vaccine = new Vaccine(weaponName, texture, cost);
+        BuyableManager.addBuyable(vaccine);
     }
 
 
@@ -41,9 +41,9 @@ public class VaccinePlugin implements ShopPluginService {
                 world.removeEntity(e);
             }
         }
-
+        BuyableManager.removeBuyable(vaccine);
     }
-
+/*
     @Override
     public Texture getTexture() {
         return texture;
@@ -57,6 +57,6 @@ public class VaccinePlugin implements ShopPluginService {
     @Override
     public int getCost() {
         return cost;
-    }
+    }*/
 
 }

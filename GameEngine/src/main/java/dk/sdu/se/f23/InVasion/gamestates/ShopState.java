@@ -1,39 +1,24 @@
 package dk.sdu.se.f23.InVasion.gamestates;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.maps.tiled.renderers.IsometricTiledMapRenderer;
-import com.badlogic.gdx.scenes.scene2d.*;
-
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import dk.sdu.se.f23.InVasion.common.data.GameData;
-import dk.sdu.se.f23.InVasion.common.data.Point;
 import dk.sdu.se.f23.InVasion.common.data.World;
+import dk.sdu.se.f23.InVasion.common.data.shop.Buyable;
+import dk.sdu.se.f23.InVasion.common.data.shop.BuyableManager;
 import dk.sdu.se.f23.InVasion.common.events.enums.GameStateEnum;
-import dk.sdu.se.f23.InVasion.common.events.EventDistributor;
-import dk.sdu.se.f23.InVasion.common.events.events.BuyTowerEvent;
-import dk.sdu.se.f23.InVasion.common.services.PluginService;
-import dk.sdu.se.f23.InVasion.common.services.ShopPluginService;
-import dk.sdu.se.f23.InVasion.main.Game;
 import dk.sdu.se.f23.InVasion.managers.GameStateManager;
 import dk.sdu.se.f23.InVasion.map.MapPlugin;
-
-import javax.swing.text.LabelView;
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Objects;
-import java.util.ServiceLoader;
-
-import static java.util.stream.Collectors.toList;
 
 public class ShopState extends GameState {
 
@@ -52,25 +37,25 @@ public class ShopState extends GameState {
     private ImageButton sel;
     private MapPlugin map;
 
-    private int selected = -1;
+    private String selected = null;
     private TextButton cost;
 
-    private Label placingLabel ;
+    private Label placingLabel;
     private Label notEnoughMoneyLabel;
+
     public ShopState(GameStateManager gsm) {
         super(gsm);
     }
 
     @Override
     public void init() {
-        selected = -1;
         world = gsm.getWorld();
         gameData = gsm.getGameData();
         stage = new Stage();
         Label.LabelStyle labelStyle = new Label.LabelStyle();
         labelStyle.font = new BitmapFont();
         labelStyle.fontColor = Color.BLACK;
-        notEnoughMoneyLabel = new Label("Not Enough Money",labelStyle);
+        notEnoughMoneyLabel = new Label("Not Enough Money", labelStyle);
         notEnoughMoneyLabel.setVisible(false);
         placingLabel = new Label("Now Placing", labelStyle);
         placingLabel.setVisible(false);
@@ -100,78 +85,78 @@ public class ShopState extends GameState {
         textButtonStyle2.fontColor = Color.BLACK;
 
         button1 = new TextButton(String.format("Current Money: %d", gameData.getPlayerMoney()), textButtonStyle2);
-        button1.setPosition(1920-165, 950);
+        button1.setPosition(1920 - 165, 950);
         stage.addActor(button);
         stage.addActor(button1);
 
+        int iterator = 0;
+        for (Buyable buyable : BuyableManager.getAllBuyables()) {
+            iterator++;
+            Texture texture = buyable.getTexture();
+            TextureRegionDrawable weaponImage = new TextureRegionDrawable(texture);
+            ImageButton but = new ImageButton((weaponImage));
+            but.setSize(60, 60);
+            but.setPosition(1920 - 130, 800 - (iterator * 200));
+            but.setName(buyable.getName());
 
-        try {
-            int iterator = 0;
-            for (ShopPluginService shopPlugin : getShopPluginServices()) {
-                shopPlugin.onEnable(gameData, world);
-                iterator++;
-                Texture texture = shopPlugin.getTexture();
-                TextureRegionDrawable weaponImage = new TextureRegionDrawable(texture);
-                ImageButton but = new ImageButton((weaponImage));
-                but.setSize(60,60);
-                but.setPosition(1920 - 130, 800 - (iterator * 200));
-                but.setName(String.valueOf(iterator));
-
-                but.addListener(new ClickListener() {
-                    @Override
-                    public void clicked(InputEvent event, float x, float y) {
-                        int newSelected = Integer.parseInt(but.getName());
-                        if (newSelected == selected) {
-                            selected = -1;
-                        } else {
-                            selected = newSelected;
-                        }
+            but.addListener(new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    if (buyable.getName().equals(selected)) {
+                        selected = null;
+                    } else {
+                        selected = buyable.getName();
                     }
-                });
+                }
+            });
 
-                Label costLabel = new Label("Cost: " + shopPlugin.getCost(), labelStyle);
-                costLabel.setPosition(but.getX(), but.getY() - costLabel.getHeight() - 30);
-                stage.addActor(costLabel);
+            Label costLabel = new Label("Cost: " + buyable.getPrice(), labelStyle);
+            costLabel.setPosition(but.getX(), but.getY() - costLabel.getHeight() - 30);
+            stage.addActor(costLabel);
 
-                Label nameLabel = new Label(shopPlugin.getWeaponName(), labelStyle);
-                nameLabel.setPosition(but.getX(), but.getY() - nameLabel.getHeight() - 5);
-                stage.addActor(nameLabel);
-                stage.addActor(but);
-            }
-        } catch (NullPointerException e) {
-            System.out.println("There are no weapons goddamn");
+            Label nameLabel = new Label(buyable.getName(), labelStyle);
+            nameLabel.setPosition(but.getX(), but.getY() - nameLabel.getHeight() - 5);
+            stage.addActor(nameLabel);
+            stage.addActor(but);
         }
+
         gsm.getGameData().addProcessor(stage);
 
     }
 
     @Override
     public void update(float dt) {
-        for (ShopPluginService shopPlugin : getShopPluginServices()){
-        if (selected == -1) {
-            if (sel != null) {
-                sel.remove();
-                placingLabel.setVisible(false);
-                notEnoughMoneyLabel.setVisible(false);
-                sel = null;
-            }//TODO: Send some kind of event with selected image? Need shop to actually contain WeaponPlugins not just textures
-        } else if (shopPlugin.getCost() > gameData.getPlayerMoney()) {
-            notEnoughMoneyLabel.setVisible(true);
-            notEnoughMoneyLabel.setPosition(1920 - (180), 70);
-        } else {
-                TextureRegionDrawable weaponImage = new TextureRegionDrawable(shopPlugin.getTexture());
-                if (sel == null) {
-
-                    placingLabel.setPosition(1920 - 140, 100);
-                    placingLabel.setVisible(true);
-                    sel = new ImageButton(weaponImage);
-                    sel.setPosition(1920 - 115, 136);
-
-                    stage.addActor(sel);
-
-                } else {
-                    sel.getStyle().imageUp = weaponImage;
+        for (Buyable buyable : BuyableManager.getAllBuyables()) {
+            if (selected == null) {
+                if (sel != null) {
+                    sel.remove();
+                    placingLabel.setVisible(false);
+                    notEnoughMoneyLabel.setVisible(false);
+                    sel = null;
                 }
+                return;
+            } else if (!buyable.getName().equals(selected)) {
+                continue;
+            }
+
+
+            if (buyable.getPrice() > gameData.getPlayerMoney()) {
+                notEnoughMoneyLabel.setVisible(true);
+                notEnoughMoneyLabel.setPosition(1920 - (180), 70);
+                return;
+            }
+
+            TextureRegionDrawable weaponImage = new TextureRegionDrawable(buyable.getTexture());
+            if (sel == null) {
+
+                placingLabel.setPosition(1920 - 140, 100);
+                placingLabel.setVisible(true);
+                sel = new ImageButton(weaponImage);
+                sel.setPosition(1920 - 115, 136);
+                stage.addActor(sel);
+
+            } else {
+                sel.getStyle().imageUp = weaponImage;
             }
         }
     }
@@ -201,9 +186,5 @@ public class ShopState extends GameState {
     @Override
     public void dispose() {
         gameData.removeProcessor(stage);
-    }
-
-    private Collection<? extends ShopPluginService> getShopPluginServices() {
-        return ServiceLoader.load(ShopPluginService.class).stream().map(ServiceLoader.Provider::get).collect(toList());
     }
 }

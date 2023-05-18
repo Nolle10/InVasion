@@ -1,13 +1,9 @@
 package dk.sdu.se.f23.InVasion.map;
 
 
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -19,15 +15,11 @@ import dk.sdu.se.f23.InVasion.common.data.Point;
 import dk.sdu.se.f23.InVasion.common.data.World;
 import dk.sdu.se.f23.InVasion.common.events.EventDistributor;
 import dk.sdu.se.f23.InVasion.common.events.events.BuyTowerEvent;
-import dk.sdu.se.f23.InVasion.common.services.PluginService;
 
 import javax.imageio.ImageIO;
-import java.awt.image.AreaAveragingScaleFilter;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.text.AttributedCharacterIterator;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -46,7 +38,7 @@ public class MapPlugin /*implements PluginService*/ {
     private Stage stage;
     private World world;
     private boolean isClicked =  false;
-    private Actor ClickedField= null;
+    private Actor clickedField = null;
     public MapPlugin() {
         stage = new Stage();
         mapFields = new ArrayList<>();
@@ -160,7 +152,7 @@ public class MapPlugin /*implements PluginService*/ {
                             @Override
                             public void clicked(InputEvent event, float x, float y) {
                                 isClicked = true;
-                                ClickedField = event.getListenerActor();
+                                clickedField = event.getListenerActor();
                             }
                         });
                     }
@@ -186,7 +178,7 @@ public class MapPlugin /*implements PluginService*/ {
 
     public void draw(GameData gameData) {
         if(isClicked) {
-            EventDistributor.sendEvent(new BuyTowerEvent(new Point((int)ClickedField.getX(),(int)ClickedField.getY())), world);
+            EventDistributor.sendEvent(new BuyTowerEvent(new Point((int) clickedField.getX(),(int) clickedField.getY())), world);
             isClicked = false;
         }
     stage.draw();
