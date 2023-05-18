@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import dk.sdu.se.f23.InVasion.common.data.GameData;
+import dk.sdu.se.f23.InVasion.common.data.MouseProcessor;
 import dk.sdu.se.f23.InVasion.common.events.enums.GameStateEnum;
 import dk.sdu.se.f23.InVasion.managers.GameStateManager;
 import dk.sdu.se.f23.InVasion.map.MapPlugin;
@@ -31,9 +32,8 @@ public class PlayState extends GameState {
     public void init() {
         stage = new Stage();
         map = new MapPlugin();
-
-
         map.onEnable(gsm.getGameData(), gsm.getWorld());
+        
         textButtonStyle = new TextButton.TextButtonStyle();
         textButtonStyle.font = new BitmapFont();
         textButtonStyle.fontColor = Color.YELLOW;
@@ -42,7 +42,6 @@ public class PlayState extends GameState {
         backToShopButton.addListener(new InputListener(){
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button){
-                gsm.getGameData().removeProcessor(stage);
                 gsm.setState(GameStateEnum.ShopState);
                 return true;
             }
@@ -52,7 +51,6 @@ public class PlayState extends GameState {
         pauseButton.addListener(new InputListener(){
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button){
-                gsm.getGameData().removeProcessor(stage);
                 gsm.setState(GameStateEnum.PauseState);
                 return true;
             }
@@ -68,6 +66,7 @@ public class PlayState extends GameState {
         stage.addActor(pauseButton);
         stage.addActor(labelWave);
         gsm.getGameData().addProcessor(stage);
+        gsm.getGameData().addProcessor(MouseProcessor.getInstance());
 
     }
 
@@ -78,7 +77,6 @@ public class PlayState extends GameState {
     public void draw(GameData gameData) {
         map.draw(gameData);
         stage.draw();
-
     }
 
     public void handleInput() {

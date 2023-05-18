@@ -42,7 +42,6 @@ public class PauseState extends GameState{
         button.addListener( new InputListener(){
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button){
-                gsm.getGameData().removeProcessor(stage);
                 gsm.setState(GameStateEnum.PlayState);
                 return true;
             }
@@ -54,7 +53,6 @@ public class PauseState extends GameState{
         button1.addListener( new InputListener(){
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button){
-                gsm.getGameData().removeProcessor(stage);
                 gsm.setState(GameStateEnum.MainScreen);
                 return true;
             }
@@ -84,6 +82,6 @@ public class PauseState extends GameState{
 
     @Override
     public void dispose() {
-gsm.getGameData().removeProcessor(stage);
+        gsm.getGameData().removeProcessor(stage);
     }
 }
