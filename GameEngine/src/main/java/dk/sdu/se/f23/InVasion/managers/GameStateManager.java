@@ -33,6 +33,7 @@ public class GameStateManager implements EventListener {
         if (state == GameStateEnum.MainScreen) {
             EventDistributor.sendEvent(new StateChangeEvent(GameStateEnum.MainScreen), world);
             gameState = new MainScreenState(this);
+            ((MainScreenState) gameState).emptyWorld();
         }
         if (state == GameStateEnum.PlayState) {
             EventDistributor.sendEvent(new StateChangeEvent(GameStateEnum.PlayState), world);
