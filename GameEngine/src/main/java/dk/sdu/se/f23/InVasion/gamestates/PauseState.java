@@ -17,10 +17,9 @@ public class PauseState extends GameState{
 
     private Stage stage;
 
-    private TextButton button;
-    private TextButton button1;
+    private TextButton resumeButton;
+    private TextButton mainMenuButton;
     private Label titleLabel;
-    private Label titleLabel1;
 
     public PauseState(GameStateManager gsm) {
         super(gsm);
@@ -36,10 +35,10 @@ public class PauseState extends GameState{
         titleLabel = new Label("Game is paused", style);
         titleLabel.setPosition(750, 800);
 
-        button = new TextButton("Resume game", buttonSkin.getSkin());
-        button.getLabel().setFontScale(2,2);
-        button.setPosition(760,500);
-        button.addListener( new InputListener(){
+        resumeButton = new TextButton("Resume game", buttonSkin.getSkin());
+        resumeButton.getLabel().setFontScale(2,2);
+        resumeButton.setPosition(760,500);
+        resumeButton.addListener(new InputListener(){
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button){
                 gsm.setState(GameStateEnum.PlayState);
@@ -47,10 +46,10 @@ public class PauseState extends GameState{
             }
         });
 
-        button1 = new TextButton("Back to main menu", buttonSkin.getSkin());
-        button1.getLabel().setFontScale(2,2);
-        button1.setPosition(760,350);
-        button1.addListener( new InputListener(){
+        mainMenuButton = new TextButton("Back to main menu", buttonSkin.getSkin());
+        mainMenuButton.getLabel().setFontScale(2,2);
+        mainMenuButton.setPosition(760,350);
+        mainMenuButton.addListener(new InputListener(){
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button){
                 gsm.setState(GameStateEnum.MainScreen);
@@ -59,8 +58,8 @@ public class PauseState extends GameState{
         });
 
 
-        stage.addActor(button);
-        stage.addActor(button1);
+        stage.addActor(resumeButton);
+        stage.addActor(mainMenuButton);
         stage.addActor(titleLabel);
         gsm.getGameData().addProcessor(stage);
     }
