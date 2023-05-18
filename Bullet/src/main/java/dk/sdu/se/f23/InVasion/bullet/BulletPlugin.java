@@ -9,7 +9,7 @@ import dk.sdu.se.f23.InVasion.common.events.events.StateChangeEvent;
 import dk.sdu.se.f23.InVasion.common.services.PluginService;
 import dk.sdu.se.f23.InVasion.commonbullet.Bullet;
 
-public class BulletPlugin implements PluginService{
+public class BulletPlugin implements PluginService {
     BulletController bulletController = new BulletController();
 
     @Override

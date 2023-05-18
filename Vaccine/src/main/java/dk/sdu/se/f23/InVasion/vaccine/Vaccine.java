@@ -15,7 +15,6 @@ public class Vaccine extends Weapon implements Buyable {
         this.price = price;
     }
 
-
     @Override
     public String getName() {
         return name;

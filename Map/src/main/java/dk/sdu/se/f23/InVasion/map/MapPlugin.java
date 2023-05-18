@@ -2,7 +2,6 @@ package dk.sdu.se.f23.InVasion.map;
 
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -21,18 +20,15 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.NoSuchElementException;
+import java.util.*;
 
 
-public class MapPlugin /*implements PluginService*/ {
+public class MapPlugin{
 
 
-    private int height = 1080;
-    private int width = 1720;
-    private int tilesSize = 36;
+    private final int height = 1080;
+    private final int width = 1720;
+    private final int tilesSize = 36;
     private ArrayList<ArrayList<Square>> mapFields;
     private ArrayList<Texture> tiles;
     private ArrayList<ArrayList<Integer>> mask;
@@ -46,12 +42,13 @@ public class MapPlugin /*implements PluginService*/ {
         stage = new Stage();
         mapFields = new ArrayList<>();
         tiles = new ArrayList<>();
-        Texture texture1 = new Texture(Gdx.files.internal("Map/src/main/resources/dk/sdu/se/f23/InVasion/mapresources/textures/pixil-frame-1.png"));
-        Texture texture2 = new Texture(Gdx.files.internal("Map/src/main/resources/dk/sdu/se/f23/InVasion/mapresources/textures/pixil-frame-0.png"));
-        Texture texture3 = new Texture(Gdx.files.internal("Map/src/main/resources/dk/sdu/se/f23/InVasion/mapresources/textures/pixil-frame-3.png"));
-        tiles.add(texture1);
-        tiles.add(texture3);
-        tiles.add(texture2);
+        addTextures();
+    }
+
+    private void addTextures() {
+        tiles.add(new Texture(Gdx.files.internal("Map/src/main/resources/dk/sdu/se/f23/InVasion/mapresources/textures/pixil-frame-1.png")));
+        tiles.add(new Texture(Gdx.files.internal("Map/src/main/resources/dk/sdu/se/f23/InVasion/mapresources/textures/pixil-frame-3.png")));
+        tiles.add(new Texture(Gdx.files.internal("Map/src/main/resources/dk/sdu/se/f23/InVasion/mapresources/textures/pixil-frame-0.png")));
     }
 
 
@@ -62,13 +59,11 @@ public class MapPlugin /*implements PluginService*/ {
         mask = generateMask();
         this.world = world;
         generateClickableMap();
-
-        //draw();
     }
 
     public ArrayList<ArrayList<Integer>> generateMask() {
         ArrayList<ArrayList<Integer>> mask = new ArrayList<>();
-        BufferedImage maskImage = null;
+        BufferedImage maskImage;
         try {
             InputStream maskImageStream = getClass().getResourceAsStream("/dk/sdu/se/f23/InVasion/mapresources/textures/mask.png");
             assert maskImageStream != null;
@@ -80,8 +75,7 @@ public class MapPlugin /*implements PluginService*/ {
         for (int i = 0; i < width; i++) {
             ArrayList<Integer> line = new ArrayList<>();
             for (int j = 0; j < height; j++) {
-                int rgb = maskImage.getRGB(i, j);
-                switch (rgb) {
+                switch (maskImage.getRGB(i, j)) {
                     case -1 -> //White
                             line.add(0);
                     case -16777216 -> // Black
@@ -89,7 +83,7 @@ public class MapPlugin /*implements PluginService*/ {
                     case -8421505 -> // Unknown color please provide right one
                             line.add(2);
                     default -> {
-                        System.out.println("I do not know this pixel: " + rgb);
+                        System.out.println("An unexpected color was given: " + maskImage.getRGB(i, j));
                         throw new NoSuchElementException();
                     }
                 }
@@ -100,13 +94,7 @@ public class MapPlugin /*implements PluginService*/ {
         return mask;
     }
 
-    public void onDisable(GameData gameData, World world) {
-        gameData.removeProcessor(stage);
-        stage.clear();
-        mapFields.clear();
-    }
-
-    public void clearStuff(GameData gameData, World world) {
+    public void clearStuff(GameData gameData) {
         gameData.removeAllProccessors();
         stage.clear();
         mapFields.clear();
@@ -117,28 +105,24 @@ public class MapPlugin /*implements PluginService*/ {
     }
 
     public void generateClickableMap() {
-        HashMap<Integer, Integer> occurenceMap = new HashMap<>();
-
-
+        HashMap<Integer, Integer> occurrenceMap = new HashMap<>();
         for (int i = 0; i < height; i++) {
 
             for (int j = 0; j < width; j++) {
 
                 if (i % tilesSize == 0 && j % tilesSize == 0) {
-                    int max = 0;
+                    Optional<Map.Entry<Integer, Integer>> maxEntry = occurrenceMap.entrySet()
+                            .stream()
+                            .max(Map.Entry.comparingByValue());
 
-                    int maxId = 0;
-                    for (Map.Entry<Integer, Integer> numberId : occurenceMap.entrySet()) {
-                        if (numberId.getValue() > max) {
-                            max = numberId.getValue();
-                            maxId = numberId.getKey();
-                        }
-                    }
-                    Texture t = tiles.get(maxId);
-                    TextureRegionDrawable weaponImage = new TextureRegionDrawable(t);
+                    int maxId = maxEntry.map(Map.Entry::getKey).orElse(0);
+
+                    Texture texture = tiles.get(maxId);
+                    TextureRegionDrawable weaponImage = new TextureRegionDrawable(texture);
                     ImageButton but = new ImageButton((weaponImage));
                     but.setSize(tilesSize, tilesSize);
                     but.setPosition(j, i);
+
                     if (maxId == 2) {
                         but.addListener(new ClickListener() {
                             @Override
@@ -149,15 +133,13 @@ public class MapPlugin /*implements PluginService*/ {
                         });
                     }
                     stage.addActor(but);
-                    occurenceMap.clear();
-
+                    occurrenceMap.clear();
                 } else {
                     Integer key = mask.get(j).get(i);
-                    if (occurenceMap.containsKey(key)) {
-                        occurenceMap.put(key, occurenceMap.get(key) + 1);
+                    if (occurrenceMap.containsKey(key)) {
+                        occurrenceMap.put(key, occurrenceMap.get(key) + 1);
                     } else {
-                        occurenceMap.put(key, 1);
-
+                        occurrenceMap.put(key, 1);
                     }
                 }
             }
@@ -167,7 +149,6 @@ public class MapPlugin /*implements PluginService*/ {
 
     public void draw(GameData gameData) {
         if (isClicked && selectedShopItem != null) {
-            System.out.println("MapPlugin draw: " + selectedShopItem);
             EventDistributor.sendEvent(new BuyTowerEvent(new Point((int) clickedField.getX(), (int) clickedField.getY()), selectedShopItem.getName()), world);
             gameData.setPlayerMoney(gameData.getPlayerMoney() - selectedShopItem.getPrice());
         }

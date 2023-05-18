@@ -62,30 +62,31 @@ public class VaccineControlSystem implements EntityProcessingService, EventListe
     }
 
 
+    @SuppressWarnings("unchecked")
     private Point findNearestNeighbor(World world) {
-
-        //Implementation of Nearest Neighbor algorithm
         Point enemyPosition = null;
         for (Entity weapon : world.getEntities(Weapon.class)) {
-            float weaponX = ((PositionPart) weapon.getPart(PositionPart.class)).getPos().getX();
-            float weaponY = ((PositionPart) weapon.getPart(PositionPart.class)).getPos().getY();
+            Point weaponPos = ((PositionPart) weapon.getPart(PositionPart.class)).getPos();
+
             double closestDistance = Double.MAX_VALUE;
             Entity closestTarget = null;
+
             for (Entity target : world.getEntities(Enemy.class)) {
-                if (!((LifePart) target.getPart(LifePart.class)).isDead()) {
-                    float targetX = ((PositionPart) target.getPart(PositionPart.class)).getPos().getX();
-                    float targetY = ((PositionPart) target.getPart(PositionPart.class)).getPos().getY();
-                    double distance = Math.sqrt(Math.pow(weaponX - targetX, 2) + Math.pow(weaponY - targetY, 2));
-                    if (distance < closestDistance) {
-                        closestDistance = distance;
-                        closestTarget = target;
-                    }
+                if (((LifePart) target.getPart(LifePart.class)).isDead()) {
+                    continue;
+                }
+                Point targetPos = ((PositionPart) target.getPart(PositionPart.class)).getPos();
+
+                double distance = Math.sqrt(Math.pow(weaponPos.getX() - targetPos.getX(), 2) + Math.pow(weaponPos.getY() - targetPos.getY(), 2));
+
+                if (distance < closestDistance) {
+                    closestDistance = distance;
+                    closestTarget = target;
                 }
             }
+
             if (closestTarget != null) {
-                float closestX = ((PositionPart) closestTarget.getPart(PositionPart.class)).getPos().getX();
-                float closestY = ((PositionPart) closestTarget.getPart(PositionPart.class)).getPos().getY();
-                enemyPosition = new Point((int) closestX, (int) closestY);
+                enemyPosition = ((PositionPart) closestTarget.getPart(PositionPart.class)).getPos();
             }
         }
         cleanEnemies();
@@ -99,9 +100,8 @@ public class VaccineControlSystem implements EntityProcessingService, EventListe
 
     @Override
     public void processEvent(Event event, World world) {
-        //Place weapon
         if (event instanceof BuyTowerEvent buyTowerEvent) {
-            if (buyTowerEvent.getName().equals("Vaccine")){
+            if (buyTowerEvent.getName().equals("Vaccine")) {
                 world.addEntity(createWeapon(buyTowerEvent.getPosition()));
             }
         } else if (event instanceof StateChangeEvent stateChangeEvent) {
