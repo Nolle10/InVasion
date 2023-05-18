@@ -12,7 +12,6 @@ module GameEngine {
     requires Map;
     uses PluginService;
     uses EntityProcessingService;
-    uses dk.sdu.se.f23.InVasion.common.services.ShopPluginService;
     opens dk.sdu.se.f23.InVasion.managers;
 
 }

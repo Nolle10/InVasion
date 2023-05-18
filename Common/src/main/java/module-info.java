@@ -7,4 +7,5 @@ module Common {
     exports dk.sdu.se.f23.InVasion.common.events.events;
     exports dk.sdu.se.f23.InVasion.common.events.enums;
     exports dk.sdu.se.f23.InVasion.common.events.abstracts;
+    exports dk.sdu.se.f23.InVasion.common.data.shop;
 }
