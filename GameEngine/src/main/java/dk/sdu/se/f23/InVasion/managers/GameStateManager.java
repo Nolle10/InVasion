@@ -37,18 +37,16 @@ public class GameStateManager implements EventListener {
         }
         if (state == GameStateEnum.PlayState) {
             EventDistributor.sendEvent(new StateChangeEvent(GameStateEnum.PlayState), world);
-            if (shouldStartWave){
+            if (shouldStartWave) {
                 gameData.setWaveCount(gameData.getWaveCount() + 1);
                 EventDistributor.sendEvent(new SpawnEnemysEvent(gameData.getWaveCount()), world);
             }
             gameState = new PlayState(this);
         }
-
         if (state == GameStateEnum.ShopState) {
             EventDistributor.sendEvent(new StateChangeEvent(GameStateEnum.ShopState), world);
             gameState = new ShopState(this);
             shouldStartWave = true;
-
         }
         if (state == GameStateEnum.PauseState) {
             EventDistributor.sendEvent(new StateChangeEvent(GameStateEnum.PauseState), world);
