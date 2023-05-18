@@ -18,6 +18,7 @@ public class GameStateManager implements EventListener {
     private GameState gameState;
     private GameData gameData;
     private World world;
+    private boolean shouldStartWave = false;
 
     public GameStateManager(GameData data, World world) {
         EventDistributor.addListener(WaveIsDoneEvent.class, this);
@@ -34,20 +35,25 @@ public class GameStateManager implements EventListener {
             case MainScreen -> {
                 EventDistributor.sendEvent(new StateChangeEvent(GameStateEnum.MainScreen), world);
                 gameState = new MainScreenState(this);
+                ((MainScreenState) gameState).emptyWorld();
             }
             case PlayState -> {
                 EventDistributor.sendEvent(new StateChangeEvent(GameStateEnum.PlayState), world);
-                gameData.setWaveCount(gameData.getWaveCount() + 1);
+                if (shouldStartWave) {
+                    gameData.setWaveCount(gameData.getWaveCount() + 1);
+                    EventDistributor.sendEvent(new SpawnEnemysEvent(gameData.getWaveCount()), world);
+                }
                 gameState = new PlayState(this);
-                EventDistributor.sendEvent(new SpawnEnemysEvent(gameData.getWaveCount()), world);
             }
             case ShopState -> {
                 EventDistributor.sendEvent(new StateChangeEvent(GameStateEnum.ShopState), world);
                 gameState = new ShopState(this);
+                shouldStartWave = true;
             }
             case PauseState -> {
                 EventDistributor.sendEvent(new StateChangeEvent(GameStateEnum.PauseState), world);
                 gameState = new PauseState(this);
+                shouldStartWave = false;
             }
             case WinState -> {
                 EventDistributor.sendEvent(new StateChangeEvent(GameStateEnum.WinState), world);
@@ -61,7 +67,6 @@ public class GameStateManager implements EventListener {
             }
             default -> System.out.println("An unexpected state were atempted to be set: " + state);
         }
-
     }
 
     public void update(float dt) {

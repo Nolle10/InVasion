@@ -1,8 +1,10 @@
 package dk.sdu.se.f23.InVasion.gamestates;
 
+import dk.sdu.se.f23.InVasion.common.data.Entity;
 import dk.sdu.se.f23.InVasion.common.data.GameData;
 import dk.sdu.se.f23.InVasion.common.data.buttonSkin;
 import dk.sdu.se.f23.InVasion.common.events.enums.GameStateEnum;
+import dk.sdu.se.f23.InVasion.commonweapon.Weapon;
 import dk.sdu.se.f23.InVasion.managers.GameStateManager;
 
 import com.badlogic.gdx.Gdx;
@@ -18,8 +20,8 @@ import dk.sdu.se.f23.InVasion.map.MapPlugin;
 public class MainScreenState extends GameState{
 
     private Stage stage;
-    private TextButton button;
-    private TextButton button1;
+    private TextButton startGameButton;
+    private TextButton exitGameButton;
     private Label titleLabel;
 
     public MainScreenState(GameStateManager gsm) {
@@ -36,10 +38,10 @@ public class MainScreenState extends GameState{
         titleLabel = new Label("InVasion", style);
         titleLabel.setPosition(860, 800);
 
-        button = new TextButton("Start game", buttonSkin.getSkin());
-        button.getLabel().setFontScale(2,2);
-        button.setPosition(760,500);
-        button.addListener(new InputListener(){
+        startGameButton = new TextButton("Start game", buttonSkin.getSkin());
+        startGameButton.getLabel().setFontScale(2,2);
+        startGameButton.setPosition(760,500);
+        startGameButton.addListener(new InputListener(){
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button){
                 gsm.setState(GameStateEnum.ShopState);
@@ -47,10 +49,10 @@ public class MainScreenState extends GameState{
             }
         });
 
-        button1 = new TextButton("Exit game", buttonSkin.getSkin());
-        button1.getLabel().setFontScale(2,2);
-        button1.setPosition(760,350);
-        button1.addListener( new InputListener(){
+        exitGameButton = new TextButton("Exit game", buttonSkin.getSkin());
+        exitGameButton.getLabel().setFontScale(2,2);
+        exitGameButton.setPosition(760,350);
+        exitGameButton.addListener(new InputListener(){
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button){
                 Gdx.app.exit();
@@ -60,16 +62,19 @@ public class MainScreenState extends GameState{
 
         // Add actors to the stage
         stage.addActor(titleLabel);
-        stage.addActor(button);
-        stage.addActor(button1);
+        stage.addActor(startGameButton);
+        stage.addActor(exitGameButton);
         gsm.getGameData().addProcessor(stage);
     }
 
     @Override
-    public void update(float dt) {}
+    public void update(float dt) {
+    }
 
     @Override
     public void draw(GameData gameData) {
+        gameData.setPlayerMoney(200);
+        gameData.setWaveCount(0);
         stage.draw();
         MapPlugin n = new MapPlugin();
 
@@ -81,5 +86,11 @@ public class MainScreenState extends GameState{
     @Override
     public void dispose() {
         gsm.getGameData().removeProcessor(stage);
+    }
+
+    public void emptyWorld(){
+        for (Entity entity : gsm.getWorld().getEntities(Weapon.class)) {
+            gsm.getWorld().removeEntity(entity);
+        }
     }
 }
