@@ -32,9 +32,8 @@ public class PlayState extends GameState {
     public void init() {
         stage = new Stage();
         map = new MapPlugin();
-
-
         map.onEnable(gsm.getGameData(), gsm.getWorld());
+        
         textButtonStyle = new TextButton.TextButtonStyle();
         textButtonStyle.font = new BitmapFont();
         textButtonStyle.fontColor = Color.YELLOW;
@@ -78,7 +77,6 @@ public class PlayState extends GameState {
     public void draw(GameData gameData) {
         map.draw(gameData);
         stage.draw();
-
     }
 
     public void handleInput() {
