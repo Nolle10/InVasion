@@ -27,6 +27,7 @@ public class VaccinePlugin implements PluginService {
 
         Texture texture = new Texture(Gdx.files.internal("Vaccine/src/main/resources/vac.png"));
         vaccine = new Vaccine("Vaccine", texture, 800);
+
         BuyableManager.addBuyable(vaccine);
     }
 

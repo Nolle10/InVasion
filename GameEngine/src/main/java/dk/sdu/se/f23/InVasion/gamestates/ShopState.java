@@ -138,7 +138,7 @@ public class ShopState extends GameState {
 
             if (buyable.getPrice() > gameData.getPlayerMoney()) {
                 notEnoughMoneyLabel.setVisible(true);
-                notEnoughMoneyLabel.setPosition(1920 - 140, 70);
+                notEnoughMoneyLabel.setPosition(1920 - 153, 70);
                 selected = null;
                 map.setSelected(null);
                 return;
@@ -150,7 +150,8 @@ public class ShopState extends GameState {
                 placingLabel.setPosition(1920 - 140, 100);
                 placingLabel.setVisible(true);
                 sel = new ImageButton(weaponImage);
-                sel.setPosition(1920 - 110, 136);
+                sel.setSize(60, 60);
+                sel.setPosition(1920 - 130, 123);
                 stage.addActor(sel);
 
             } else {
@@ -167,7 +168,7 @@ public class ShopState extends GameState {
         int shopWidth = 200;
         sr.rect(1920 - shopWidth, 0, 200, 1080);
         sr.setColor(Color.DARK_GRAY);
-        sr.rect(1920 + 77 - shopWidth, 100 + 25, 50, 50);
+        sr.rect(1920 + 68 - shopWidth, 100 + 20, 65, 65);
         sr.end();
 
         map.draw(gameData);
