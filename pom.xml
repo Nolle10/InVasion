@@ -11,6 +11,7 @@
         <module>GameEngine</module>
         <module>AI</module>
         <module>Bullet</module>
+        <module>Bacteria</module>
         <module>Collision</module>
         <module>Common</module>
         <module>Enemy</module>

@@ -2,8 +2,8 @@ package dk.sdu.se.f23.InVasion.ai;
 
 import dk.sdu.se.f23.InVasion.common.data.Point;
 import dk.sdu.se.f23.InVasion.common.data.World;
-import dk.sdu.se.f23.InVasion.enemy.AIType;
-import dk.sdu.se.f23.InVasion.enemy.services.ActionService;
+import dk.sdu.se.f23.InVasion.commonenemy.AIType;
+import dk.sdu.se.f23.InVasion.commonenemy.services.ActionService;
 
 import java.util.*;
 
