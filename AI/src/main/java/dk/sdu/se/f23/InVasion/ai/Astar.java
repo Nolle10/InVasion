@@ -13,9 +13,10 @@ public class Astar implements ActionService {
     private List<Point> points = new ArrayList<>();
 
 
-    public Astar(){
+    public Astar() {
 
     }
+
     private static class Node {
         int x, y, f, g, h;
         Node parent;
@@ -30,7 +31,6 @@ public class Astar implements ActionService {
     private PriorityQueue<Node> openList;
     private HashSet<Node> closedList;
     private int startI, startJ, endI, endJ;
-
 
 
     public void findPath() {
@@ -94,7 +94,7 @@ public class Astar implements ActionService {
         if (node == null) return;
         printPath(node.parent);
         // System.out.println("(" + node.x + "," + node.y + ")");
-        points.add(new Point(node.x,node.y));
+        points.add(new Point(node.x, node.y));
 
     }
 
@@ -117,7 +117,7 @@ public class Astar implements ActionService {
         this.grid = world.getWorldMask();
         this.findPath();
         long end = System.currentTimeMillis();
-        System.out.println("time: "+(end-start));
+        System.out.println("time: " + (end - start));
         return points;
     }
 

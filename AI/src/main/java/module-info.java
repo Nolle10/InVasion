@@ -2,5 +2,5 @@ module AI {
     requires Enemy;
     requires Common;
 
-    provides dk.sdu.se.f23.InVasion.enemy.services.ActionService with dk.sdu.se.f23.InVasion.ai.AStarAction, dk.sdu.se.f23.InVasion.ai.Astar;
+    provides dk.sdu.se.f23.InVasion.enemy.services.ActionService with dk.sdu.se.f23.InVasion.ai.Astar;
 }
