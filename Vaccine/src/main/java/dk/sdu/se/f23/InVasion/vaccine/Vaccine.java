@@ -8,7 +8,7 @@ public class Vaccine extends Weapon implements Buyable {
     private final String name;
     private final Texture pathToTexture;
     private final int price;
-
+    private float lastShot = 0;
     public Vaccine(String name, Texture texture, int price) {
         this.name = name;
         this.pathToTexture = texture;
