@@ -48,41 +48,62 @@ public class EnemyControlSystem implements EntityProcessingService, EventListene
         if (lastKnownState != GameStateEnum.PlayState) {
             return;
         }
+
         timeSinceLastSpawn += data.getDelta();
-        if (enemiesToSpawn > 0 && timeSinceLastSpawn > 1) {
+        if (enemiesToSpawn > 0 && timeSinceLastSpawn > 0.8) {
             timeSinceLastSpawn = 0;
             enemiesToSpawn--;
-            List<Point> route = actionService.calculate(world);
-            Enemy enemy = new Enemy(route);
-            enemy.add(new PositionPart(route.get(0), 0));
-            enemy.add(new LifePart(2));
-            enemy.add(new MoneyPart(2));
-            enemy.setTexture(new Texture(Gdx.files.internal("Enemy/src/main/resources/dk/sdu/se/f23/InVasion/enemyresources/textures/enemy2.png")));
+
+            Enemy enemy = buildEnemy(data, world);
+
             world.addEntity(enemy);
         }
-        if (enemiesToSpawn == 0 && world.getEntities(Enemy.class).isEmpty()){
-            EventDistributor.sendEvent(new WaveIsDoneEvent(SystemSender.Module),world);
+        if (enemiesToSpawn == 0 && world.getEntities(Enemy.class).isEmpty()) {
+            EventDistributor.sendEvent(new WaveIsDoneEvent(SystemSender.Module), world);
         }
-
 
         for (Entity enemy : world.getEntities(Enemy.class)) {
-            MoneyPart moneyPart = enemy.getPart(MoneyPart.class);
-            LifePart lifePart = enemy.getPart(LifePart.class);
-            moneyPart.process(data, enemy);
-            lifePart.process(data, enemy);
+            if (processEnemyLife(data, world, enemy)) {
+                continue;
+            }
             updateShape(enemy, data);
         }
+    }
+
+    private static boolean processEnemyLife(GameData data, World world, Entity enemy) {
+        LifePart lifePart = enemy.getPart(LifePart.class);
+        lifePart.process(data, enemy);
+
+        if (lifePart.isDead()) {
+            enemy.getPart(MoneyPart.class).process(data, enemy);
+            world.removeEntity(enemy);
+            return true;
+        }
+        return false;
+    }
+
+    private Enemy buildEnemy(GameData data, World world) {
+        List<Point> route = actionService.calculate(world);
+
+        Enemy enemy = new Enemy(route);
+        addParts(data, route, enemy);
+        enemy.setTexture(new Texture(Gdx.files.internal("Enemy/src/main/resources/dk/sdu/se/f23/InVasion/enemyresources/textures/enemy2.png")));
+
+        return enemy;
+    }
+
+    private static void addParts(GameData data, List<Point> route, Enemy enemy) {
+        enemy.add(new PositionPart(route.get(0), 0));
+        enemy.add(new LifePart(data.getWaveCount() * 2));
+        enemy.add(new MoneyPart(data.getWaveCount() * 10));
     }
 
     private void updateShape(Entity entity, GameData data) {
         Point nextPoint = ((Enemy) entity).getNextPoint(data.getDelta());
 
-        float x = nextPoint.getX();
-        float y = nextPoint.getY();
+        ((PositionPart) entity.getPart(PositionPart.class)).setPos(nextPoint);
 
-        PositionPart positionPart = entity.getPart(PositionPart.class);
-        positionPart.setPos(nextPoint);
-        data.getSpriteBatch().draw(entity.getTexture(), x, y);
+        data.getSpriteBatch().draw(entity.getTexture(), nextPoint.getX(), nextPoint.getY());
     }
 
 

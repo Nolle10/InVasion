@@ -26,8 +26,7 @@ public class MoneyPart implements EntityPart {
         LifePart enemyLifePart = entity.getPart(LifePart.class);
 
         if (enemyLifePart.isDead()) {
-            int balance = data.getPlayerMoney() + getMoney();
-            data.setPlayerMoney(balance);
+            data.addMoney(getMoney());
         }
     }
 

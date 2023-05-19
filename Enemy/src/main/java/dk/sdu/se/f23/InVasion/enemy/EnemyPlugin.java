@@ -15,10 +15,8 @@ public class EnemyPlugin implements PluginService {
     Entity enemy;
     EnemyControlSystem enemyControlSystem;
 
-
     @Override
     public void onEnable(GameData data, World world) {
-
         this.enemyControlSystem = new EnemyControlSystem();
         EventDistributor.addListener(SpawnEnemysEvent.class, enemyControlSystem);
     }
@@ -29,5 +27,4 @@ public class EnemyPlugin implements PluginService {
         EventDistributor.removeListener(SpawnEnemysEvent.class, enemyControlSystem);
         world.removeEntity(enemy);
     }
-
 }

@@ -22,17 +22,12 @@ public class Game implements ApplicationListener {
     private Collection<? extends EntityProcessingService> entityProcessingServices;
     public static int WIDTH;
     public static int HEIGHT;
-
     public static OrthographicCamera cam;
-
-
     private GameStateManager gsm;
     private final GameData gameData = new GameData();
-    private World world = new World();
-    private int playerMoney = gameData.getPlayerMoney();
+    private final World world = new World();
 
     public void create() {
-
         WIDTH = Gdx.graphics.getWidth();
         HEIGHT = Gdx.graphics.getHeight();
         gameData.setDisplayWidth(WIDTH);
@@ -43,7 +38,7 @@ public class Game implements ApplicationListener {
         Gdx.input.setInputProcessor(inputHandler);
 
         cam = new OrthographicCamera(gameData.getDisplayWidth(), gameData.getDisplayHeight());
-        cam.translate(gameData.getDisplayWidth() / 2, gameData.getDisplayHeight() / 2);
+        cam.translate(gameData.getDisplayWidth() / 2f, gameData.getDisplayHeight() / 2f);
         cam.update();
 
         gsm = new GameStateManager(gameData, world);
@@ -70,25 +65,22 @@ public class Game implements ApplicationListener {
     }
 
     //Update method for EntityProcessingServices: How to do it with ProcessAt.Tick and ProcessAt values?
-    private void update(ProcessAt processAt){
+    private void update(ProcessAt processAt) {
         for (EntityProcessingService entityProcessor : getEntityProcessingServices()) {
             entityProcessor.process(gameData, world, processAt);
         }
     }
 
-    public void resize(int width, int height) {}
-
-    public void pause() {}
-    public void resume() {}
-    public void dispose() {}
-
-
-    public int getPlayerMoney() {
-        return gameData.getPlayerMoney();
+    public void resize(int width, int height) {
     }
 
-    public void setPlayerMoney(int playerMoney) {
-        gameData.setPlayerMoney(playerMoney);
+    public void pause() {
+    }
+
+    public void resume() {
+    }
+
+    public void dispose() {
     }
 
     //ServiceLoader - Loads in all Plugin services and EntityProcessing services
@@ -96,8 +88,9 @@ public class Game implements ApplicationListener {
     private Collection<? extends PluginService> getPluginServices() {
         return ServiceLoader.load(PluginService.class).stream().map(ServiceLoader.Provider::get).collect(toList());
     }
+
     private Collection<? extends EntityProcessingService> getEntityProcessingServices() {
-        if (entityProcessingServices == null){
+        if (entityProcessingServices == null) {
             entityProcessingServices = ServiceLoader.load(EntityProcessingService.class).stream().map(ServiceLoader.Provider::get).collect(toList());
         }
         return entityProcessingServices;

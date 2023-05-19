@@ -7,14 +7,13 @@ public class Player extends Entity {
     private float lastShot;
     private GameStateEnum lastKnownGameState;
 
-
     public Player() {
         this.lastKnownGameState = GameStateEnum.MainScreen;
         this.lastShot = 0;
     }
 
     public boolean shouldShoot(float delta) {
-        if (this.lastKnownGameState != GameStateEnum.PlayState){
+        if (this.lastKnownGameState != GameStateEnum.PlayState) {
             return false;
         }
         this.lastShot += delta;
