@@ -15,10 +15,6 @@ import dk.sdu.se.f23.InVasion.commonweapon.Weapon;
 
 
 public class VaccinePlugin implements PluginService {
-
-    private final String weaponName = "Vaccine";
-    private Texture texture = new Texture(Gdx.files.internal("Vaccine/src/main/resources/vac.png"));
-    private int cost = 800;
     private Vaccine vaccine;
 
 
@@ -28,7 +24,10 @@ public class VaccinePlugin implements PluginService {
         VaccineControlSystem vaccineControlSystem = new VaccineControlSystem();
         EventDistributor.addListener(TargetEvent.class, vaccineControlSystem);
         EventDistributor.addListener(BuyTowerEvent.class, vaccineControlSystem);
-        vaccine = new Vaccine(weaponName, texture, cost);
+
+        Texture texture = new Texture(Gdx.files.internal("Vaccine/src/main/resources/vac.png"));
+        vaccine = new Vaccine("Vaccine", texture, 800);
+
         BuyableManager.addBuyable(vaccine);
     }
 

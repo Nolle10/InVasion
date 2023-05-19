@@ -5,7 +5,6 @@ import dk.sdu.se.f23.InVasion.common.data.GameData;
 import dk.sdu.se.f23.InVasion.common.data.ProcessAt;
 import dk.sdu.se.f23.InVasion.common.data.World;
 import dk.sdu.se.f23.InVasion.common.data.entityparts.LifePart;
-import dk.sdu.se.f23.InVasion.common.data.entityparts.MoneyPart;
 import dk.sdu.se.f23.InVasion.common.data.entityparts.PositionPart;
 import dk.sdu.se.f23.InVasion.common.services.EntityProcessingService;
 import dk.sdu.se.f23.InVasion.commonbullet.Bullet;
@@ -18,25 +17,17 @@ public class CollisionDetector implements EntityProcessingService {
     public void process(GameData data, World world, ProcessAt processTime) {
         for (Entity enemy : world.getEntities(Enemy.class)) {
             for (Entity bullet : world.getEntities(Bullet.class)) {
-                LifePart entityLife = enemy.getPart(LifePart.class);
-
                 if (!this.collides(enemy, bullet)) {
                     continue;
                 }
+
+                LifePart entityLife = enemy.getPart(LifePart.class);
                 if (entityLife == null) {
                     continue;
                 }
-                if (entityLife.isDead()) {
-                    world.removeEntity(enemy);
-                    continue;
-                }
 
-                entityLife.takeDamage(1);
+                entityLife.setHit(true);
 
-                if (entityLife.isDead()) {
-                    enemy.getPart(MoneyPart.class).process(data, enemy);
-                    world.removeEntity(enemy);
-                }
                 world.removeEntity(bullet);
             }
         }
@@ -53,6 +44,5 @@ public class CollisionDetector implements EntityProcessingService {
 
         return (entMov.getX() < (entMov2.getX() + otherEntityWidth) && (entMov.getX() + entityWidth) > entMov2.getX() &&
                 entMov.getY() < (entMov2.getY() + otherEntityHeight) && (entMov.getY() + entityHeight) > entMov2.getY());
-
     }
 }
