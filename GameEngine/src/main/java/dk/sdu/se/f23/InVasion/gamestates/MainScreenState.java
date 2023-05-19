@@ -3,7 +3,9 @@ package dk.sdu.se.f23.InVasion.gamestates;
 import dk.sdu.se.f23.InVasion.common.data.Entity;
 import dk.sdu.se.f23.InVasion.common.data.GameData;
 import dk.sdu.se.f23.InVasion.common.data.buttonSkin;
+import dk.sdu.se.f23.InVasion.common.events.EventDistributor;
 import dk.sdu.se.f23.InVasion.common.events.enums.GameStateEnum;
+import dk.sdu.se.f23.InVasion.common.events.events.StateChangeEvent;
 import dk.sdu.se.f23.InVasion.commonweapon.Weapon;
 import dk.sdu.se.f23.InVasion.managers.GameStateManager;
 
@@ -44,6 +46,7 @@ public class MainScreenState extends GameState {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 gsm.setState(GameStateEnum.ShopState);
+                EventDistributor.sendEvent(new StateChangeEvent(GameStateEnum.ShopState), gsm.getWorld());
                 return true;
             }
         });

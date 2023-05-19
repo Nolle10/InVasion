@@ -45,8 +45,8 @@ public class GameStateManager implements EventListener {
                 gameState = new PlayState(this);
             }
             case ShopState -> {
-                EventDistributor.sendEvent(new StateChangeEvent(GameStateEnum.ShopState), world);
                 gameState = new ShopState(this);
+                EventDistributor.sendEvent(new StateChangeEvent(GameStateEnum.ShopState), world);
                 shouldStartWave = true;
             }
             case PauseState -> {
