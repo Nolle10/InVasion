@@ -13,8 +13,7 @@ import dk.sdu.se.f23.InVasion.common.events.enums.GameStateEnum;
 import dk.sdu.se.f23.InVasion.managers.GameStateManager;
 import dk.sdu.se.f23.InVasion.common.data.buttonSkin;
 
-public class PauseState extends GameState{
-
+public class PauseState extends GameState {
     private Stage stage;
 
     private TextButton resumeButton;
@@ -36,27 +35,26 @@ public class PauseState extends GameState{
         titleLabel.setPosition(750, 800);
 
         resumeButton = new TextButton("Resume game", buttonSkin.getSkin());
-        resumeButton.getLabel().setFontScale(2,2);
-        resumeButton.setPosition(760,500);
-        resumeButton.addListener(new InputListener(){
+        resumeButton.getLabel().setFontScale(2, 2);
+        resumeButton.setPosition(760, 500);
+        resumeButton.addListener(new InputListener() {
             @Override
-            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button){
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 gsm.setState(GameStateEnum.PlayState);
                 return true;
             }
         });
 
         mainMenuButton = new TextButton("Back to main menu", buttonSkin.getSkin());
-        mainMenuButton.getLabel().setFontScale(2,2);
-        mainMenuButton.setPosition(760,350);
-        mainMenuButton.addListener(new InputListener(){
+        mainMenuButton.getLabel().setFontScale(2, 2);
+        mainMenuButton.setPosition(760, 350);
+        mainMenuButton.addListener(new InputListener() {
             @Override
-            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button){
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 gsm.setState(GameStateEnum.MainScreen);
                 return true;
             }
         });
-
 
         stage.addActor(resumeButton);
         stage.addActor(mainMenuButton);
@@ -66,7 +64,6 @@ public class PauseState extends GameState{
 
     @Override
     public void update(float dt) {
-
     }
 
     @Override
@@ -76,7 +73,6 @@ public class PauseState extends GameState{
 
     @Override
     public void handleInput() {
-
     }
 
     @Override

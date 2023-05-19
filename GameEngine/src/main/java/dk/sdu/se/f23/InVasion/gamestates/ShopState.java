@@ -14,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import dk.sdu.se.f23.InVasion.common.data.GameData;
 import dk.sdu.se.f23.InVasion.common.data.World;
+import dk.sdu.se.f23.InVasion.common.data.buttonSkin;
 import dk.sdu.se.f23.InVasion.common.data.shop.Buyable;
 import dk.sdu.se.f23.InVasion.common.data.shop.BuyableManager;
 import dk.sdu.se.f23.InVasion.common.events.enums.GameStateEnum;
@@ -21,26 +22,22 @@ import dk.sdu.se.f23.InVasion.managers.GameStateManager;
 import dk.sdu.se.f23.InVasion.map.MapPlugin;
 
 public class ShopState extends GameState {
-
     private ShapeRenderer sr;
     private Stage stage;
 
-    //private ArrayList<ArrayList<Object>> weapons;
+    private World world;
+    private GameData gameData;
+
     private TextButton startWave;
     private TextButton playerMoney;
     private TextButton.TextButtonStyle textButtonStyle;
     private TextButton.TextButtonStyle textButtonStyle2;
-    private World world;
-    private GameData gameData;
-
-
     private ImageButton sel;
     private MapPlugin map;
-
-    private String selected = null;
-
     private Label placingLabel;
     private Label notEnoughMoneyLabel;
+
+    private String selected;
 
     public ShopState(GameStateManager gsm) {
         super(gsm);
@@ -63,14 +60,15 @@ public class ShopState extends GameState {
         stage.addActor(notEnoughMoneyLabel);
 
         sr = new ShapeRenderer();
-        map = new MapPlugin();
+        map = new MapPlugin(gsm.getWorld());
         map.onEnable(gameData, world);
 
         textButtonStyle = new TextButton.TextButtonStyle();
         textButtonStyle.font = new BitmapFont();
         textButtonStyle.fontColor = Color.WHITE;
-        startWave = new TextButton("Start wave button", textButtonStyle);
-        startWave.setPosition(830, 900);
+        startWave = new TextButton("Start wave", buttonSkin.getSkin());
+        startWave.setSize(160, 60);
+        startWave.setPosition(1920 - 175, 990);
         startWave.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -84,7 +82,7 @@ public class ShopState extends GameState {
         textButtonStyle2.fontColor = Color.BLACK;
 
         playerMoney = new TextButton(String.format("Current Money: %d", gameData.getPlayerMoney()), textButtonStyle2);
-        playerMoney.setPosition(1920 - 165, 950);
+        playerMoney.setPosition(1920 - 160, 950);
         stage.addActor(startWave);
         stage.addActor(playerMoney);
 
@@ -95,7 +93,7 @@ public class ShopState extends GameState {
             TextureRegionDrawable weaponImage = new TextureRegionDrawable(texture);
             ImageButton but = new ImageButton((weaponImage));
             but.setSize(60, 60);
-            but.setPosition(1920 - 130, 800 - (iterator * 200));
+            but.setPosition(1920 - 130, 1000 - (iterator * 200));
             but.setName(buyable.getName());
 
             but.addListener(new ClickListener() {
@@ -138,10 +136,9 @@ public class ShopState extends GameState {
                 continue;
             }
 
-
             if (buyable.getPrice() > gameData.getPlayerMoney()) {
                 notEnoughMoneyLabel.setVisible(true);
-                notEnoughMoneyLabel.setPosition(1920 - (180), 70);
+                notEnoughMoneyLabel.setPosition(1920 - 153, 70);
                 selected = null;
                 map.setSelected(null);
                 return;
@@ -153,38 +150,34 @@ public class ShopState extends GameState {
                 placingLabel.setPosition(1920 - 140, 100);
                 placingLabel.setVisible(true);
                 sel = new ImageButton(weaponImage);
-                sel.setPosition(1920 - 115, 136);
+                sel.setSize(60, 60);
+                sel.setPosition(1920 - 130, 123);
                 stage.addActor(sel);
 
             } else {
                 sel.getStyle().imageUp = weaponImage;
             }
             map.setSelected(buyable);
-
         }
     }
 
-
     @Override
     public void draw(GameData gameData) {
-
         sr.begin(ShapeRenderer.ShapeType.Filled);
         sr.setColor(Color.LIGHT_GRAY);
         int shopWidth = 200;
         sr.rect(1920 - shopWidth, 0, 200, 1080);
         sr.setColor(Color.DARK_GRAY);
-        sr.rect(1920 - shopWidth + 75, 100 + 25, 50, 50);
+        sr.rect(1920 + 68 - shopWidth, 100 + 20, 65, 65);
         sr.end();
 
         map.draw(gameData);
         playerMoney.setText(String.format("Current Money: %d", gameData.getPlayerMoney()));
         stage.draw();
-
     }
 
     @Override
     public void handleInput() {
-
     }
 
     @Override

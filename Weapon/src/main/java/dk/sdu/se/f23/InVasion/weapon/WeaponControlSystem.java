@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WeaponControlSystem implements EntityProcessingService, EventListener {
-    private List<Entity> targets = new ArrayList<>();
+    private final List<Entity> targets = new ArrayList<>();
     private GameStateEnum lastKnownState;
 
 
@@ -46,6 +46,7 @@ public class WeaponControlSystem implements EntityProcessingService, EventListen
                 continue;
             }
             Point direction = findNearestNeighbor(world);
+
             if (direction != null && dist(part.getPos(), direction) < 600) {
                 EventDistributor.sendEvent(new FireShotEvent(weapon, direction), world);
             }
@@ -56,42 +57,43 @@ public class WeaponControlSystem implements EntityProcessingService, EventListen
     private Entity createWeapon(Point position) {
         Entity weapon = new Weapon();
         weapon.add(new PositionPart(new Point(position.getX(), position.getY()), 0));
-        weapon.setTexture(new Texture(Gdx.files.internal("Weapon/src/main/resources/TOWER.png")));
+        weapon.setTexture(new Texture(Gdx.files.internal("Weapon/src/main/resources/white.png")));
 
         return weapon;
     }
 
 
+    @SuppressWarnings("unchecked")
     private Point findNearestNeighbor(World world) {
-
-        //Implementation of Nearest Neighbor algorithm
         Point enemyPosition = null;
         for (Entity weapon : world.getEntities(Weapon.class)) {
-            float weaponX = ((PositionPart) weapon.getPart(PositionPart.class)).getPos().getX();
-            float weaponY = ((PositionPart) weapon.getPart(PositionPart.class)).getPos().getY();
+            Point weaponPos = ((PositionPart) weapon.getPart(PositionPart.class)).getPos();
+
             double closestDistance = Double.MAX_VALUE;
             Entity closestTarget = null;
+
             for (Entity target : world.getEntities(Enemy.class)) {
-                if (!((LifePart) target.getPart(LifePart.class)).isDead()) {
-                    float targetX = ((PositionPart) target.getPart(PositionPart.class)).getPos().getX();
-                    float targetY = ((PositionPart) target.getPart(PositionPart.class)).getPos().getY();
-                    double distance = Math.sqrt(Math.pow(weaponX - targetX, 2) + Math.pow(weaponY - targetY, 2));
-                    if (distance < closestDistance) {
-                        closestDistance = distance;
-                        closestTarget = target;
-                    }
+                if (((LifePart) target.getPart(LifePart.class)).isDead()) {
+                    continue;
+                }
+                Point targetPos = ((PositionPart) target.getPart(PositionPart.class)).getPos();
+
+                double distance = dist(weaponPos, targetPos);
+
+                if (distance < closestDistance) {
+                    closestDistance = distance;
+                    closestTarget = target;
                 }
             }
+
             if (closestTarget != null) {
-                float closestX = ((PositionPart) closestTarget.getPart(PositionPart.class)).getPos().getX();
-                float closestY = ((PositionPart) closestTarget.getPart(PositionPart.class)).getPos().getY();
-                enemyPosition = new Point((int) closestX, (int) closestY);
+                enemyPosition = ((PositionPart) closestTarget.getPart(PositionPart.class)).getPos();
             }
         }
         cleanEnemies();
         return enemyPosition;
-
     }
+
 
     private void cleanEnemies() {
         targets.removeIf(e -> ((LifePart) e.getPart(LifePart.class)).isDead());
@@ -105,7 +107,7 @@ public class WeaponControlSystem implements EntityProcessingService, EventListen
     public void processEvent(Event event, World world) {
         //Needed when Event firing from shop is implemented
         if (event instanceof BuyTowerEvent buyTowerEvent) {
-            if (buyTowerEvent.getName().equals("Medicine")){
+            if (buyTowerEvent.getName().equals("Medicine")) {
                 world.addEntity(createWeapon(buyTowerEvent.getPosition()));
             }
         } else if (event instanceof StateChangeEvent stateChangeEvent) {

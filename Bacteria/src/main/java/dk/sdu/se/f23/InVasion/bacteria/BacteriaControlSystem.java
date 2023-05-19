@@ -2,7 +2,6 @@ package dk.sdu.se.f23.InVasion.bacteria;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import dk.sdu.se.f23.InVasion.bacteria.services.ActionService;
 import dk.sdu.se.f23.InVasion.common.data.*;
 import dk.sdu.se.f23.InVasion.common.data.entityparts.LifePart;
 import dk.sdu.se.f23.InVasion.common.data.entityparts.MoneyPart;
@@ -16,7 +15,9 @@ import dk.sdu.se.f23.InVasion.common.events.events.SpawnEnemysEvent;
 import dk.sdu.se.f23.InVasion.common.events.events.StateChangeEvent;
 import dk.sdu.se.f23.InVasion.common.events.events.WaveIsDoneEvent;
 import dk.sdu.se.f23.InVasion.common.services.EntityProcessingService;
+import dk.sdu.se.f23.InVasion.commonenemy.AIType;
 import dk.sdu.se.f23.InVasion.commonenemy.Enemy;
+import dk.sdu.se.f23.InVasion.commonenemy.services.ActionService;
 
 import java.util.Collection;
 import java.util.List;
@@ -57,7 +58,7 @@ public class BacteriaControlSystem implements EntityProcessingService, EventList
             enemy.add(new PositionPart(route.get(0), 0));
             enemy.add(new LifePart(2));
             enemy.add(new MoneyPart(2));
-            enemy.setTexture(new Texture(Gdx.files.internal("Bacteria/src/main/resources/dk/sdu/se/f23/InVasion/resources/textures/enemy.png")));
+            enemy.setTexture(new Texture(Gdx.files.internal("Bacteria/src/main/resources/textures/bacteria.png")));
             world.addEntity(enemy);
         }
         if (enemiesToSpawn == 0 && world.getEntities(Enemy.class).isEmpty()){
