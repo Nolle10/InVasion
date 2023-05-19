@@ -8,7 +8,7 @@ import java.util.List;
 
 public class Enemy extends Entity {
     private final List<Point> route;
-    private final float speed;
+    private final float SPEED;
     private int routeStep;
     private float timeSinceLastMove;
 
