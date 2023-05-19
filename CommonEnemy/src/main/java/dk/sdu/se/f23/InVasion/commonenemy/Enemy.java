@@ -31,7 +31,7 @@ public class Enemy extends Entity {
 
         //Check if current point is goal state
         if (world.getGoalState().equals(route.get(this.routeStep))) {
-            world.setBaseHealth(world.getBaseHealth()-damage);
+            world.setBaseHealth(world.getBaseHealth() - damage);
             world.removeEntity(enemy);
         }
         this.routeStep++;

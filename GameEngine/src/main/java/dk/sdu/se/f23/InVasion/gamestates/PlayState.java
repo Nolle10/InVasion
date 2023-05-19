@@ -68,16 +68,16 @@ public class PlayState extends GameState {
         gsm.getGameData().addProcessor(stage);
         gsm.getGameData().addProcessor(MouseProcessor.getInstance());
 
-        baseHealthLabel = new Label("Base health: "+gsm.getWorld().getBaseHealth(), labelStyle);
-        baseHealthLabel.setPosition(1760,990);
+        baseHealthLabel = new Label("Base health: " + gsm.getWorld().getBaseHealth(), labelStyle);
+        baseHealthLabel.setPosition(1760, 990);
         stage.addActor(baseHealthLabel);
     }
 
     public void update(float dt) {
-        if (gsm.getWorld().getBaseHealth() <= 0){
+        if (gsm.getWorld().getBaseHealth() <= 0) {
             gsm.setState(GameStateEnum.LossState);
         }
-        baseHealthLabel.setText("Base health: "+gsm.getWorld().getBaseHealth());
+        baseHealthLabel.setText("Base health: " + gsm.getWorld().getBaseHealth());
 
         handleInput();
     }

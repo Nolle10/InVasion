@@ -12,6 +12,7 @@ public class World {
     private Point goalState;
     private Point playerState;
     private ArrayList<ArrayList<Integer>> worldMask;
+
     public String addEntity(Entity entity) {
         entityMap.put(entity.getID(), entity);
         return entity.getID();
@@ -25,37 +26,46 @@ public class World {
         this.baseHealth = baseHealth;
     }
 
-    public void setGoalState(Point p){
+    public void setGoalState(Point p) {
         goalState = p;
     }
-    public Point getGoalState(){
+
+    public Point getGoalState() {
         return goalState;
     }
-    public void setInitState(Point p){
+
+    public void setInitState(Point p) {
         initState = p;
     }
-    public void setPlayerState(Point p){
-        playerState =p;
+
+    public void setPlayerState(Point p) {
+        playerState = p;
     }
-    public Point getPlayerState(){
+
+    public Point getPlayerState() {
         return playerState;
     }
+
     public Point getInitState() {
         return initState;
     }
-    public void decrementHealth(int damage){
-        baseHealth = baseHealth-damage;
+
+    public void decrementHealth(int damage) {
+        baseHealth = baseHealth - damage;
     }
-    public void loadWorldMask(ArrayList<ArrayList<Integer>> mask){
+
+    public void loadWorldMask(ArrayList<ArrayList<Integer>> mask) {
         worldMask = mask;
     }
-    public ArrayList<ArrayList<Integer>> getWorldMask(){
+
+    public ArrayList<ArrayList<Integer>> getWorldMask() {
         return worldMask;
     }
 
-    public boolean isAvailable(int x, int y){
-        return worldMask.get(x).get(y)==0;
+    public boolean isAvailable(int x, int y) {
+        return worldMask.get(x).get(y) == 0;
     }
+
     public void removeEntity(String entityID) {
         entityMap.remove(entityID);
     }

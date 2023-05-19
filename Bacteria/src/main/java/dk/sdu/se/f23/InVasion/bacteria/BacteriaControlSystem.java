@@ -25,7 +25,7 @@ import java.util.ServiceLoader;
 
 import static java.util.stream.Collectors.toList;
 
-public class BacteriaControlSystem implements EntityProcessingService, EventListener{
+public class BacteriaControlSystem implements EntityProcessingService, EventListener {
 
     private static int enemiesToSpawn;
     private float timeSinceLastSpawn;
@@ -62,8 +62,8 @@ public class BacteriaControlSystem implements EntityProcessingService, EventList
             enemy.setTexture(new Texture(Gdx.files.internal("Bacteria/src/main/resources/textures/bacteria.png")));
             world.addEntity(enemy);
         }
-        if (enemiesToSpawn == 0 && world.getEntities(Enemy.class).isEmpty()){
-            EventDistributor.sendEvent(new WaveIsDoneEvent(SystemSender.Module),world);
+        if (enemiesToSpawn == 0 && world.getEntities(Enemy.class).isEmpty()) {
+            EventDistributor.sendEvent(new WaveIsDoneEvent(SystemSender.Module), world);
         }
 
 
