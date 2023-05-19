@@ -3,12 +3,14 @@ package dk.sdu.se.f23.InVasion.map;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import dk.sdu.se.f23.InVasion.common.data.GameData;
 import dk.sdu.se.f23.InVasion.common.data.Point;
 import dk.sdu.se.f23.InVasion.common.data.World;
@@ -56,6 +58,13 @@ public class MapPlugin {
 
         mask = generateMask();
         generateClickableMap();
+
+        //Draw base on map
+        Texture texture = new Texture(Gdx.files.internal("Map/src/main/resources/dk/sdu/se/f23/InVasion/mapresources/textures/base_heart.png"));
+        TextureRegionDrawable weaponImage = new TextureRegionDrawable(texture);
+        ImageButton base = new ImageButton((weaponImage));
+        base.setPosition(world.getGoalState().getX(), world.getGoalState().getY());
+        stage.addActor(base);
     }
 
     public ArrayList<ArrayList<Integer>> generateMask() {
