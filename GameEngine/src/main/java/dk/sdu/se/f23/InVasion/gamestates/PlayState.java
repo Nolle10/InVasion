@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import dk.sdu.se.f23.InVasion.common.data.GameData;
 import dk.sdu.se.f23.InVasion.common.data.MouseProcessor;
+import dk.sdu.se.f23.InVasion.common.data.buttonSkin;
 import dk.sdu.se.f23.InVasion.common.events.enums.GameStateEnum;
 import dk.sdu.se.f23.InVasion.managers.GameStateManager;
 import dk.sdu.se.f23.InVasion.map.MapPlugin;
@@ -37,7 +38,8 @@ public class PlayState extends GameState {
         textButtonStyle = new TextButton.TextButtonStyle();
         textButtonStyle.font = new BitmapFont();
         textButtonStyle.fontColor = Color.WHITE;
-        backToShopButton = new TextButton("go back to shop button", textButtonStyle);
+        backToShopButton = new TextButton("go back to shop button", buttonSkin.getSkin());
+        backToShopButton.setSize(180, 60);
         backToShopButton.setPosition(1750,800);
         backToShopButton.addListener(new InputListener(){
             @Override
@@ -46,7 +48,8 @@ public class PlayState extends GameState {
                 return true;
             }
         });
-        pauseButton = new TextButton("pause button", textButtonStyle);
+        pauseButton = new TextButton("pause button", buttonSkin.getSkin());
+        pauseButton.setSize(160, 60);
         pauseButton.setPosition(1750,900);
         pauseButton.addListener(new InputListener(){
             @Override
