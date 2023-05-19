@@ -28,7 +28,6 @@ public class VaccinePlugin implements PluginService {
         VaccineControlSystem vaccineControlSystem = new VaccineControlSystem();
         EventDistributor.addListener(TargetEvent.class, vaccineControlSystem);
         EventDistributor.addListener(BuyTowerEvent.class, vaccineControlSystem);
-
         vaccine = new Vaccine(weaponName, texture, cost);
         BuyableManager.addBuyable(vaccine);
     }

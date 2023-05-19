@@ -14,10 +14,10 @@ import dk.sdu.se.f23.InVasion.commonweapon.Weapon;
 
 
 public class WeaponPlugin implements PluginService {
-    private final String weaponName = "Medicine";
-    private Texture texture = new Texture(Gdx.files.internal("Weapon/src/main/resources/TOWER.png"));
+    private final String weaponName = "White blood cell";
+    private Texture texture = new Texture(Gdx.files.internal("Weapon/src/main/resources/white.png"));
     private int cost = 200;
-    private Medicine medicine;
+    private WhiteBloodCell whiteBloodCell;
 
 
     @Override
@@ -28,9 +28,9 @@ public class WeaponPlugin implements PluginService {
         EventDistributor.addListener(TargetEvent.class, weaponControlSystem);
         EventDistributor.addListener(BuyTowerEvent.class, weaponControlSystem);
 
-        medicine = new Medicine(weaponName, texture, cost);
+        whiteBloodCell = new WhiteBloodCell(weaponName, texture, cost);
 
-        BuyableManager.addBuyable(medicine);
+        BuyableManager.addBuyable(whiteBloodCell);
     }
 
     @Override
@@ -40,6 +40,6 @@ public class WeaponPlugin implements PluginService {
                 world.removeEntity(e);
             }
         }
-        BuyableManager.removeBuyable(medicine);
+        BuyableManager.removeBuyable(whiteBloodCell);
     }
 }
