@@ -57,7 +57,7 @@ public class VaccineControlSystem implements EntityProcessingService, EventListe
     //Will be called by BuyTowerEvent when implemented in shop to create a new weapon
     private Entity createWeapon(Point position) {
         Entity weapon = new Weapon();
-        ((Weapon)weapon).setShootingSpeed(0.5f);
+        ((Weapon)weapon).setShootingSpeed(0.2f);
         weapon.add(new PositionPart(new Point(position.getX(), position.getY()), 0));
         weapon.setTexture(new Texture(Gdx.files.internal("Vaccine/src/main/resources/vac.png")));
         return weapon;

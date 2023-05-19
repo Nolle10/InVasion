@@ -2,6 +2,7 @@ package dk.sdu.se.f23.InVasion.enemy;
 
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import dk.sdu.se.f23.InVasion.common.data.*;
 import dk.sdu.se.f23.InVasion.common.data.entityparts.LifePart;
@@ -78,6 +79,8 @@ public class EnemyControlSystem implements EntityProcessingService, EventListene
         if (lifePart.isDead()) {
             enemy.getPart(MoneyPart.class).process(data, enemy);
             world.removeEntity(enemy);
+            Sound sound = Gdx.audio.newSound(Gdx.files.internal("Enemy/src/main/resources/dk/sdu/se/f23/InVasion/enemyresources/textures/Ou.mp3"));
+            sound.play();
             return true;
         }
         return false;
@@ -85,6 +88,7 @@ public class EnemyControlSystem implements EntityProcessingService, EventListene
 
     private Enemy buildEnemy(GameData data, World world) {
         List<Point> route = actionService.calculate(world);
+
 
         Enemy enemy = new Enemy(route);
         enemy.setDamage(2);

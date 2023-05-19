@@ -7,7 +7,7 @@ import dk.sdu.se.f23.InVasion.commonenemy.services.ActionService;
 
 import java.util.*;
 
-public class Astar implements ActionService {
+public class Stupid implements ActionService {
     private List<Point> points = new ArrayList<>();
     private ArrayList<ArrayList<Integer>> grid;
     private PriorityQueue<Node> openList;
@@ -15,7 +15,7 @@ public class Astar implements ActionService {
 
     private int startI, startJ, endI, endJ;
 
-    public Astar() {
+    public Stupid() {
     }
 
     private static class Node {
@@ -56,7 +56,7 @@ public class Astar implements ActionService {
 
                     Node childNode = new Node(newX, newY);
                     childNode.g = currentNode.g + 1;
-                    double weight = 1;
+                    double weight = 1.5;
                     childNode.h = Math.abs(newX - endI) + (int) (weight * Math.abs(newY - endJ));
                     childNode.f = childNode.g + childNode.h;
                     childNode.parent = currentNode;
@@ -116,6 +116,6 @@ public class Astar implements ActionService {
 
     @Override
     public AIType getAiType() {
-        return AIType.A_STAR;
+        return AIType.STUPID;
     }
 }
