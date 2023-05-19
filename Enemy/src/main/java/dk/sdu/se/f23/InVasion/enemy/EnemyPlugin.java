@@ -15,10 +15,8 @@ import dk.sdu.se.f23.InVasion.commonenemy.Enemy;
 public class EnemyPlugin implements PluginService {
     EnemyControlSystem enemyControlSystem;
 
-
     @Override
     public void onEnable(GameData data, World world) {
-
         this.enemyControlSystem = new EnemyControlSystem();
         EventDistributor.addListener(SpawnEnemysEvent.class, enemyControlSystem);
     }
@@ -33,5 +31,4 @@ public class EnemyPlugin implements PluginService {
         EventDistributor.removeListener(StateChangeEvent.class, enemyControlSystem);
         EventDistributor.removeListener(SpawnEnemysEvent.class, enemyControlSystem);
     }
-
 }

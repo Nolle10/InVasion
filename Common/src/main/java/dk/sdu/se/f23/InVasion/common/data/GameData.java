@@ -3,13 +3,6 @@ package dk.sdu.se.f23.InVasion.common.data;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.utils.SnapshotArray;
-import dk.sdu.se.f23.InVasion.common.events.abstracts.Event;
-import dk.sdu.se.f23.InVasion.common.events.enums.GameStateEnum;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 public class GameData {
     private int playerMoney = 0;
@@ -20,27 +13,24 @@ public class GameData {
     private SpriteBatch spriteBatch;
     private InputMultiplexer multiplexer;
 
-    private GameStateEnum currentState;
-
-    public void setMultiplexer(InputMultiplexer inputMultiplexer){
+    public void setMultiplexer(InputMultiplexer inputMultiplexer) {
         this.multiplexer = inputMultiplexer;
     }
 
-    public void addProcessor(InputProcessor p){
+    public void addProcessor(InputProcessor p) {
         multiplexer.addProcessor(p);
     }
 
-    public void removeProcessor(InputProcessor p){
+    public void removeProcessor(InputProcessor p) {
         multiplexer.removeProcessor(p);
     }
-    public void removeAllProccessors(){
-        for (int i = 0; i<multiplexer.getProcessors().size;i++){
+
+    public void removeAllProccessors() {
+        for (int i = 0; i < multiplexer.getProcessors().size; i++) {
             multiplexer.removeProcessor(0);
         }
     }
-    public SnapshotArray<InputProcessor> getProccessor(){
-        return multiplexer.getProcessors();
-    }
+
     public SpriteBatch getSpriteBatch() {
         return spriteBatch;
     }
@@ -48,8 +38,6 @@ public class GameData {
     public void setSpriteBatch(SpriteBatch spriteBatch) {
         this.spriteBatch = spriteBatch;
     }
-
-    public void setCurrentState(GameStateEnum state){ this.currentState = state;}
 
     public void setDelta(float delta) {
         this.delta = delta;
@@ -83,6 +71,13 @@ public class GameData {
         this.playerMoney = playerMoney;
     }
 
+    public void addMoney(int amount) {
+        setPlayerMoney(getPlayerMoney() + amount);
+    }
+
+    public void subtractMoney(int amount){
+        setPlayerMoney(getPlayerMoney() - amount);
+    }
 
     public int getWaveCount() {
         return waveCount;

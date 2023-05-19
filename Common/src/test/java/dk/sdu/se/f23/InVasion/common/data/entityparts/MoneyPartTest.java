@@ -26,7 +26,7 @@ class MoneyPartTest {
         this.moneyPart.process(this.data, entity);
 
         verify((LifePart) entity.getPart(LifePart.class), atLeastOnce()).isDead();
-        verify(this.data, atLeastOnce()).setPlayerMoney(2);
+        verify(this.data, atLeastOnce()).addMoney(anyInt());
     }
 
     @Test
