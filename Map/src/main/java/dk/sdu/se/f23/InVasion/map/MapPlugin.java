@@ -35,7 +35,7 @@ public class MapPlugin {
     private Actor clickedField = null;
     private Buyable selectedShopItem = null;
 
-    public MapPlugin() {
+    public MapPlugin(World world) {
         stage = new Stage();
         tiles = new ArrayList<>();
         addTextures();
@@ -52,8 +52,9 @@ public class MapPlugin {
         world.loadWorldMask(generateMask());
         world.setInitState(new Point(0, 0));
         world.setGoalState(new Point(width, height));
+
+
         mask = generateMask();
-        this.world = world;
         generateClickableMap();
     }
 
@@ -76,8 +77,20 @@ public class MapPlugin {
                             line.add(0);
                     case -16777216 -> // Black
                             line.add(1);
-                    case -8421505 -> // Unknown color please provide right one
+                    case -8421505 -> // Gray
                             line.add(2);
+                    case -16407797 -> {// Green
+                        line.add(3);
+                        world.setInitState(new Point(i, j));
+                    }
+                    case -12499247 -> { // Blue
+                        line.add(0);
+                        world.setPlayerState(new Point(i, j));
+                    }
+                    case -590821 -> { //Yellow
+                        line.add(2);
+                        world.setGoalState(new Point(i, j));
+                    }
                     default -> {
                         System.out.println("An unexpected color was found: " + maskImage.getRGB(i, j));
                         throw new NoSuchElementException();
@@ -117,8 +130,7 @@ public class MapPlugin {
                     ImageButton but = new ImageButton((weaponImage));
                     but.setSize(tilesSize, tilesSize);
                     but.setPosition(j, i);
-
-                    if (maxId == 2) {
+                    if (maxId == 1) {
                         but.addListener(new ClickListener() {
                             @Override
                             public void clicked(InputEvent event, float x, float y) {

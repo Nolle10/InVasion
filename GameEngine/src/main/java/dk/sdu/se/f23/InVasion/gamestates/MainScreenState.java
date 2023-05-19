@@ -76,7 +76,7 @@ public class MainScreenState extends GameState{
         gameData.setPlayerMoney(200);
         gameData.setWaveCount(0);
         stage.draw();
-        MapPlugin n = new MapPlugin();
+
 
     }
 
