@@ -55,7 +55,6 @@ public class MapPlugin {
         world.loadWorldMask(generateMask());
         world.setInitState(new Point(0, 0));
         world.setGoalState(new Point(width, height));
-        world.setBaseHealth(10);
 
         mask = generateMask();
         generateClickableMap();

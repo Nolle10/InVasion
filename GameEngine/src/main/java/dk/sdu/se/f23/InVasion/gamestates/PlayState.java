@@ -17,6 +17,7 @@ import dk.sdu.se.f23.InVasion.map.MapPlugin;
 public class PlayState extends GameState {
     private Stage stage;
     private MapPlugin map;
+    private Label baseHealthLabel;
 
     public PlayState(GameStateManager gsm) {
         super(gsm);
@@ -26,6 +27,10 @@ public class PlayState extends GameState {
         stage = new Stage();
         map = new MapPlugin(gsm.getWorld());
         map.onEnable(gsm.getGameData(), gsm.getWorld());
+
+        Label.LabelStyle labelStyle = new Label.LabelStyle();
+        labelStyle.font = new BitmapFont();
+        labelStyle.fontColor = Color.WHITE;
 
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
         textButtonStyle.font = new BitmapFont();
@@ -62,12 +67,18 @@ public class PlayState extends GameState {
         stage.addActor(labelWave);
         gsm.getGameData().addProcessor(stage);
         gsm.getGameData().addProcessor(MouseProcessor.getInstance());
+
+        baseHealthLabel = new Label("Base health: "+gsm.getWorld().getBaseHealth(), labelStyle);
+        baseHealthLabel.setPosition(1760,990);
+        stage.addActor(baseHealthLabel);
     }
 
     public void update(float dt) {
         if (gsm.getWorld().getBaseHealth() <= 0){
             gsm.setState(GameStateEnum.LossState);
         }
+        baseHealthLabel.setText("Base health: "+gsm.getWorld().getBaseHealth());
+
         handleInput();
     }
 
