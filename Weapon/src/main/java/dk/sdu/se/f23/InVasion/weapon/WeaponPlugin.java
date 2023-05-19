@@ -16,7 +16,6 @@ import dk.sdu.se.f23.InVasion.commonweapon.Weapon;
 public class WeaponPlugin implements PluginService {
     private Medicine medicine;
 
-
     @Override
     public void onEnable(GameData data, World world) {
         //Adding WeaponControlSystem as an EventListener for TargetEvent and BuyTowerEvent
