@@ -32,7 +32,7 @@ class CollisionDetectorTest {
 
     @SuppressWarnings("unchecked")
     @Test
-    void processHitsLives() {
+    void processHits() {
         Entity mockEnemy = createMockEntity(Enemy.class, "1", 2, 0, 0, 10, 10);
         Entity mockBullet = createMockEntity(Bullet.class, "3", 2, 3, 3, 10, 10);
 
@@ -42,31 +42,8 @@ class CollisionDetectorTest {
         this.collisionDetector.process(this.mockedGameData, this.mockedWorld, ProcessAt.Tick);
 
         // Check that enemy life is changed
-        verify((LifePart)mockEnemy.getPart(LifePart.class), atLeastOnce()).setLife(anyInt());
+        verify((LifePart)mockEnemy.getPart(LifePart.class), atLeastOnce()).setHit(true);
 
-        // Check that enemy lived
-        verify(mockedWorld, never()).removeEntity(mockEnemy);
-
-        // Check bullet is removed after hit
-        verify(mockedWorld, atLeastOnce()).removeEntity(mockBullet);
-    }
-
-    @SuppressWarnings("unchecked")
-    @Test
-    void processHitsDies() {
-        Entity mockEnemy = createMockEntity(Enemy.class, "1", 1, 0, 0, 10, 10);
-        Entity mockBullet = createMockEntity(Bullet.class, "3", 2, 3, 3, 10, 10);
-
-        when(this.mockedWorld.getEntities(Bullet.class)).thenReturn(List.of(mockBullet));
-        when(this.mockedWorld.getEntities(Enemy.class)).thenReturn(List.of(mockEnemy));
-
-        this.collisionDetector.process(this.mockedGameData, this.mockedWorld, ProcessAt.Tick);
-
-        // Check that enemy life is changed
-        verify((LifePart)mockEnemy.getPart(LifePart.class), atLeastOnce()).setLife(anyInt());
-
-        // Check enemy is removed after hit
-        verify(mockedWorld, atLeastOnce()).removeEntity(mockEnemy);
 
         // Check bullet is removed after hit
         verify(mockedWorld, atLeastOnce()).removeEntity(mockBullet);

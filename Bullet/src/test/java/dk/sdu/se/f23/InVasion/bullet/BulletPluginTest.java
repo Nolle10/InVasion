@@ -55,13 +55,18 @@ class BulletPluginTest {
 
         this.bulletPlugin.onEnable(this.gameData, this.world);
 
+        System.out.println("We here");
         // Run the method to be tested
         this.bulletPlugin.onDisable(this.gameData, this.world);
 
 
+        System.out.println("We here3");
         // Check correct behavior
         assertFalse(checkIfEventListenerIsRegistered(FireShotEvent.class));
+        System.out.println("We here4");
+
         assertFalse(checkIfEventListenerIsRegistered(StateChangeEvent.class));
+        System.out.println("We here5");
 
         verify(this.world, atLeastOnce()).removeEntity(bullet1);
         verify(this.world, atLeastOnce()).removeEntity(bullet2);
