@@ -1,6 +1,7 @@
 package dk.sdu.se.f23.InVasion.bullet;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import dk.sdu.se.f23.InVasion.common.data.*;
 import dk.sdu.se.f23.InVasion.common.data.entityparts.LifePart;
@@ -70,6 +71,9 @@ public class BulletController implements EntityProcessingService, EventListener 
         bullet.add(new LifePart(1));
         bullet.add(new TimerPart(3));
         bullet.setTexture(new Texture(Gdx.files.internal("Bullet/src/main/resources/antibodyCut.png")));
+        bullet.setTexture(new Texture(Gdx.files.internal("Bullet/src/main/resources/antibodyCut.png")));
+        Sound sound = Gdx.audio.newSound(Gdx.files.internal("Bullet/src/main/resources/pew.mp3"));
+        sound.play();
         return bullet;
     }
 

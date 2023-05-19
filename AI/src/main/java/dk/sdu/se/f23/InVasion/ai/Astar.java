@@ -83,13 +83,10 @@ public class Astar implements ActionService {
     }
 
     private boolean nodeInOpenList(Node node) {
-        //return openList.contains(node);
-
     return openList.stream().anyMatch(n -> n.x == node.x && n.y == node.y);
     }
 
     private boolean nodeInClosedList(Node node) {
-        //return closedList.contains(node);
         return closedList.stream().anyMatch(n -> n.x == node.x && n.y == node.y);
     }
 
