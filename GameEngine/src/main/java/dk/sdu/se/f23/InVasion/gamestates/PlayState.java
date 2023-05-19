@@ -15,10 +15,7 @@ import dk.sdu.se.f23.InVasion.managers.GameStateManager;
 import dk.sdu.se.f23.InVasion.map.MapPlugin;
 
 public class PlayState extends GameState {
-
-
     private Stage stage;
-
     private MapPlugin map;
 
     public PlayState(GameStateManager gsm) {
@@ -35,8 +32,8 @@ public class PlayState extends GameState {
         textButtonStyle.fontColor = Color.WHITE;
         TextButton backToShopButton = new TextButton("go back to shop button", buttonSkin.getSkin());
         backToShopButton.setSize(180, 60);
-        backToShopButton.setPosition(1750,800);
-        backToShopButton.addListener(new InputListener(){
+        backToShopButton.setPosition(1750, 800);
+        backToShopButton.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 gsm.setState(GameStateEnum.ShopState);
@@ -45,8 +42,8 @@ public class PlayState extends GameState {
         });
         TextButton pauseButton = new TextButton("pause button", buttonSkin.getSkin());
         pauseButton.setSize(160, 60);
-        pauseButton.setPosition(1750,900);
-        pauseButton.addListener(new InputListener(){
+        pauseButton.setPosition(1750, 900);
+        pauseButton.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 gsm.setState(GameStateEnum.PauseState);
@@ -65,7 +62,6 @@ public class PlayState extends GameState {
         stage.addActor(labelWave);
         gsm.getGameData().addProcessor(stage);
         gsm.getGameData().addProcessor(MouseProcessor.getInstance());
-
     }
 
     public void update(float dt) {

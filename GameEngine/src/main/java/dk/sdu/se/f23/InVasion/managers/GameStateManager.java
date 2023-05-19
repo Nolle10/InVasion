@@ -14,10 +14,9 @@ import dk.sdu.se.f23.InVasion.gamestates.*;
 
 
 public class GameStateManager implements EventListener {
-
     private GameState gameState;
-    private GameData gameData;
-    private World world;
+    private final GameData gameData;
+    private final World world;
     private boolean shouldStartWave = false;
 
     public GameStateManager(GameData data, World world) {
@@ -65,7 +64,7 @@ public class GameStateManager implements EventListener {
                 gameState = new LossState(this);
                 gameData.setWaveCount(0);
             }
-            default -> System.out.println("An unexpected state were atempted to be set: " + state);
+            default -> System.out.println("An unexpected state were attempted to be set: " + state);
         }
     }
 
