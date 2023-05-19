@@ -87,7 +87,7 @@ public class GameStateManager implements EventListener {
     @Override
     public void processEvent(Event event, World world) {
         if (event instanceof WaveIsDoneEvent) {
-            if (gameData.getWaveCount() > 4) {
+            if (gameData.getWaveCount() > 9) {
                 setState(GameStateEnum.WinState);
             } else {
                 setState(GameStateEnum.ShopState);

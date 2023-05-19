@@ -37,6 +37,8 @@ public class MapPlugin {
     private Actor clickedField = null;
     private Buyable selectedShopItem = null;
 
+
+
     public MapPlugin(World world) {
         this.world = world;
         stage = new Stage();

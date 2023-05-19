@@ -14,7 +14,7 @@ import dk.sdu.se.f23.InVasion.commonweapon.Weapon;
 
 
 public class WeaponPlugin implements PluginService {
-    private final String weaponName = "White blood cell";
+    private final String weaponName = "WhiteBloodCell";
     private Texture texture = new Texture(Gdx.files.internal("Weapon/src/main/resources/white.png"));
     private int cost = 200;
     private WhiteBloodCell whiteBloodCell;

@@ -37,7 +37,7 @@ public class BacteriaControlSystem implements EntityProcessingService, EventList
         EventDistributor.addListener(StateChangeEvent.class, this);
 
         for (ActionService service : getActionServices()) {
-            if (service.getAiType() == AIType.A_STAR) {
+            if (service.getAiType() == AIType.STUPID) {
                 actionService = service;
             }
         }

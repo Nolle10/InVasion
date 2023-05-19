@@ -67,12 +67,12 @@ public class BulletController implements EntityProcessingService, EventListener 
         Entity bullet = new Bullet();
 
         bullet.add(new PositionPart(new Point((int) shooterPosX, (int) shooterPosY), radians));
-        bullet.add(new MovingPart(direction, 100, 100));
+        bullet.add(new MovingPart(direction, 100, 400));
         bullet.add(new LifePart(1));
-        bullet.add(new TimerPart(3));
-        bullet.setTexture(new Texture(Gdx.files.internal("Bullet/src/main/resources/antibodyCut.png")));
+        bullet.add(new TimerPart(1));
         bullet.setTexture(new Texture(Gdx.files.internal("Bullet/src/main/resources/antibodyCut.png")));
         Sound sound = Gdx.audio.newSound(Gdx.files.internal("Bullet/src/main/resources/pew.mp3"));
+        sound.setVolume(5,0.5f);
         sound.play();
         return bullet;
     }
