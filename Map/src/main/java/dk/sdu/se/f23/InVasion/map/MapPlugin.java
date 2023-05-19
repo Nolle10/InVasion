@@ -42,26 +42,29 @@ public class MapPlugin /*implements PluginService*/ {
     private Actor clickedField = null;
     private Buyable selectedShopItem = null;
 
-    public MapPlugin() {
+    public MapPlugin(World world) {
         stage = new Stage();
         mapFields = new ArrayList<>();
         tiles = new ArrayList<>();
+        this.world = world;
         Texture texture1 = new Texture(Gdx.files.internal("Map/src/main/resources/dk/sdu/se/f23/InVasion/mapresources/textures/pixil-frame-1.png"));
         Texture texture2 = new Texture(Gdx.files.internal("Map/src/main/resources/dk/sdu/se/f23/InVasion/mapresources/textures/pixil-frame-0.png"));
         Texture texture3 = new Texture(Gdx.files.internal("Map/src/main/resources/dk/sdu/se/f23/InVasion/mapresources/textures/pixil-frame-3.png"));
         tiles.add(texture1);
         tiles.add(texture3);
         tiles.add(texture2);
+        world.loadWorldMask(generateMask());
+        world.setInitState(new Point(0, 0));
+        world.setGoalState(new Point(width, height));
+
+
+        mask = generateMask();
+        generateClickableMap();
     }
 
 
     public void onEnable(GameData gameData, World world) {
-        world.loadWorldMask(generateMask());
-        world.setInitState(new Point(0, 0));
-        world.setGoalState(new Point(width, height));
-        mask = generateMask();
-        this.world = world;
-        generateClickableMap();
+
 
         //draw();
     }
@@ -86,8 +89,20 @@ public class MapPlugin /*implements PluginService*/ {
                             line.add(0);
                     case -16777216 -> // Black
                             line.add(1);
-                    case -8421505 -> // Unknown color please provide right one
+                    case -8421505 -> // Gray
                             line.add(2);
+                    case -16407797 -> {// Green
+                        line.add(3);
+                        world.setInitState(new Point(i, j));
+                    }
+                    case -12499247 -> { // Blue
+                        line.add(0);
+                        world.setPlayerState(new Point(i, j));
+                    }
+                    case -590821 -> { //Yellow
+                        line.add(2);
+                        world.setGoalState(new Point(i, j));
+                    }
                     default -> {
                         System.out.println("I do not know this pixel: " + rgb);
                         throw new NoSuchElementException();
@@ -139,7 +154,7 @@ public class MapPlugin /*implements PluginService*/ {
                     ImageButton but = new ImageButton((weaponImage));
                     but.setSize(tilesSize, tilesSize);
                     but.setPosition(j, i);
-                    if (maxId == 2) {
+                    if (maxId == 1) {
                         but.addListener(new ClickListener() {
                             @Override
                             public void clicked(InputEvent event, float x, float y) {
@@ -167,7 +182,6 @@ public class MapPlugin /*implements PluginService*/ {
 
     public void draw(GameData gameData) {
         if (isClicked && selectedShopItem != null) {
-            System.out.println("MapPlugin draw: " + selectedShopItem);
             EventDistributor.sendEvent(new BuyTowerEvent(new Point((int) clickedField.getX(), (int) clickedField.getY()), selectedShopItem.getName()), world);
             gameData.setPlayerMoney(gameData.getPlayerMoney() - selectedShopItem.getPrice());
         }

@@ -18,13 +18,13 @@ public class PlayerPlugin implements PluginService {
 
     @Override
     public void onEnable(GameData data, World world) {
-        player = createPlayer(data);
+        player = createPlayer(data,world);
         world.addEntity(player);
         PlayerControlSystem playerControlSystem = new PlayerControlSystem();
         EventDistributor.addListener(StateChangeEvent.class, playerControlSystem);
     }
 
-    private Entity createPlayer(GameData data){
+    private Entity createPlayer(GameData data, World world){
         Entity player = new Player();
         player.add(new PositionPart(new Point(200, 200), 3.1415f / 2));
         player.add(new LifePart(100));

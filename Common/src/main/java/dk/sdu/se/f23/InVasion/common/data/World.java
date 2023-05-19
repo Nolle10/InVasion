@@ -10,6 +10,7 @@ public class World {
     private int baseHealth;
     private Point initState;
     private Point goalState;
+    private Point playerState;
     private ArrayList<ArrayList<Integer>> worldMask;
     public String addEntity(Entity entity) {
         entityMap.put(entity.getID(), entity);
@@ -33,7 +34,12 @@ public class World {
     public void setInitState(Point p){
         initState = p;
     }
-
+    public void setPlayerState(Point p){
+        playerState =p;
+    }
+    public Point getPlayerState(){
+        return playerState;
+    }
     public Point getInitState() {
         return initState;
     }

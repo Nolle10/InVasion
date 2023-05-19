@@ -31,7 +31,7 @@ public class PlayState extends GameState {
 
     public void init() {
         stage = new Stage();
-        map = new MapPlugin();
+        map = new MapPlugin(gsm.getWorld());
         map.onEnable(gsm.getGameData(), gsm.getWorld());
         
         textButtonStyle = new TextButton.TextButtonStyle();

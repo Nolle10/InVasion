@@ -8,7 +8,7 @@ import dk.sdu.se.f23.InVasion.enemy.services.ActionService;
 import java.util.*;
 
 public class AStarAction implements ActionService  {
-    AIType aiType = AIType.A_STAR;
+    AIType aiType = AIType.STUPID;
 
     private static int DEFAULT_HV_COST = 10; // Horizontal - Vertical Cost
     private static int DEFAULT_DIAGONAL_COST = 14;
