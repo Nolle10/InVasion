@@ -22,26 +22,22 @@ import dk.sdu.se.f23.InVasion.managers.GameStateManager;
 import dk.sdu.se.f23.InVasion.map.MapPlugin;
 
 public class ShopState extends GameState {
-
     private ShapeRenderer sr;
     private Stage stage;
 
-    //private ArrayList<ArrayList<Object>> weapons;
+    private World world;
+    private GameData gameData;
+
     private TextButton startWave;
     private TextButton playerMoney;
     private TextButton.TextButtonStyle textButtonStyle;
     private TextButton.TextButtonStyle textButtonStyle2;
-    private World world;
-    private GameData gameData;
-
-
     private ImageButton sel;
     private MapPlugin map;
-
-    private String selected = null;
-
     private Label placingLabel;
     private Label notEnoughMoneyLabel;
+
+    private String selected;
 
     public ShopState(GameStateManager gsm) {
         super(gsm);
@@ -72,7 +68,7 @@ public class ShopState extends GameState {
         textButtonStyle.fontColor = Color.WHITE;
         startWave = new TextButton("Start wave", buttonSkin.getSkin());
         startWave.setSize(160, 60);
-        startWave.setPosition(1920-175, 990);
+        startWave.setPosition(1920 - 175, 990);
         startWave.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -140,7 +136,6 @@ public class ShopState extends GameState {
                 continue;
             }
 
-
             if (buyable.getPrice() > gameData.getPlayerMoney()) {
                 notEnoughMoneyLabel.setVisible(true);
                 notEnoughMoneyLabel.setPosition(1920 - 140, 70);
@@ -162,14 +157,11 @@ public class ShopState extends GameState {
                 sel.getStyle().imageUp = weaponImage;
             }
             map.setSelected(buyable);
-
         }
     }
 
-
     @Override
     public void draw(GameData gameData) {
-
         sr.begin(ShapeRenderer.ShapeType.Filled);
         sr.setColor(Color.LIGHT_GRAY);
         int shopWidth = 200;
@@ -181,12 +173,10 @@ public class ShopState extends GameState {
         map.draw(gameData);
         playerMoney.setText(String.format("Current Money: %d", gameData.getPlayerMoney()));
         stage.draw();
-
     }
 
     @Override
     public void handleInput() {
-
     }
 
     @Override

@@ -8,6 +8,7 @@ public class Weapon extends Entity {
     public Weapon() {
         this.lastShot = 0;
     }
+
     public boolean shouldShoot(float delta) {
         this.lastShot += delta;
         if (this.lastShot >= shootingSpeed) {

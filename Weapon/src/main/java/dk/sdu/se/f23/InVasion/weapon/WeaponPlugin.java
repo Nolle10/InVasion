@@ -14,9 +14,6 @@ import dk.sdu.se.f23.InVasion.commonweapon.Weapon;
 
 
 public class WeaponPlugin implements PluginService {
-    private final String weaponName = "Medicine";
-    private Texture texture = new Texture(Gdx.files.internal("Weapon/src/main/resources/TOWER.png"));
-    private int cost = 200;
     private Medicine medicine;
 
 
@@ -28,7 +25,8 @@ public class WeaponPlugin implements PluginService {
         EventDistributor.addListener(TargetEvent.class, weaponControlSystem);
         EventDistributor.addListener(BuyTowerEvent.class, weaponControlSystem);
 
-        medicine = new Medicine(weaponName, texture, cost);
+        Texture texture = new Texture(Gdx.files.internal("Weapon/src/main/resources/TOWER.png"));
+        medicine = new Medicine("Medicine", texture, 200);
 
         BuyableManager.addBuyable(medicine);
     }

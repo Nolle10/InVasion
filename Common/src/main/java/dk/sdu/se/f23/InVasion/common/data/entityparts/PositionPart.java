@@ -4,7 +4,7 @@ import dk.sdu.se.f23.InVasion.common.data.Entity;
 import dk.sdu.se.f23.InVasion.common.data.GameData;
 import dk.sdu.se.f23.InVasion.common.data.Point;
 
-public class PositionPart implements EntityPart{
+public class PositionPart implements EntityPart {
     private float x;
     private float y;
     private float radians;
@@ -55,5 +55,4 @@ public class PositionPart implements EntityPart{
         this.x = pos.getX();
         this.y = pos.getY();
     }
-
 }
