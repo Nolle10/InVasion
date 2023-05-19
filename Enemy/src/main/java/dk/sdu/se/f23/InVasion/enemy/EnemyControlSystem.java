@@ -87,6 +87,7 @@ public class EnemyControlSystem implements EntityProcessingService, EventListene
         List<Point> route = actionService.calculate(world);
 
         Enemy enemy = new Enemy(route);
+        enemy.setDamage(2);
         addParts(data, route, enemy);
         enemy.setTexture(new Texture(Gdx.files.internal("Enemy/src/main/resources/dk/sdu/se/f23/InVasion/enemyresources/textures/enemy2.png")));
 

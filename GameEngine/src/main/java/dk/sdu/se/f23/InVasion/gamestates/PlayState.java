@@ -65,6 +65,9 @@ public class PlayState extends GameState {
     }
 
     public void update(float dt) {
+        if (gsm.getWorld().getBaseHealth() <= 0){
+            gsm.setState(GameStateEnum.LossState);
+        }
         handleInput();
     }
 

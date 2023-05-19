@@ -12,12 +12,14 @@ public class Enemy extends Entity {
     private final float SPEED;
     private int routeStep;
     private float timeSinceLastMove;
+    private int damage;
 
     public Enemy(List<Point> route) {
         this.route = route;
         this.SPEED = 50;
         this.routeStep = 0;
         this.timeSinceLastMove = 0;
+        this.damage = 1;
     }
 
     public Point getNextPoint(float delta, World world, Entity enemy) {
@@ -29,10 +31,14 @@ public class Enemy extends Entity {
 
         //Check if current point is goal state
         if (world.getGoalState().equals(route.get(this.routeStep))) {
-            world.setBaseHealth(world.getBaseHealth()-1);
+            world.setBaseHealth(world.getBaseHealth()-damage);
             world.removeEntity(enemy);
         }
         this.routeStep++;
         return route.get(this.routeStep);
+    }
+
+    public void setDamage(int damage) {
+        this.damage = damage;
     }
 }

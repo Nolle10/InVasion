@@ -55,6 +55,7 @@ public class BacteriaControlSystem implements EntityProcessingService, EventList
             enemiesToSpawn--;
             List<Point> route = actionService.calculate(world);
             Enemy enemy = new Enemy(route);
+            enemy.setDamage(1);
             enemy.add(new PositionPart(route.get(0), 0));
             enemy.add(new LifePart(2));
             enemy.add(new MoneyPart(2));
