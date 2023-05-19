@@ -3,7 +3,9 @@ package dk.sdu.se.f23.InVasion.gamestates;
 import dk.sdu.se.f23.InVasion.common.data.Entity;
 import dk.sdu.se.f23.InVasion.common.data.GameData;
 import dk.sdu.se.f23.InVasion.common.data.buttonSkin;
+import dk.sdu.se.f23.InVasion.common.events.EventDistributor;
 import dk.sdu.se.f23.InVasion.common.events.enums.GameStateEnum;
+import dk.sdu.se.f23.InVasion.common.events.events.StateChangeEvent;
 import dk.sdu.se.f23.InVasion.commonweapon.Weapon;
 import dk.sdu.se.f23.InVasion.managers.GameStateManager;
 
@@ -17,8 +19,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import dk.sdu.se.f23.InVasion.map.MapPlugin;
 
-public class MainScreenState extends GameState{
-
+public class MainScreenState extends GameState {
     private Stage stage;
     private TextButton startGameButton;
     private TextButton exitGameButton;
@@ -38,23 +39,24 @@ public class MainScreenState extends GameState{
         titleLabel = new Label("InVasion", style);
         titleLabel.setPosition(860, 800);
 
-        startGameButton = new TextButton("Start game", buttonSkin.getSkin());
-        startGameButton.getLabel().setFontScale(2,2);
-        startGameButton.setPosition(760,500);
-        startGameButton.addListener(new InputListener(){
+        startGameButton = new TextButton("Start Game", buttonSkin.getSkin());
+        startGameButton.getLabel().setFontScale(2, 2);
+        startGameButton.setPosition(760, 500);
+        startGameButton.addListener(new InputListener() {
             @Override
-            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button){
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 gsm.setState(GameStateEnum.ShopState);
+                EventDistributor.sendEvent(new StateChangeEvent(GameStateEnum.ShopState), gsm.getWorld());
                 return true;
             }
         });
 
-        exitGameButton = new TextButton("Exit game", buttonSkin.getSkin());
-        exitGameButton.getLabel().setFontScale(2,2);
-        exitGameButton.setPosition(760,350);
-        exitGameButton.addListener(new InputListener(){
+        exitGameButton = new TextButton("Exit Game", buttonSkin.getSkin());
+        exitGameButton.getLabel().setFontScale(2, 2);
+        exitGameButton.setPosition(760, 350);
+        exitGameButton.addListener(new InputListener() {
             @Override
-            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button){
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 Gdx.app.exit();
                 return true;
             }
@@ -81,14 +83,15 @@ public class MainScreenState extends GameState{
     }
 
     @Override
-    public void handleInput() {}
+    public void handleInput() {
+    }
 
     @Override
     public void dispose() {
         gsm.getGameData().removeProcessor(stage);
     }
 
-    public void emptyWorld(){
+    public void emptyWorld() {
         for (Entity entity : gsm.getWorld().getEntities(Weapon.class)) {
             gsm.getWorld().removeEntity(entity);
         }

@@ -2,19 +2,19 @@ package dk.sdu.se.f23.InVasion.ai;
 
 import dk.sdu.se.f23.InVasion.common.data.Point;
 import dk.sdu.se.f23.InVasion.common.data.World;
-import dk.sdu.se.f23.InVasion.enemy.AIType;
-import dk.sdu.se.f23.InVasion.enemy.services.ActionService;
+import dk.sdu.se.f23.InVasion.commonenemy.AIType;
+import dk.sdu.se.f23.InVasion.commonenemy.services.ActionService;
 
 import java.util.*;
 
 public class Astar implements ActionService {
-
-
     private List<Point> points = new ArrayList<>();
-
+    private ArrayList<ArrayList<Integer>> grid;
+    private PriorityQueue<Node> openList;
+    private HashSet<Node> closedList;
+    private int startI, startJ, endI, endJ;
 
     public Astar() {
-
     }
 
     private static class Node {
@@ -26,12 +26,6 @@ public class Astar implements ActionService {
             this.y = y;
         }
     }
-
-    private ArrayList<ArrayList<Integer>> grid;
-    private PriorityQueue<Node> openList;
-    private HashSet<Node> closedList;
-    private int startI, startJ, endI, endJ;
-
 
     public void findPath() {
         Node startNode = new Node(startI, startJ);
@@ -45,7 +39,6 @@ public class Astar implements ActionService {
             closedList.add(currentNode);
 
             if (currentNode.x == endI && currentNode.y == endJ) {
-                //   System.out.println("never true");
                 printPath(currentNode);
                 return;
             }
@@ -55,19 +48,21 @@ public class Astar implements ActionService {
                     int newX = currentNode.x + i;
                     int newY = currentNode.y + j;
 
-                    if (isValid(newX, newY) && isAccessible(newX, newY)) {
-                        Node childNode = new Node(newX, newY);
-                        childNode.g = currentNode.g + 1;
-                        childNode.h = Math.abs(newX - endI) + Math.abs(newY - endJ);
-                        childNode.f = childNode.g + childNode.h;
-                        childNode.parent = currentNode;
+                    if (!isValid(newX, newY) || !isAccessible(newX, newY)) {
+                        continue;
+                    }
 
-                        if (nodeInOpenList(childNode) && childNode.g >= currentNode.g) {
-                            continue;
-                        }
-                        if (!nodeInClosedList(childNode) || childNode.g < currentNode.g) {
-                            openList.add(childNode);
-                        }
+                    Node childNode = new Node(newX, newY);
+                    childNode.g = currentNode.g + 1;
+                    childNode.h = Math.abs(newX - endI) + Math.abs(newY - endJ);
+                    childNode.f = childNode.g + childNode.h;
+                    childNode.parent = currentNode;
+
+                    if (nodeInOpenList(childNode) && childNode.g >= currentNode.g) {
+                        continue;
+                    }
+                    if (!nodeInClosedList(childNode) || childNode.g < currentNode.g) {
+                        openList.add(childNode);
                     }
                 }
             }
@@ -95,29 +90,21 @@ public class Astar implements ActionService {
         printPath(node.parent);
         // System.out.println("(" + node.x + "," + node.y + ")");
         points.add(new Point(node.x, node.y));
-
     }
 
 
     @Override
     public List<Point> calculate(World world) {
-        long start = System.currentTimeMillis();
         this.startI = world.getInitState().getX();
         this.startJ = world.getInitState().getY();
         this.endI = world.getGoalState().getX();
         this.endJ = world.getGoalState().getY();
 
-        this.openList = new PriorityQueue<Node>(new Comparator<Node>() {
-            public int compare(Node node1, Node node2) {
-                return Integer.compare(node1.f, node2.f);
-            }
-        });
+        this.openList = new PriorityQueue<>(Comparator.comparingInt(node -> node.f));
 
-        this.closedList = new HashSet<Node>();
+        this.closedList = new HashSet<>();
         this.grid = world.getWorldMask();
         this.findPath();
-        long end = System.currentTimeMillis();
-        System.out.println("time: " + (end - start));
         return points;
     }
 

@@ -9,7 +9,7 @@ import dk.sdu.se.f23.InVasion.common.events.events.StateChangeEvent;
 import dk.sdu.se.f23.InVasion.common.services.PluginService;
 import dk.sdu.se.f23.InVasion.commonbullet.Bullet;
 
-public class BulletPlugin implements PluginService{
+public class BulletPlugin implements PluginService {
     BulletController bulletController = new BulletController();
 
     @Override
@@ -22,6 +22,8 @@ public class BulletPlugin implements PluginService{
     public void onDisable(GameData data, World world) {
         EventDistributor.removeListener(FireShotEvent.class, bulletController);
         EventDistributor.removeListener(StateChangeEvent.class, bulletController);
+        EventDistributor.removeAllListenersOfType(StateChangeEvent.class, BulletController.class);
+
         for (Entity e : world.getEntities()) {
             if (e.getClass() == Bullet.class) {
                 world.removeEntity(e);

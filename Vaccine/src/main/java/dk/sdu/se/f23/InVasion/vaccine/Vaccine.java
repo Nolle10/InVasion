@@ -16,15 +16,6 @@ public class Vaccine extends Weapon implements Buyable {
     }
 
     @Override
-    public boolean shouldShoot(float delta) {
-        this.lastShot += delta;
-        if (this.lastShot >= 2) {
-            this.lastShot = 0.0f;
-            return true;
-        }
-        return false;
-    }
-    @Override
     public String getName() {
         return name;
     }

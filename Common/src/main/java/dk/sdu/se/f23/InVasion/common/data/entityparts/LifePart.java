@@ -32,10 +32,6 @@ public class LifePart implements EntityPart {
         this.life = life;
     }
 
-    public void takeDamage(int damage) {
-        setLife(getLife() - damage);
-    }
-
     public boolean isHit() {
         return isHit;
     }

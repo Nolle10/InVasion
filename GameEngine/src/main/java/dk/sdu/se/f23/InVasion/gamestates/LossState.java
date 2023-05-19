@@ -12,8 +12,7 @@ import dk.sdu.se.f23.InVasion.common.data.buttonSkin;
 import dk.sdu.se.f23.InVasion.common.events.enums.GameStateEnum;
 import dk.sdu.se.f23.InVasion.managers.GameStateManager;
 
-public class LossState extends GameState{
-
+public class LossState extends GameState {
     private Stage stage;
     private Label titleLabel;
     private TextButton buttonBack;
@@ -34,12 +33,12 @@ public class LossState extends GameState{
         titleLabel = new Label(text, style);
         titleLabel.setPosition(860, 800);
 
-        buttonBack = new TextButton("Back to main menu", buttonSkin.getSkin());
-        buttonBack.getLabel().setFontScale(2,2);
-        buttonBack.setPosition(760,400);
-        buttonBack.addListener( new InputListener(){
+        buttonBack = new TextButton("Back to Main Menu", buttonSkin.getSkin());
+        buttonBack.getLabel().setFontScale(2, 2);
+        buttonBack.setPosition(760, 400);
+        buttonBack.addListener(new InputListener() {
             @Override
-            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button){
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 gsm.setState(GameStateEnum.MainScreen);
                 return true;
             }
@@ -52,7 +51,6 @@ public class LossState extends GameState{
 
     @Override
     public void update(float dt) {
-
     }
 
     @Override
@@ -62,7 +60,6 @@ public class LossState extends GameState{
 
     @Override
     public void handleInput() {
-
     }
 
     @Override
