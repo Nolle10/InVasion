@@ -23,9 +23,7 @@ import java.io.InputStream;
 import java.util.*;
 
 
-public class MapPlugin{
-
-
+public class MapPlugin {
     private final int height = 1080;
     private final int width = 1720;
     private final int tilesSize = 36;

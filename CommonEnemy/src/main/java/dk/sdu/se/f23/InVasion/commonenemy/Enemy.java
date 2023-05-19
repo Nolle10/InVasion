@@ -14,14 +14,14 @@ public class Enemy extends Entity {
 
     public Enemy(List<Point> route) {
         this.route = route;
-        this.speed = 50;
+        this.SPEED = 50;
         this.routeStep = 0;
         this.timeSinceLastMove = 0;
     }
 
     public Point getNextPoint(float delta) {
         this.timeSinceLastMove += delta * 1000;
-        if (this.timeSinceLastMove < this.speed) {
+        if (this.timeSinceLastMove < this.SPEED) {
             return route.get(this.routeStep);
         }
 
