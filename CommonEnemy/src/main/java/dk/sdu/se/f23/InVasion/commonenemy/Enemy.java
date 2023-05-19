@@ -7,7 +7,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class Enemy extends Entity {
-    private final List<Point> route;
+    private final List<Point> ROUTE;
     private final float SPEED;
     private int routeStep;
     private float timeSinceLastMove;
