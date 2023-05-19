@@ -64,7 +64,7 @@ public class ShopState extends GameState {
         stage.addActor(notEnoughMoneyLabel);
 
         sr = new ShapeRenderer();
-        map = new MapPlugin();
+        map = new MapPlugin(gsm.getWorld());
         map.onEnable(gameData, world);
 
         textButtonStyle = new TextButton.TextButtonStyle();
