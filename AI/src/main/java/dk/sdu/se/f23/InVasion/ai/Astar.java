@@ -9,6 +9,10 @@ import java.util.*;
 
 public class Astar implements ActionService {
     private List<Point> points = new ArrayList<>();
+    private ArrayList<ArrayList<Integer>> grid;
+    private PriorityQueue<Node> openList;
+    private HashSet<Node> closedList;
+    private int startI, startJ, endI, endJ;
 
     public Astar() {
     }
@@ -22,12 +26,6 @@ public class Astar implements ActionService {
             this.y = y;
         }
     }
-
-    private ArrayList<ArrayList<Integer>> grid;
-    private PriorityQueue<Node> openList;
-    private HashSet<Node> closedList;
-    private int startI, startJ, endI, endJ;
-
 
     public void findPath() {
         Node startNode = new Node(startI, startJ);

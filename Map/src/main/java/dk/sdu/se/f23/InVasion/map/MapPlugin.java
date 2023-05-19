@@ -36,6 +36,7 @@ public class MapPlugin {
     private Buyable selectedShopItem = null;
 
     public MapPlugin(World world) {
+        this.world = world;
         stage = new Stage();
         tiles = new ArrayList<>();
         addTextures();
@@ -52,7 +53,6 @@ public class MapPlugin {
         world.loadWorldMask(generateMask());
         world.setInitState(new Point(0, 0));
         world.setGoalState(new Point(width, height));
-
 
         mask = generateMask();
         generateClickableMap();
