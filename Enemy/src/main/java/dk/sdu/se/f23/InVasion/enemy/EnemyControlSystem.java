@@ -67,7 +67,7 @@ public class EnemyControlSystem implements EntityProcessingService, EventListene
             if (processEnemyLife(data, world, enemy)) {
                 continue;
             }
-            updateShape(enemy, data);
+            updateShape(enemy, data, world);
         }
     }
 
@@ -99,8 +99,8 @@ public class EnemyControlSystem implements EntityProcessingService, EventListene
         enemy.add(new MoneyPart(data.getWaveCount() * 10));
     }
 
-    private void updateShape(Entity entity, GameData data) {
-        Point nextPoint = ((Enemy) entity).getNextPoint(data.getDelta());
+    private void updateShape(Entity entity, GameData data, World world) {
+        Point nextPoint = ((Enemy) entity).getNextPoint(data.getDelta(), world, entity);
 
         ((PositionPart) entity.getPart(PositionPart.class)).setPos(nextPoint);
 

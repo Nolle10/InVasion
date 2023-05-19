@@ -2,6 +2,7 @@ package dk.sdu.se.f23.InVasion.commonenemy;
 
 import dk.sdu.se.f23.InVasion.common.data.Entity;
 import dk.sdu.se.f23.InVasion.common.data.Point;
+import dk.sdu.se.f23.InVasion.common.data.World;
 
 import java.util.Collections;
 import java.util.List;
@@ -19,18 +20,19 @@ public class Enemy extends Entity {
         this.timeSinceLastMove = 0;
     }
 
-    public Point getNextPoint(float delta) {
+    public Point getNextPoint(float delta, World world, Entity enemy) {
         this.timeSinceLastMove += delta * 1000;
         if (this.timeSinceLastMove < this.SPEED) {
             return route.get(this.routeStep);
         }
-
         this.timeSinceLastMove = 0;
-        // TODO: Remove this when we are done with testing
-        if (++this.routeStep % route.size() == 0) {
-            this.routeStep = 0;
-            Collections.reverse(this.route);
+
+        //Check if current point is goal state
+        if (world.getGoalState().equals(route.get(this.routeStep))) {
+            world.setBaseHealth(world.getBaseHealth()-1);
+            world.removeEntity(enemy);
         }
+        this.routeStep++;
         return route.get(this.routeStep);
     }
 }

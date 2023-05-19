@@ -71,12 +71,12 @@ public class BacteriaControlSystem implements EntityProcessingService, EventList
             LifePart lifePart = enemy.getPart(LifePart.class);
             moneyPart.process(data, enemy);
             lifePart.process(data, enemy);
-            updateShape(enemy, data);
+            updateShape(enemy, data, world);
         }
     }
 
-    private void updateShape(Entity entity, GameData data) {
-        Point nextPoint = ((Enemy) entity).getNextPoint(data.getDelta());
+    private void updateShape(Entity entity, GameData data, World world) {
+        Point nextPoint = ((Enemy) entity).getNextPoint(data.getDelta(), world, entity);
 
         float x = nextPoint.getX();
         float y = nextPoint.getY();
