@@ -30,7 +30,7 @@ public class PlayState extends GameState {
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
         textButtonStyle.font = new BitmapFont();
         textButtonStyle.fontColor = Color.WHITE;
-        TextButton backToShopButton = new TextButton("go back to shop button", buttonSkin.getSkin());
+        TextButton backToShopButton = new TextButton("Go to Shop", buttonSkin.getSkin());
         backToShopButton.setSize(180, 60);
         backToShopButton.setPosition(1750, 800);
         backToShopButton.addListener(new InputListener() {
@@ -40,7 +40,7 @@ public class PlayState extends GameState {
                 return true;
             }
         });
-        TextButton pauseButton = new TextButton("pause button", buttonSkin.getSkin());
+        TextButton pauseButton = new TextButton("Pause", buttonSkin.getSkin());
         pauseButton.setSize(160, 60);
         pauseButton.setPosition(1750, 900);
         pauseButton.addListener(new InputListener() {

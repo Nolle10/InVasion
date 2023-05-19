@@ -39,7 +39,7 @@ public class MainScreenState extends GameState {
         titleLabel = new Label("InVasion", style);
         titleLabel.setPosition(860, 800);
 
-        startGameButton = new TextButton("Start game", buttonSkin.getSkin());
+        startGameButton = new TextButton("Start Game", buttonSkin.getSkin());
         startGameButton.getLabel().setFontScale(2, 2);
         startGameButton.setPosition(760, 500);
         startGameButton.addListener(new InputListener() {
@@ -51,7 +51,7 @@ public class MainScreenState extends GameState {
             }
         });
 
-        exitGameButton = new TextButton("Exit game", buttonSkin.getSkin());
+        exitGameButton = new TextButton("Exit Game", buttonSkin.getSkin());
         exitGameButton.getLabel().setFontScale(2, 2);
         exitGameButton.setPosition(760, 350);
         exitGameButton.addListener(new InputListener() {

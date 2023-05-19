@@ -15,7 +15,6 @@
         <module>Collision</module>
         <module>Common</module>
         <module>Enemy</module>
-        <module>Oxygen</module>
         <module>Player</module>
         <module>Weapon</module>
         <module>Map</module>
