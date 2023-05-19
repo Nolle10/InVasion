@@ -34,7 +34,9 @@ public class Enemy extends Entity {
             world.setBaseHealth(world.getBaseHealth() - damage);
             world.removeEntity(enemy);
         }
-        this.routeStep++;
+        if (this.routeStep < route.size() - 1) {
+            this.routeStep++;
+        }
         return route.get(this.routeStep);
     }
 
