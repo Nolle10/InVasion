@@ -91,11 +91,11 @@ public class MapPlugin /*implements PluginService*/ {
                             line.add(1);
                     case -8421505 -> // Gray
                             line.add(2);
-                    case -16407797 -> {// Green
+                    case -16734464-> {// Green
                         line.add(3);
                         world.setInitState(new Point(i, j));
                     }
-                    case -12499247 -> { // Blue
+                    case -13355556 -> { // Blue
                         line.add(0);
                         world.setPlayerState(new Point(i, j));
                     }
