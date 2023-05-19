@@ -33,7 +33,7 @@ public class LossState extends GameState {
         titleLabel = new Label(text, style);
         titleLabel.setPosition(860, 800);
 
-        buttonBack = new TextButton("Back to main menu", buttonSkin.getSkin());
+        buttonBack = new TextButton("Back to Main Menu", buttonSkin.getSkin());
         buttonBack.getLabel().setFontScale(2, 2);
         buttonBack.setPosition(760, 400);
         buttonBack.addListener(new InputListener() {

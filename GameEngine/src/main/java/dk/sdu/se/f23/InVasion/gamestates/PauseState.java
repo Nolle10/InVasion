@@ -31,10 +31,10 @@ public class PauseState extends GameState {
         BitmapFont font = new BitmapFont();
         font.getData().setScale(4);
         Label.LabelStyle style = new Label.LabelStyle(font, Color.WHITE);
-        titleLabel = new Label("Game is paused", style);
+        titleLabel = new Label("Game is Paused", style);
         titleLabel.setPosition(750, 800);
 
-        resumeButton = new TextButton("Resume game", buttonSkin.getSkin());
+        resumeButton = new TextButton("Resume Game", buttonSkin.getSkin());
         resumeButton.getLabel().setFontScale(2, 2);
         resumeButton.setPosition(760, 500);
         resumeButton.addListener(new InputListener() {
@@ -45,7 +45,7 @@ public class PauseState extends GameState {
             }
         });
 
-        mainMenuButton = new TextButton("Back to main menu", buttonSkin.getSkin());
+        mainMenuButton = new TextButton("Back to Main Menu", buttonSkin.getSkin());
         mainMenuButton.getLabel().setFontScale(2, 2);
         mainMenuButton.setPosition(760, 350);
         mainMenuButton.addListener(new InputListener() {
