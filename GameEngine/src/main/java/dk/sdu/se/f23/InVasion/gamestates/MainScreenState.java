@@ -77,9 +77,8 @@ public class MainScreenState extends GameState {
     public void draw(GameData gameData) {
         gameData.setPlayerMoney(200);
         gameData.setWaveCount(0);
+        gsm.getWorld().setBaseHealth(10);
         stage.draw();
-
-
     }
 
     @Override

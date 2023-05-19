@@ -67,7 +67,7 @@ public class EnemyControlSystem implements EntityProcessingService, EventListene
             if (processEnemyLife(data, world, enemy)) {
                 continue;
             }
-            updateShape(enemy, data);
+            updateShape(enemy, data, world);
         }
     }
 
@@ -87,6 +87,7 @@ public class EnemyControlSystem implements EntityProcessingService, EventListene
         List<Point> route = actionService.calculate(world);
 
         Enemy enemy = new Enemy(route);
+        enemy.setDamage(2);
         addParts(data, route, enemy);
         enemy.setTexture(new Texture(Gdx.files.internal("Enemy/src/main/resources/dk/sdu/se/f23/InVasion/enemyresources/textures/enemy2.png")));
 
@@ -99,8 +100,8 @@ public class EnemyControlSystem implements EntityProcessingService, EventListene
         enemy.add(new MoneyPart(data.getWaveCount() * 10));
     }
 
-    private void updateShape(Entity entity, GameData data) {
-        Point nextPoint = ((Enemy) entity).getNextPoint(data.getDelta());
+    private void updateShape(Entity entity, GameData data, World world) {
+        Point nextPoint = ((Enemy) entity).getNextPoint(data.getDelta(), world, entity);
 
         ((PositionPart) entity.getPart(PositionPart.class)).setPos(nextPoint);
 

@@ -25,7 +25,7 @@ import java.util.ServiceLoader;
 
 import static java.util.stream.Collectors.toList;
 
-public class BacteriaControlSystem implements EntityProcessingService, EventListener{
+public class BacteriaControlSystem implements EntityProcessingService, EventListener {
 
     private static int enemiesToSpawn;
     private float timeSinceLastSpawn;
@@ -55,14 +55,15 @@ public class BacteriaControlSystem implements EntityProcessingService, EventList
             enemiesToSpawn--;
             List<Point> route = actionService.calculate(world);
             Enemy enemy = new Enemy(route);
+            enemy.setDamage(1);
             enemy.add(new PositionPart(route.get(0), 0));
             enemy.add(new LifePart(2));
             enemy.add(new MoneyPart(2));
             enemy.setTexture(new Texture(Gdx.files.internal("Bacteria/src/main/resources/textures/bacteria.png")));
             world.addEntity(enemy);
         }
-        if (enemiesToSpawn == 0 && world.getEntities(Enemy.class).isEmpty()){
-            EventDistributor.sendEvent(new WaveIsDoneEvent(SystemSender.Module),world);
+        if (enemiesToSpawn == 0 && world.getEntities(Enemy.class).isEmpty()) {
+            EventDistributor.sendEvent(new WaveIsDoneEvent(SystemSender.Module), world);
         }
 
 
@@ -71,12 +72,12 @@ public class BacteriaControlSystem implements EntityProcessingService, EventList
             LifePart lifePart = enemy.getPart(LifePart.class);
             moneyPart.process(data, enemy);
             lifePart.process(data, enemy);
-            updateShape(enemy, data);
+            updateShape(enemy, data, world);
         }
     }
 
-    private void updateShape(Entity entity, GameData data) {
-        Point nextPoint = ((Enemy) entity).getNextPoint(data.getDelta());
+    private void updateShape(Entity entity, GameData data, World world) {
+        Point nextPoint = ((Enemy) entity).getNextPoint(data.getDelta(), world, entity);
 
         float x = nextPoint.getX();
         float y = nextPoint.getY();
