@@ -37,8 +37,6 @@ public class MapPlugin {
     private Actor clickedField = null;
     private Buyable selectedShopItem = null;
 
-
-
     public MapPlugin(World world) {
         this.world = world;
         stage = new Stage();
@@ -90,7 +88,7 @@ public class MapPlugin {
                             line.add(1);
                     case -8421505 -> // Gray
                             line.add(2);
-                    case -16734464-> {// Green
+                    case -16734464 -> {// Green
                         line.add(3);
                         world.setInitState(new Point(i, j));
                     }

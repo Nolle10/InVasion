@@ -92,7 +92,6 @@ public class Astar implements ActionService {
     private void printPath(Node node) {
         if (node == null) return;
         printPath(node.parent);
-        // System.out.println("(" + node.x + "," + node.y + ")");
         points.add(new Point(node.x, node.y));
     }
 
