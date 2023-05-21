@@ -18,7 +18,7 @@ public class PlayerControlSystem implements EntityProcessingService, EventListen
 
     @SuppressWarnings("unchecked")
     @Override
-    public void process(GameData data, World world, ProcessAt processTime) {
+    public void process(GameData data, World world) {
         for (Entity player : world.getEntities(Player.class)) {
             if (((Player) player).getLastKnownGameState() != GameStateEnum.PlayState && ((Player) player).getLastKnownGameState() != GameStateEnum.ShopState) {
                 continue;

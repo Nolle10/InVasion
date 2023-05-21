@@ -21,6 +21,7 @@ import dk.sdu.se.f23.InVasion.commonenemy.AIType;
 import dk.sdu.se.f23.InVasion.commonenemy.Enemy;
 import dk.sdu.se.f23.InVasion.commonenemy.services.ActionService;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.ServiceLoader;
@@ -46,7 +47,7 @@ public class EnemyControlSystem implements EntityProcessingService, EventListene
 
     @SuppressWarnings("unchecked")
     @Override
-    public void process(GameData data, World world, ProcessAt processTime) {
+    public void process(GameData data, World world) {
         if (lastKnownState != GameStateEnum.PlayState) {
             return;
         }
@@ -87,7 +88,13 @@ public class EnemyControlSystem implements EntityProcessingService, EventListene
     }
 
     private Enemy buildEnemy(GameData data, World world) {
-        List<Point> route = actionService.calculate(world);
+        List<Point> route;
+        if (actionService == null) {
+            System.out.println("No ActionService found");
+            route = List.of(world.getInitState());
+        } else {
+            route = actionService.calculate(world);
+        }
 
 
         Enemy enemy = new Enemy(route);

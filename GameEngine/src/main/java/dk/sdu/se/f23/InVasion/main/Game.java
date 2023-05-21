@@ -6,7 +6,6 @@ import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import dk.sdu.se.f23.InVasion.common.data.GameData;
-import dk.sdu.se.f23.InVasion.common.data.ProcessAt;
 import dk.sdu.se.f23.InVasion.common.data.World;
 import dk.sdu.se.f23.InVasion.common.services.EntityProcessingService;
 import dk.sdu.se.f23.InVasion.common.services.PluginService;
@@ -60,14 +59,13 @@ public class Game implements ApplicationListener {
         gameData.setDelta(Gdx.graphics.getDeltaTime());
         gameData.setSpriteBatch(new SpriteBatch());
         gameData.getSpriteBatch().begin();
-        update(ProcessAt.Tick);
+        update();
         gameData.getSpriteBatch().end();
     }
 
-    //Update method for EntityProcessingServices: How to do it with ProcessAt.Tick and ProcessAt values?
-    private void update(ProcessAt processAt) {
+    private void update() {
         for (EntityProcessingService entityProcessor : getEntityProcessingServices()) {
-            entityProcessor.process(gameData, world, processAt);
+            entityProcessor.process(gameData, world);
         }
     }
 

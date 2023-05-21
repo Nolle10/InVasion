@@ -2,7 +2,6 @@ package dk.sdu.se.f23.InVasion.collision;
 
 import dk.sdu.se.f23.InVasion.common.data.Entity;
 import dk.sdu.se.f23.InVasion.common.data.GameData;
-import dk.sdu.se.f23.InVasion.common.data.ProcessAt;
 import dk.sdu.se.f23.InVasion.common.data.World;
 import dk.sdu.se.f23.InVasion.common.data.entityparts.LifePart;
 import dk.sdu.se.f23.InVasion.common.data.entityparts.PositionPart;
@@ -14,7 +13,7 @@ public class CollisionDetector implements EntityProcessingService {
 
     @SuppressWarnings("unchecked")
     @Override
-    public void process(GameData data, World world, ProcessAt processTime) {
+    public void process(GameData data, World world) {
         for (Entity enemy : world.getEntities(Enemy.class)) {
             for (Entity bullet : world.getEntities(Bullet.class)) {
                 if (!this.collides(enemy, bullet)) {

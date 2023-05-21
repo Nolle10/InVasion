@@ -3,7 +3,6 @@ package dk.sdu.se.f23.InVasion.collision;
 import com.badlogic.gdx.graphics.Texture;
 import dk.sdu.se.f23.InVasion.common.data.Entity;
 import dk.sdu.se.f23.InVasion.common.data.GameData;
-import dk.sdu.se.f23.InVasion.common.data.ProcessAt;
 import dk.sdu.se.f23.InVasion.common.data.World;
 import dk.sdu.se.f23.InVasion.common.data.entityparts.LifePart;
 import dk.sdu.se.f23.InVasion.common.data.entityparts.PositionPart;
@@ -39,7 +38,7 @@ class CollisionDetectorTest {
         when(this.mockedWorld.getEntities(Bullet.class)).thenReturn(List.of(mockBullet));
         when(this.mockedWorld.getEntities(Enemy.class)).thenReturn(List.of(mockEnemy));
 
-        this.collisionDetector.process(this.mockedGameData, this.mockedWorld, ProcessAt.Tick);
+        this.collisionDetector.process(this.mockedGameData, this.mockedWorld);
 
         // Check that enemy life is changed
         verify((LifePart)mockEnemy.getPart(LifePart.class), atLeastOnce()).setHit(true);
@@ -58,7 +57,7 @@ class CollisionDetectorTest {
         when(this.mockedWorld.getEntities(Bullet.class)).thenReturn(List.of(mockBullet));
         when(this.mockedWorld.getEntities(Enemy.class)).thenReturn(List.of(mockEnemy));
 
-        this.collisionDetector.process(this.mockedGameData, this.mockedWorld, ProcessAt.Tick);
+        this.collisionDetector.process(this.mockedGameData, this.mockedWorld);
 
         // Check that enemy life is changed
         verify((LifePart)mockEnemy.getPart(LifePart.class), never()).setLife(anyInt());
@@ -79,7 +78,7 @@ class CollisionDetectorTest {
         when(this.mockedWorld.getEntities(Bullet.class)).thenReturn(List.of(mockBullet1, mockBullet2));
         when(this.mockedWorld.getEntities(Enemy.class)).thenReturn(List.of());
 
-        this.collisionDetector.process(this.mockedGameData, this.mockedWorld, ProcessAt.Tick);
+        this.collisionDetector.process(this.mockedGameData, this.mockedWorld);
 
         // Check bullets actually collides
         assertTrue(this.collisionDetector.collides(mockBullet1, mockBullet2));
@@ -100,7 +99,7 @@ class CollisionDetectorTest {
         when(this.mockedWorld.getEntities(Bullet.class)).thenReturn(List.of());
         when(this.mockedWorld.getEntities(Enemy.class)).thenReturn(List.of(mockEnemy1, mockEnemy2));
 
-        this.collisionDetector.process(this.mockedGameData, this.mockedWorld, ProcessAt.Tick);
+        this.collisionDetector.process(this.mockedGameData, this.mockedWorld);
 
         // Check enemies actually collides
         assertTrue(this.collisionDetector.collides(mockEnemy1, mockEnemy2));

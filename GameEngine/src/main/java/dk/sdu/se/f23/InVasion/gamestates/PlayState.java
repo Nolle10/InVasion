@@ -35,16 +35,6 @@ public class PlayState extends GameState {
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
         textButtonStyle.font = new BitmapFont();
         textButtonStyle.fontColor = Color.WHITE;
-        TextButton backToShopButton = new TextButton("Go to Shop", buttonSkin.getSkin());
-        backToShopButton.setSize(180, 60);
-        backToShopButton.setPosition(1750, 800);
-        backToShopButton.addListener(new InputListener() {
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                gsm.setState(GameStateEnum.ShopState);
-                return true;
-            }
-        });
         TextButton pauseButton = new TextButton("Pause", buttonSkin.getSkin());
         pauseButton.setSize(160, 60);
         pauseButton.setPosition(1750, 900);
@@ -62,7 +52,6 @@ public class PlayState extends GameState {
         Label labelWave = new Label(String.format("Wave: %d", gsm.getGameData().getWaveCount()), style);
         labelWave.setPosition(100, 950);
 
-        stage.addActor(backToShopButton);
         stage.addActor(pauseButton);
         stage.addActor(labelWave);
         gsm.getGameData().addProcessor(stage);
