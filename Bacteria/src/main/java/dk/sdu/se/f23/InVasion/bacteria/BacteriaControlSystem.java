@@ -45,7 +45,7 @@ public class BacteriaControlSystem implements EntityProcessingService, EventList
 
     @SuppressWarnings("unchecked")
     @Override
-    public void process(GameData data, World world, ProcessAt processTime) {
+    public void process(GameData data, World world) {
         if (lastKnownState != GameStateEnum.PlayState) {
             return;
         }
@@ -53,7 +53,12 @@ public class BacteriaControlSystem implements EntityProcessingService, EventList
         if (enemiesToSpawn > 0 && timeSinceLastSpawn > 1) {
             timeSinceLastSpawn = 0;
             enemiesToSpawn--;
-            List<Point> route = actionService.calculate(world);
+            List<Point> route;
+            if (actionService != null) {
+                route = actionService.calculate(world);
+            } else {
+                route = List.of(world.getInitState());
+            }
             Enemy enemy = new Enemy(route);
             enemy.setDamage(1);
             enemy.add(new PositionPart(route.get(0), 0));

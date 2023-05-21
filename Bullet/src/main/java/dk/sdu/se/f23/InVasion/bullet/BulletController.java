@@ -26,7 +26,7 @@ public class BulletController implements EntityProcessingService, EventListener 
     }
 
     @Override
-    public void process(GameData data, World world, ProcessAt processTime) {
+    public void process(GameData data, World world) {
         for (Entity bullet : world.getEntities(Bullet.class)) {
             PositionPart positionPart = bullet.getPart(PositionPart.class);
             TimerPart timerPart = bullet.getPart(TimerPart.class);

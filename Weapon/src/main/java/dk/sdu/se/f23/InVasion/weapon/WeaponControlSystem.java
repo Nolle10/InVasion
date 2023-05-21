@@ -30,7 +30,7 @@ public class WeaponControlSystem implements EntityProcessingService, EventListen
 
     @SuppressWarnings("unchecked")
     @Override
-    public void process(GameData data, World world, ProcessAt processTime) {
+    public void process(GameData data, World world) {
         if (lastKnownState != GameStateEnum.ShopState && lastKnownState != GameStateEnum.PlayState) {
             return;
         }
