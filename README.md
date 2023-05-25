@@ -4,9 +4,14 @@
 
 InVasion is a tower defense game developed during the 4th semester at SDU. In this game, players must strategically place towers to defend against waves of invading enemies. With challenging gameplay and a variety of tower and enemy types based on biology and human anatomy.
 
-
+# Prerequisites
+```
+Maven
+JDK 19
+```
 
 # Setup Guide
+
 
 
 ## Step 1:
